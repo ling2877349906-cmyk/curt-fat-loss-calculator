@@ -1,0 +1,63 @@
+<view class="container page-content">
+  <!-- 输入区 -->
+  <view class="card">
+    <view class="card-title">减脂目标设置</view>
+    
+    <!-- 初始体重 -->
+    <view class="input-group">
+      <view class="input-label">初始体重 ({{initialWeight}}kg)</view>
+      <input class="input-field" type="number" value="{{initialWeight}}" bindinput="onInitialWeightInput" placeholder="30-200" />
+    </view>
+
+    <!-- 目标体重 -->
+    <view class="input-group">
+      <view class="input-label">目标体重 ({{targetWeight}}kg)</view>
+      <input class="input-field" type="number" value="{{targetWeight}}" bindinput="onTargetWeightInput" placeholder="30-200" />
+    </view>
+
+    <!-- 每月减重比例 -->
+    <view class="input-group">
+      <view class="input-label">每月减重比例 ({{monthlyLossRatio}}%)</view>
+      <view class="slider-controls">
+        <button class="slider-btn" bindtap="onRatioDecrease">−</button>
+        <view class="slider-display">{{monthlyLossRatio}}%</view>
+        <button class="slider-btn" bindtap="onRatioIncrease">+</button>
+      </view>
+      <view style="font-size: 12px; color: #999; text-align: center; margin-top: 8px;">建议范围: 1% ~ 5%</view>
+    </view>
+  </view>
+
+  <!-- 结果展示区 -->
+  <view class="card">
+    <view class="card-title">减脂预测结果</view>
+    
+    <!-- 总减重 -->
+    <view class="input-group">
+      <view class="input-label">一共需要减重</view>
+      <view class="value-display">{{prediction.totalLoss}}<text class="value-unit">公斤</text></view>
+    </view>
+
+    <!-- 预计时间 -->
+    <view class="result-section">
+      <view class="result-title">预计需要</view>
+      <view class="result-value">{{prediction.months}}月<text style="font-size: 20px; color: #999; margin-left: 8px;">({{prediction.weeks}}周{{prediction.days}}天)</text></view>
+      <view class="result-detail">每月需要减重 {{prediction.monthlyLoss}} 公斤</view>
+      <view class="result-detail">每 7 天需要减重 {{prediction.weeklyLoss}} 公斤</view>
+    </view>
+
+    <!-- 保存目标按钮 -->
+    <button class="btn btn-primary" bindtap="onSaveTarget" style="margin-top: 16px;">保存目标</button>
+  </view>
+
+  <!-- 公式说明 -->
+  <view class="card" style="background-color: #f9f9f9; margin-bottom: 20px;">
+    <view class="card-title">计算公式</view>
+    <view style="font-size: 12px; color: #999; line-height: 1.8;">
+      <view>总减重 = 初始体重 − 目标体重</view>
+      <view>预计时间(月) = 总减重 ÷ (初始体重 × 每月减重比例)</view>
+      <view>每月需要减重 = 总减重 ÷ 预计月份</view>
+      <view>每 7 天需要减重 = 每月需要减重 ÷ 4</view>
+      <view style="margin-top: 8px; color: #666;">建议: 每月减重比例在 3% 左右，过快可能影响健康</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,56 @@
+<view class="container">
+  <view class="welcome-section">
+    <view class="welcome-title">Curt 减脂计算器</view>
+    <view class="welcome-subtitle">智能热量计算 · 科学减脂规划</view>
+    
+    <button class="welcome-btn" bindtap="onNavigateToCalculator">开始计算</button>
+  </view>
+
+  <view class="features-section">
+    <view class="feature-card">
+      <view class="feature-icon">🔥</view>
+      <view class="feature-title">热量计算</view>
+      <view class="feature-desc">精准计算基础代谢和训练热量</view>
+    </view>
+
+    <view class="feature-card">
+      <view class="feature-icon">📊</view>
+      <view class="feature-title">营养分配</view>
+      <view class="feature-desc">科学分配碳水、蛋白质、脂肪</view>
+    </view>
+
+    <view class="feature-card">
+      <view class="feature-icon">📈</view>
+      <view class="feature-title">减脂预测</view>
+      <view class="feature-desc">预测减脂周期和目标达成时间</view>
+    </view>
+
+    <view class="feature-card">
+      <view class="feature-icon">👤</view>
+      <view class="feature-title">身体数据</view>
+      <view class="feature-desc">实时显示BMI和身体质量指数</view>
+    </view>
+  </view>
+
+  <view class="info-section">
+    <view class="info-title">使用说明</view>
+    <view class="info-content">
+      <view class="info-item">
+        <view class="info-number">1</view>
+        <view class="info-text">在"热量计算"页输入您的基本信息（性别、年龄、身高、体重）</view>
+      </view>
+      <view class="info-item">
+        <view class="info-number">2</view>
+        <view class="info-text">选择训练强度，系统自动计算每日总热量消耗</view>
+      </view>
+      <view class="info-item">
+        <view class="info-number">3</view>
+        <view class="info-text">在"减脂预测"页设置目标体重，了解减脂周期</view>
+      </view>
+      <view class="info-item">
+        <view class="info-number">4</view>
+        <view class="info-text">在"个人"页查看BMI指数和营养素分配建议</view>
+      </view>
+    </view>
+  </view>
+</view>

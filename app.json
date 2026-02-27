@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/calculator/calculator",
+    "pages/prediction/prediction",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#2DC78F",
+    "navigationBarTitleText": "Curt 减脂计算器",
+    "navigationBarTextStyle": "white",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#2DC78F",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/calculator/calculator",
+        "text": "热量计算",
+        "iconPath": "assets/icons/calculator.png",
+        "selectedIconPath": "assets/icons/calculator-active.png"
+      },
+      {
+        "pagePath": "pages/prediction/prediction",
+        "text": "减脂预测",
+        "iconPath": "assets/icons/prediction.png",
+        "selectedIconPath": "assets/icons/prediction-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "个人",
+        "iconPath": "assets/icons/profile.png",
+        "selectedIconPath": "assets/icons/profile-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

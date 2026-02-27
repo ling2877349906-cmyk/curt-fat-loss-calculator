@@ -1,0 +1,182 @@
+<view class="container page-content">
+  <!-- 顶部信息栏 -->
+  <view class="info-bar">
+    <view class="info-content">
+      <view class="info-title">每日总热量建议</view>
+      <view class="info-value">{{tdee}}<text class="value-unit">千卡</text></view>
+      <view class="info-detail">{{age}} / {{weight}}公斤 / {{height}}厘米</view>
+    </view>
+    <button class="info-button" bindtap="onReset">重新计算</button>
+  </view>
+
+  <!-- 基础代谢区 -->
+  <view class="card">
+    <view class="card-title">基础代谢信息</view>
+    
+    <!-- 性别选择 -->
+    <view class="input-group">
+      <view class="input-label">性别</view>
+      <view class="radio-group">
+        <view class="radio-item {{gender === 'male' ? 'active' : ''}}" bindtap="onGenderChange" data-gender="male">
+          男性
+        </view>
+        <view class="radio-item {{gender === 'female' ? 'active' : ''}}" bindtap="onGenderChange" data-gender="female">
+          女性
+        </view>
+      </view>
+    </view>
+
+    <!-- 年龄 -->
+    <view class="input-group">
+      <view class="input-label">年龄 ({{age}}岁)</view>
+      <input class="input-field" type="number" value="{{age}}" bindinput="onAgeInput" placeholder="15-100" />
+    </view>
+
+    <!-- 身高 -->
+    <view class="input-group">
+      <view class="input-label">身高 ({{height}}cm)</view>
+      <input class="input-field" type="number" value="{{height}}" bindinput="onHeightInput" placeholder="100-250" />
+    </view>
+
+    <!-- 体重 -->
+    <view class="input-group">
+      <view class="input-label">体重 ({{weight}}kg)</view>
+      <input class="input-field" type="number" value="{{weight}}" bindinput="onWeightInput" placeholder="30-200" />
+    </view>
+
+    <!-- BMR显示 -->
+    <view style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #f0f0f0;">
+      <view class="input-label">基础代谢率 (BMR)</view>
+      <view class="value-display">{{bmr}}<text class="value-unit">千卡</text></view>
+    </view>
+  </view>
+
+  <!-- 训练热量区 -->
+  <view class="card">
+    <view class="card-title">训练热量</view>
+    
+    <!-- 训练时间 -->
+    <view class="input-group">
+      <view class="input-label">每日训练时间 ({{trainingTime}}分钟)</view>
+      <input class="input-field" type="number" value="{{trainingTime}}" bindinput="onTrainingTimeInput" placeholder="0-300" />
+    </view>
+
+    <!-- 训练强度 -->
+    <view class="input-group">
+      <view class="input-label">训练强度</view>
+      <view class="radio-group">
+        <view class="radio-item {{trainingIntensity === 5 ? 'active' : ''}}" bindtap="onIntensityChange" data-intensity="5">
+          新手<view style="font-size: 12px; color: #999;">系数5</view>
+        </view>
+        <view class="radio-item {{trainingIntensity === 8 ? 'active' : ''}}" bindtap="onIntensityChange" data-intensity="8">
+          爱好者<view style="font-size: 12px; color: #999;">系数8</view>
+        </view>
+        <view class="radio-item {{trainingIntensity === 10 ? 'active' : ''}}" bindtap="onIntensityChange" data-intensity="10">
+          老手<view style="font-size: 12px; color: #999;">系数10</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 训练热量显示 -->
+    <view style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #f0f0f0;">
+      <view class="input-label">训练热量消耗</view>
+      <view class="value-display">{{trainingCalories}}<text class="value-unit">千卡</text></view>
+    </view>
+  </view>
+
+  <!-- 营养素分配区 -->
+  <view class="card">
+    <view class="card-title">每日营养素分配建议</view>
+    
+    <!-- 比例选择 -->
+    <view class="input-group">
+      <view class="input-label">营养素比例</view>
+      <view class="radio-group">
+        <view class="radio-item {{nutritionRatio === '532' ? 'active' : ''}}" bindtap="onRatioChange" data-ratio="532">
+          532比例<view style="font-size: 12px; color: #999;">50/30/20</view>
+        </view>
+        <view class="radio-item {{nutritionRatio === '442' ? 'active' : ''}}" bindtap="onRatioChange" data-ratio="442">
+          442比例<view style="font-size: 12px; color: #999;">40/40/20</view>
+        </view>
+        <view class="radio-item {{nutritionRatio === 'custom' ? 'active' : ''}}" bindtap="onRatioChange" data-ratio="custom">
+          自定义<view style="font-size: 12px; color: #999;">自设比例</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 自定义比例输入 -->
+    <view wx:if="{{nutritionRatio === 'custom'}}" style="margin-bottom: 16px; padding: 12px; background-color: #f9f9f9; border-radius: 8px;">
+      <view class="input-group">
+        <view class="input-label">碳水 ({{customRatio.carbs}}%)</view>
+        <input class="input-field" type="number" value="{{customRatio.carbs}}" bindinput="onCustomRatioInput" data-type="carbs" />
+      </view>
+      <view class="input-group">
+        <view class="input-label">蛋白质 ({{customRatio.protein}}%)</view>
+        <input class="input-field" type="number" value="{{customRatio.protein}}" bindinput="onCustomRatioInput" data-type="protein" />
+      </view>
+      <view class="input-group">
+        <view class="input-label">脂肪 ({{customRatio.fat}}%)</view>
+        <input class="input-field" type="number" value="{{customRatio.fat}}" bindinput="onCustomRatioInput" data-type="fat" />
+      </view>
+      <view style="font-size: 12px; color: #999; text-align: center;">总计: {{customRatio.carbs + customRatio.protein + customRatio.fat}}%</view>
+    </view>
+
+    <!-- 营养素明细 -->
+    <view style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #f0f0f0;">
+      <!-- 碳水 -->
+      <view class="nutrition-item">
+        <view class="nutrition-header">
+          <view class="nutrition-name">碳水</view>
+          <view>
+            <view class="nutrition-grams">{{nutrition.carbs.grams}}<text class="nutrition-grams-unit">克</text></view>
+            <view class="nutrition-calories">{{nutrition.carbs.calories}}千卡</view>
+          </view>
+        </view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{nutrition.carbs.percent}}%; background-color: #FF6B6B;"></view>
+        </view>
+      </view>
+
+      <!-- 蛋白质 -->
+      <view class="nutrition-item">
+        <view class="nutrition-header">
+          <view class="nutrition-name">蛋白质</view>
+          <view>
+            <view class="nutrition-grams">{{nutrition.protein.grams}}<text class="nutrition-grams-unit">克</text></view>
+            <view class="nutrition-calories">{{nutrition.protein.calories}}千卡</view>
+          </view>
+        </view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{nutrition.protein.percent}}%; background-color: #9B59B6;"></view>
+        </view>
+      </view>
+
+      <!-- 脂肪 -->
+      <view class="nutrition-item">
+        <view class="nutrition-header">
+          <view class="nutrition-name">脂肪</view>
+          <view>
+            <view class="nutrition-grams">{{nutrition.fat.grams}}<text class="nutrition-grams-unit">克</text></view>
+            <view class="nutrition-calories">{{nutrition.fat.calories}}千卡</view>
+          </view>
+        </view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{nutrition.fat.percent}}%; background-color: #F39C12;"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 公式说明 -->
+  <view class="card" style="background-color: #f9f9f9; margin-bottom: 20px;">
+    <view class="card-title">计算公式</view>
+    <view style="font-size: 12px; color: #999; line-height: 1.8;">
+      <view>男性 BMR = 10×体重 + 6.25×身高 - 5×年龄 + 5</view>
+      <view>女性 BMR = 10×体重 + 6.25×身高 - 5×年龄 - 161</view>
+      <view>训练热量 = 训练时间 × 强度系数</view>
+      <view>TDEE = BMR + 训练热量</view>
+      <view>碳水/蛋白质克数 = (总热量 × 比例) ÷ 4</view>
+      <view>脂肪克数 = (总热量 × 比例) ÷ 9</view>
+    </view>
+  </view>
+</view>

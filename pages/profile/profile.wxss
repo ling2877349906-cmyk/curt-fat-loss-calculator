@@ -1,0 +1,253 @@
+/* 个人页面特有样式 */
+.container {
+  background-color: #f5f5f5;
+}
+
+.page-content {
+  padding-bottom: 100px;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.info-bar {
+  background: linear-gradient(135deg, #e8f5f0 0%, #f0faf8 100%);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(45, 199, 143, 0.1);
+  margin-bottom: 16px;
+}
+
+.info-content {
+  flex: 1;
+}
+
+.info-title {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 4px;
+}
+
+.info-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2DC78F;
+  display: flex;
+  align-items: baseline;
+}
+
+.value-unit {
+  font-size: 12px;
+  color: #999;
+  margin-left: 4px;
+  font-weight: 400;
+}
+
+.info-button {
+  background-color: #2DC78F;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-left: 12px;
+  transition: all 0.3s ease;
+}
+
+.info-button:active {
+  background-color: #25a870;
+  opacity: 0.9;
+}
+
+.input-label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+  display: block;
+  font-weight: 500;
+}
+
+.data-compare {
+  display: flex;
+  justify-content: space-around;
+  margin: 16px 0;
+}
+
+.compare-item {
+  text-align: center;
+}
+
+.compare-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.compare-label {
+  font-size: 12px;
+  color: #999;
+}
+
+.compare-underline {
+  width: 40px;
+  height: 3px;
+  background-color: #2DC78F;
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.nutrition-item {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.nutrition-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.nutrition-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.nutrition-name {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.nutrition-grams {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+}
+
+.nutrition-grams-unit {
+  font-size: 12px;
+  color: #999;
+  margin-left: 4px;
+  font-weight: 400;
+}
+
+.nutrition-calories {
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+}
+
+.btn {
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
+.btn-primary {
+  background-color: #2DC78F;
+  color: #ffffff;
+}
+
+.btn-primary:active {
+  background-color: #25a870;
+  opacity: 0.9;
+}
+
+.qa-item {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.qa-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.qa-question {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  transition: color 0.3s ease;
+}
+
+.qa-question:active {
+  color: #2DC78F;
+}
+
+.qa-answer {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.6;
+  margin-top: 8px;
+  display: none;
+  padding: 8px 0;
+}
+
+.qa-answer.show {
+  display: block;
+}
+
+.qa-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 16px;
+  font-weight: 600;
+}
