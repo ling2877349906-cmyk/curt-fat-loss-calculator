@@ -126,7 +126,7 @@
 
     <!-- BMI进度条 -->
     <view class="progress-bar" style="height: 8px;">
-      <view class="progress-fill" style="width: {{bmiPercent}}%; background: linear-gradient(90deg, #FF6B6B 0%, #FF9800 25%, #2DC78F 50%, #FF9800 75%, #FF6B6B 100%);"></view>
+      <view class="progress-fill" style="width: {{bmiPercent}}%; background-color: #FF6B6B;"></view>
     </view>
 
     <!-- BMI范围标签 -->

@@ -21,20 +21,20 @@
       {
         "pagePath": "pages/calculator/calculator",
         "text": "热量计算",
-        "iconPath": "assets/icons/calculator.svg",
-        "selectedIconPath": "assets/icons/calculator-active.svg"
+        "iconPath": "assets/icons/calculator.png",
+        "selectedIconPath": "assets/icons/calculator-active.png"
       },
       {
         "pagePath": "pages/prediction/prediction",
         "text": "减脂预测",
-        "iconPath": "assets/icons/prediction.svg",
-        "selectedIconPath": "assets/icons/prediction-active.svg"
+        "iconPath": "assets/icons/prediction.png",
+        "selectedIconPath": "assets/icons/prediction-active.png"
       },
       {
         "pagePath": "pages/profile/profile",
         "text": "个人",
-        "iconPath": "assets/icons/profile.svg",
-        "selectedIconPath": "assets/icons/profile-active.svg"
+        "iconPath": "assets/icons/profile.png",
+        "selectedIconPath": "assets/icons/profile-active.png"
       }
     ]
   },
