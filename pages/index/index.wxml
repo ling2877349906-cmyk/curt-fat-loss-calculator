@@ -1,56 +1,372 @@
 <view class="container">
-  <view class="welcome-section">
-    <view class="welcome-title">Curt 减脂计算器</view>
-    <view class="welcome-subtitle">智能热量计算 · 科学减脂规划</view>
-    
-    <button class="welcome-btn" bindtap="onNavigateToCalculator">开始计算</button>
+  <!-- ==================== 第一栏：个人基础信息 ==================== -->
+  <view class="card">
+    <view class="card-header">
+      <view class="card-title">个人基础信息</view>
+      <button class="edit-btn" bindtap="openUserInfoModal">编辑</button>
+    </view>
+
+    <view wx:if="{{isUserInfoComplete()}}" class="info-content">
+      <view class="info-row">
+        <view class="info-label">年龄</view>
+        <view class="info-value">{{userInfo.age}}岁</view>
+      </view>
+      <view class="info-row">
+        <view class="info-label">身高</view>
+        <view class="info-value">{{userInfo.height}}cm</view>
+      </view>
+      <view class="info-row">
+        <view class="info-label">体重</view>
+        <view class="info-value">{{userInfo.weight}}kg</view>
+      </view>
+      <view class="info-row">
+        <view class="info-label">性别</view>
+        <view class="info-value">{{userInfo.gender === 'male' ? '男' : '女'}}</view>
+      </view>
+
+      <view class="divider"></view>
+
+      <view class="daily-tdee">
+        <view class="tdee-label">每日总消耗热量</view>
+        <view class="tdee-value">{{results.tdee}}<text class="tdee-unit">千卡</text></view>
+      </view>
+
+      <view class="exercise-summary">
+        <view class="exercise-item">
+          <view class="exercise-label">有氧运动</view>
+          <view class="exercise-value">{{exercise.aerobicCalories}}千卡</view>
+        </view>
+        <view class="exercise-item">
+          <view class="exercise-label">无氧运动</view>
+          <view class="exercise-value">{{exercise.anaerobicCalories}}千卡</view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:else class="empty-state">
+      <view class="empty-text">请先填写个人信息</view>
+    </view>
   </view>
 
-  <view class="features-section">
-    <view class="feature-card">
-      <view class="feature-icon">🔥</view>
-      <view class="feature-title">热量计算</view>
-      <view class="feature-desc">精准计算基础代谢和训练热量</view>
+  <!-- 运动信息编辑按钮 -->
+  <view wx:if="{{isUserInfoComplete()}}" class="card">
+    <view class="card-header">
+      <view class="card-title">运动信息</view>
+      <button class="edit-btn" bindtap="openExerciseModal">编辑</button>
     </view>
 
-    <view class="feature-card">
-      <view class="feature-icon">📊</view>
-      <view class="feature-title">营养分配</view>
-      <view class="feature-desc">科学分配碳水、蛋白质、脂肪</view>
-    </view>
-
-    <view class="feature-card">
-      <view class="feature-icon">📈</view>
-      <view class="feature-title">减脂预测</view>
-      <view class="feature-desc">预测减脂周期和目标达成时间</view>
-    </view>
-
-    <view class="feature-card">
-      <view class="feature-icon">👤</view>
-      <view class="feature-title">身体数据</view>
-      <view class="feature-desc">实时显示BMI和身体质量指数</view>
-    </view>
-  </view>
-
-  <view class="info-section">
-    <view class="info-title">使用说明</view>
     <view class="info-content">
-      <view class="info-item">
-        <view class="info-number">1</view>
-        <view class="info-text">在"热量计算"页输入您的基本信息（性别、年龄、身高、体重）</view>
+      <view class="info-row">
+        <view class="info-label">有氧运动时间</view>
+        <view class="info-value">{{exercise.aerobicTime}}分钟</view>
       </view>
-      <view class="info-item">
-        <view class="info-number">2</view>
-        <view class="info-text">选择训练强度，系统自动计算每日总热量消耗</view>
+      <view class="info-row">
+        <view class="info-label">无氧运动时间</view>
+        <view class="info-value">{{exercise.anaerobicTime}}分钟</view>
       </view>
-      <view class="info-item">
-        <view class="info-number">3</view>
-        <view class="info-text">在"减脂预测"页设置目标体重，了解减脂周期</view>
+    </view>
+  </view>
+
+  <!-- ==================== 第二栏：每日营养配给 ==================== -->
+  <view wx:if="{{isUserInfoComplete()}}" class="card">
+    <view class="card-header">
+      <view class="card-title">每日营养配给</view>
+      <button class="edit-btn" bindtap="openDietModal">{{dietMode === 'bulk' ? '增肌' : dietMode === 'cut' ? '减脂' : '自定义'}}</button>
+    </view>
+
+    <view class="nutrition-content">
+      <view class="nutrition-item">
+        <view class="nutrition-label">碳水</view>
+        <view class="nutrition-value">{{results.nutrition.carbs}}g</view>
       </view>
-      <view class="info-item">
-        <view class="info-number">4</view>
-        <view class="info-text">在"个人"页查看BMI指数和营养素分配建议</view>
+      <view class="nutrition-item">
+        <view class="nutrition-label">蛋白质</view>
+        <view class="nutrition-value">{{results.nutrition.protein}}g</view>
       </view>
+      <view class="nutrition-item">
+        <view class="nutrition-label">脂肪</view>
+        <view class="nutrition-value">{{results.nutrition.fat}}g</view>
+      </view>
+
+      <!-- 减脂模式第4天营养 -->
+      <view wx:if="{{dietMode === 'cut'}}" class="day4-nutrition">
+        <view class="day4-title">第4天高碳饮食</view>
+        <view class="nutrition-item">
+          <view class="nutrition-label">碳水</view>
+          <view class="nutrition-value">{{results.nutritionDay4.carbs}}g</view>
+        </view>
+        <view class="nutrition-item">
+          <view class="nutrition-label">蛋白质</view>
+          <view class="nutrition-value">{{results.nutritionDay4.protein}}g</view>
+        </view>
+        <view class="nutrition-item">
+          <view class="nutrition-label">脂肪</view>
+          <view class="nutrition-value">{{results.nutritionDay4.fat}}g</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ==================== 第三栏：体重变化 ==================== -->
+  <view wx:if="{{isUserInfoComplete()}}" class="card">
+    <view class="card-header">
+      <view class="card-title">体重变化</view>
+      <button class="edit-btn" bindtap="openWeightModal">记录</button>
+    </view>
+
+    <view class="weight-content">
+      <view class="weight-compare">
+        <view class="weight-item">
+          <view class="weight-label">当前体重</view>
+          <view class="weight-value">{{currentWeight || '-'}}kg</view>
+        </view>
+        <view class="weight-item">
+          <view class="weight-label">目标体重</view>
+          <view class="weight-value">{{targetWeight || '-'}}kg</view>
+        </view>
+      </view>
+
+      <!-- 进度条 -->
+      <view wx:if="{{currentWeight && targetWeight}}" class="progress-section">
+        <view class="progress-label">减重进度</view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{getWeightChangePercent()}}%"></view>
+        </view>
+        <view class="progress-text">{{getWeightChangePercent()}}% 完成</view>
+      </view>
+
+      <!-- 最近7天记录 -->
+      <view wx:if="{{weightRecords.length > 0}}" class="records-section">
+        <view class="records-title">最近记录</view>
+        <view wx:for="{{weightRecords}}" wx:key="date" class="record-item">
+          <view class="record-date">{{formatDate(item.date)}}</view>
+          <view class="record-weight">{{item.weight}}kg</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ==================== 第四栏：BMI指数 ==================== -->
+  <view wx:if="{{isUserInfoComplete()}}" class="card">
+    <view class="card-title">身体质量指数</view>
+
+    <view class="bmi-content">
+      <view class="bmi-display">
+        <view class="bmi-value">{{results.bmi}}</view>
+        <view class="bmi-status" style="color: {{results.bmiStatus === '正常' ? '#2DC78F' : results.bmiStatus === '偏瘦' ? '#3498db' : '#ff6b6b'}}">{{results.bmiStatus}}</view>
+      </view>
+
+      <view class="bmi-bar">
+        <view class="bmi-fill" style="width: {{results.bmi > 35 ? 100 : (results.bmi / 35 * 100)}}%; background-color: {{results.bmiStatus === '正常' ? '#2DC78F' : results.bmiStatus === '偏瘦' ? '#3498db' : '#ff6b6b'}};"></view>
+      </view>
+
+      <view class="bmi-scale">
+        <view class="scale-item">偏瘦<br/>18.5</view>
+        <view class="scale-item">正常<br/>24</view>
+        <view class="scale-item">偏胖<br/>28</view>
+      </view>
+
+      <view class="bmi-formula">
+        <view class="formula-text">BMI = 体重(kg) ÷ 身高(m)²</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ==================== 第五栏：提示信息 ==================== -->
+  <view class="card tips-card">
+    <view class="card-title">使用提示</view>
+
+    <view class="tips-content">
+      <view class="tip-item">
+        <view class="tip-icon">💡</view>
+        <view class="tip-text">首次使用请先填写个人基础信息，系统将自动计算每日热量消耗</view>
+      </view>
+
+      <view class="tip-item">
+        <view class="tip-icon">🏋️</view>
+        <view class="tip-text">有氧运动包括跑步、骑行等；无氧运动包括力量训练、高强度间歇训练等</view>
+      </view>
+
+      <view class="tip-item">
+        <view class="tip-icon">🍎</view>
+        <view class="tip-text">增肌模式：高碳水、高蛋白、适量脂肪；减脂模式：周期性低碳水、高蛋白</view>
+      </view>
+
+      <view class="tip-item">
+        <view class="tip-icon">⚖️</view>
+        <view class="tip-text">建议每天记录体重，最好在同一时间测量以获得准确的进度数据</view>
+      </view>
+
+      <view class="tip-item">
+        <view class="tip-icon">⚠️</view>
+        <view class="tip-text">本计算器仅供参考，建议咨询专业营养师或健身教练获得个性化建议</view>
+      </view>
+    </view>
+  </view>
+
+  <view style="height: 20px;"></view>
+</view>
+
+<!-- ==================== 个人信息编辑模态框 ==================== -->
+<view wx:if="{{showUserInfoModal}}" class="modal-overlay" bindtap="closeUserInfoModal">
+  <view class="modal-content" catchtap>
+    <view class="modal-header">
+      <view class="modal-title">编辑个人信息</view>
+      <view class="modal-close" bindtap="closeUserInfoModal">✕</view>
+    </view>
+
+    <view class="modal-body">
+      <view class="input-group">
+        <view class="input-label">年龄 (15-100岁)</view>
+        <input class="input-field" type="number" value="{{userInfo.age}}" bindinput="onAgeInput" placeholder="请输入年龄" />
+      </view>
+
+      <view class="input-group">
+        <view class="input-label">身高 (100-300cm)</view>
+        <input class="input-field" type="number" value="{{userInfo.height}}" bindinput="onHeightInput" placeholder="请输入身高" />
+      </view>
+
+      <view class="input-group">
+        <view class="input-label">体重 (30-200kg)</view>
+        <input class="input-field" type="number" value="{{userInfo.weight}}" bindinput="onWeightInput" placeholder="请输入体重" />
+      </view>
+
+      <view class="input-group">
+        <view class="input-label">性别</view>
+        <view class="radio-group">
+          <view class="radio-item {{userInfo.gender === 'male' ? 'active' : ''}}" bindtap="onGenderChange" data-gender="male">男</view>
+          <view class="radio-item {{userInfo.gender === 'female' ? 'active' : ''}}" bindtap="onGenderChange" data-gender="female">女</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="modal-footer">
+      <button class="btn btn-secondary" bindtap="closeUserInfoModal">取消</button>
+      <button class="btn btn-primary" bindtap="saveUserInfo">保存</button>
+    </view>
+  </view>
+</view>
+
+<!-- ==================== 运动信息编辑模态框 ==================== -->
+<view wx:if="{{showExerciseModal}}" class="modal-overlay" bindtap="closeExerciseModal">
+  <view class="modal-content" catchtap>
+    <view class="modal-header">
+      <view class="modal-title">编辑运动信息</view>
+      <view class="modal-close" bindtap="closeExerciseModal">✕</view>
+    </view>
+
+    <view class="modal-body">
+      <view class="input-group">
+        <view class="input-label">有氧运动时间 (分钟)</view>
+        <input class="input-field" type="number" value="{{exercise.aerobicTime}}" bindinput="onAerobicTimeInput" placeholder="0-300分钟" />
+        <view class="input-hint">如：跑步、骑行、游泳等</view>
+      </view>
+
+      <view class="input-group">
+        <view class="input-label">无氧运动时间 (分钟)</view>
+        <input class="input-field" type="number" value="{{exercise.anaerobicTime}}" bindinput="onAnaerobicTimeInput" placeholder="0-300分钟" />
+        <view class="input-hint">如：力量训练、HIIT等</view>
+      </view>
+
+      <view class="exercise-calc">
+        <view class="calc-item">
+          <view class="calc-label">有氧运动消耗</view>
+          <view class="calc-value">{{exercise.aerobicCalories}}千卡</view>
+        </view>
+        <view class="calc-item">
+          <view class="calc-label">无氧运动消耗</view>
+          <view class="calc-value">{{exercise.anaerobicCalories}}千卡</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="modal-footer">
+      <button class="btn btn-secondary" bindtap="closeExerciseModal">取消</button>
+      <button class="btn btn-primary" bindtap="saveExerciseInfo">保存</button>
+    </view>
+  </view>
+</view>
+
+<!-- ==================== 饮食模式选择模态框 ==================== -->
+<view wx:if="{{showDietModal}}" class="modal-overlay" bindtap="closeDietModal">
+  <view class="modal-content" catchtap>
+    <view class="modal-header">
+      <view class="modal-title">选择饮食模式</view>
+      <view class="modal-close" bindtap="closeDietModal">✕</view>
+    </view>
+
+    <view class="modal-body">
+      <!-- 增肌模式 -->
+      <view class="mode-option {{dietMode === 'bulk' ? 'active' : ''}}" bindtap="onDietModeChange" data-mode="bulk">
+        <view class="mode-title">增肌模式</view>
+        <view class="mode-desc">碳水：体重×4g | 蛋白质：体重×1.9g | 脂肪：体重×0.8g</view>
+      </view>
+
+      <!-- 减脂模式 -->
+      <view class="mode-option {{dietMode === 'cut' ? 'active' : ''}}" bindtap="onDietModeChange" data-mode="cut">
+        <view class="mode-title">减脂模式</view>
+        <view class="mode-desc">前3天：低碳水 | 第4天：高碳水（周期性饮食）</view>
+      </view>
+
+      <!-- 自定义模式 -->
+      <view class="mode-option {{dietMode === 'custom' ? 'active' : ''}}" bindtap="onDietModeChange" data-mode="custom">
+        <view class="mode-title">自定义模式</view>
+        <view class="mode-desc">自己设置每日营养摄入比例</view>
+      </view>
+
+      <!-- 自定义模式输入 -->
+      <view wx:if="{{dietMode === 'custom'}}" class="custom-inputs">
+        <view class="input-group">
+          <view class="input-label">碳水 (克)</view>
+          <input class="input-field" type="number" value="{{customNutrition.carbs}}" bindinput="onCustomCarbsInput" placeholder="请输入碳水克数" />
+        </view>
+
+        <view class="input-group">
+          <view class="input-label">蛋白质 (克)</view>
+          <input class="input-field" type="number" value="{{customNutrition.protein}}" bindinput="onCustomProteinInput" placeholder="请输入蛋白质克数" />
+        </view>
+
+        <view class="input-group">
+          <view class="input-label">脂肪 (克)</view>
+          <input class="input-field" type="number" value="{{customNutrition.fat}}" bindinput="onCustomFatInput" placeholder="请输入脂肪克数" />
+        </view>
+      </view>
+    </view>
+
+    <view class="modal-footer">
+      <button class="btn btn-secondary" bindtap="closeDietModal">取消</button>
+      <button class="btn btn-primary" bindtap="saveDietInfo">保存</button>
+    </view>
+  </view>
+</view>
+
+<!-- ==================== 体重记录模态框 ==================== -->
+<view wx:if="{{showWeightModal}}" class="modal-overlay" bindtap="closeWeightModal">
+  <view class="modal-content" catchtap>
+    <view class="modal-header">
+      <view class="modal-title">记录体重</view>
+      <view class="modal-close" bindtap="closeWeightModal">✕</view>
+    </view>
+
+    <view class="modal-body">
+      <view class="input-group">
+        <view class="input-label">当前体重 (kg)</view>
+        <input class="input-field" type="number" value="{{tempWeight}}" bindinput="onCurrentWeightInput" placeholder="请输入当前体重" />
+      </view>
+
+      <view class="input-group">
+        <view class="input-label">目标体重 (kg)</view>
+        <input class="input-field" type="number" value="{{tempTargetWeight}}" bindinput="onTargetWeightInput" placeholder="请输入目标体重" />
+      </view>
+
+      <view class="weight-hint">
+        <view class="hint-text">💡 建议每天在同一时间测量体重，以获得准确的进度数据</view>
+      </view>
+    </view>
+
+    <view class="modal-footer">
+      <button class="btn btn-secondary" bindtap="closeWeightModal">取消</button>
+      <button class="btn btn-primary" bindtap="recordWeight">记录</button>
     </view>
   </view>
 </view>
