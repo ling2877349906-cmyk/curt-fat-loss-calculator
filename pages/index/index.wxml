@@ -8,42 +8,58 @@
 
   <!-- 热量计算页 -->
   <view class="tab-content {{activeTab === 0 ? 'active' : ''}}">
+    <!-- 页面标题 -->
+    <view class="page-header">
+      <view class="header-emoji">💪</view>
+      <view class="header-title">热量计算器</view>
+      <view class="header-subtitle">让我们计算你的每日热量需求</view>
+    </view>
+
     <!-- 基础热量区 -->
     <view class="card">
-      <view class="card-title">基础热量（BMR）</view>
+      <view class="card-title">
+        <view class="title-emoji">📊</view>
+        <view>基础热量（BMR）</view>
+      </view>
       
       <view class="input-group">
         <view class="input-label">性别</view>
         <view class="gender-buttons">
-          <button class="gender-btn {{calorieData.gender === 'male' ? 'active' : ''}}" bindtap="onGenderChange" data-gender="male">男性</button>
-          <button class="gender-btn {{calorieData.gender === 'female' ? 'active' : ''}}" bindtap="onGenderChange" data-gender="female">女性</button>
+          <button class="gender-btn {{calorieData.gender === 'male' ? 'active' : ''}}" bindtap="onGenderChange" data-gender="male">👨 男性</button>
+          <button class="gender-btn {{calorieData.gender === 'female' ? 'active' : ''}}" bindtap="onGenderChange" data-gender="female">👩 女性</button>
         </view>
       </view>
 
       <view class="input-group">
         <view class="input-label">年龄</view>
-        <input class="input-field" type="number" value="{{calorieData.age}}" bindinput="onAgeInput" placeholder="输入年龄" />
+        <input class="input-field" type="number" value="{{calorieData.age}}" bindinput="onAgeInput" placeholder="输入年龄（15-100）" />
       </view>
 
       <view class="input-group">
         <view class="input-label">身高 (cm)</view>
-        <input class="input-field" type="number" value="{{calorieData.height}}" bindinput="onHeightInput" placeholder="输入身高" />
+        <input class="input-field" type="number" value="{{calorieData.height}}" bindinput="onHeightInput" placeholder="输入身高（100-300）" />
       </view>
 
       <view class="input-group">
         <view class="input-label">体重 (kg)</view>
-        <input class="input-field" type="number" value="{{calorieData.weight}}" bindinput="onWeightInput" placeholder="输入体重" />
+        <input class="input-field" type="number" value="{{calorieData.weight}}" bindinput="onWeightInput" placeholder="输入体重（30-200）" />
       </view>
 
-      <view class="result-display">
+      <view class="result-display" wx:if="{{calorieData.bmr}}">
         <view class="result-label">基础代谢率</view>
         <view class="result-value">{{calorieData.bmr}} <text class="result-unit">千卡</text></view>
+      </view>
+      <view class="result-placeholder" wx:else>
+        <view class="placeholder-text">填写上方信息后显示</view>
       </view>
     </view>
 
     <!-- 训练热量区 -->
     <view class="card">
-      <view class="card-title">训练热量</view>
+      <view class="card-title">
+        <view class="title-emoji">🔥</view>
+        <view>训练热量</view>
+      </view>
 
       <view class="input-group">
         <view class="input-label">每日训练时间 (分钟)</view>
@@ -53,77 +69,130 @@
       <view class="input-group">
         <view class="input-label">训练强度</view>
         <view class="intensity-buttons">
-          <button class="intensity-btn {{calorieData.trainIntensity === 5 ? 'active' : ''}}" bindtap="onIntensityChange" data-intensity="5">新手<br/>(系数5)</button>
-          <button class="intensity-btn {{calorieData.trainIntensity === 8 ? 'active' : ''}}" bindtap="onIntensityChange" data-intensity="8">爱好者<br/>(系数8)</button>
-          <button class="intensity-btn {{calorieData.trainIntensity === 10 ? 'active' : ''}}" bindtap="onIntensityChange" data-intensity="10">老手<br/>(系数10)</button>
+          <button class="intensity-btn {{calorieData.trainIntensity === 5 ? 'active' : ''}}" bindtap="onIntensityChange" data-intensity="5">
+            <view class="intensity-emoji">🌱</view>
+            <view class="intensity-text">新手<br/>(系数5)</view>
+          </button>
+          <button class="intensity-btn {{calorieData.trainIntensity === 8 ? 'active' : ''}}" bindtap="onIntensityChange" data-intensity="8">
+            <view class="intensity-emoji">⚡</view>
+            <view class="intensity-text">爱好者<br/>(系数8)</view>
+          </button>
+          <button class="intensity-btn {{calorieData.trainIntensity === 10 ? 'active' : ''}}" bindtap="onIntensityChange" data-intensity="10">
+            <view class="intensity-emoji">🚀</view>
+            <view class="intensity-text">老手<br/>(系数10)</view>
+          </button>
         </view>
       </view>
 
-      <view class="result-display">
+      <view class="result-display" wx:if="{{calorieData.trainCalories !== null}}">
         <view class="result-label">训练消耗热量</view>
         <view class="result-value">{{calorieData.trainCalories}} <text class="result-unit">千卡</text></view>
+      </view>
+      <view class="result-placeholder" wx:else>
+        <view class="placeholder-text">填写上方信息后显示</view>
       </view>
     </view>
 
     <!-- 每日总热量 -->
-    <view class="card highlight-card">
-      <view class="highlight-label">每日可消耗总热量</view>
+    <view class="card highlight-card" wx:if="{{calorieData.tdee}}">
+      <view class="highlight-label">🎯 每日可消耗总热量</view>
       <view class="highlight-value">{{calorieData.tdee}} <text class="highlight-unit">千卡</text></view>
     </view>
 
     <!-- 营养素分配区 -->
     <view class="card">
-      <view class="card-title">营养素分配</view>
+      <view class="card-title">
+        <view class="title-emoji">🥗</view>
+        <view>营养素分配</view>
+      </view>
 
       <view class="input-group">
-        <view class="input-label">选择比例</view>
+        <view class="input-label">选择模式</view>
         <view class="nutrition-buttons">
-          <button class="nutrition-btn {{calorieData.nutritionMode === '532' ? 'active' : ''}}" bindtap="onNutritionModeChange" data-mode="532">532比例</button>
-          <button class="nutrition-btn {{calorieData.nutritionMode === '442' ? 'active' : ''}}" bindtap="onNutritionModeChange" data-mode="442">442比例</button>
-          <button class="nutrition-btn {{calorieData.nutritionMode === 'custom' ? 'active' : ''}}" bindtap="onNutritionModeChange" data-mode="custom">自定义</button>
+          <button class="nutrition-btn {{calorieData.nutritionMode === 'bulk' ? 'active' : ''}}" bindtap="onNutritionModeChange" data-mode="bulk">
+            <view class="nutrition-emoji">💪</view>
+            增肌模式
+          </button>
+          <button class="nutrition-btn {{calorieData.nutritionMode === 'cut' ? 'active' : ''}}" bindtap="onNutritionModeChange" data-mode="cut">
+            <view class="nutrition-emoji">⚖️</view>
+            减脂模式
+          </button>
+          <button class="nutrition-btn {{calorieData.nutritionMode === 'custom' ? 'active' : ''}}" bindtap="onNutritionModeChange" data-mode="custom">
+            <view class="nutrition-emoji">⚙️</view>
+            自定义
+          </button>
         </view>
       </view>
 
-      <!-- 自定义比例输入 -->
+      <!-- 自定义模式输入 -->
       <view wx:if="{{calorieData.nutritionMode === 'custom'}}" class="custom-nutrition">
         <view class="input-group">
-          <view class="input-label">碳水 (%)</view>
-          <input class="input-field" type="number" value="{{calorieData.customNutrition.carbs}}" bindinput="onCustomCarbsInput" placeholder="输入百分比" />
+          <view class="input-label">碳水热量 (千卡)</view>
+          <input class="input-field" type="number" value="{{calorieData.customNutrition.carbs}}" bindinput="onCustomCarbsInput" placeholder="输入碳水热量" />
         </view>
         <view class="input-group">
-          <view class="input-label">蛋白质 (%)</view>
-          <input class="input-field" type="number" value="{{calorieData.customNutrition.protein}}" bindinput="onCustomProteinInput" placeholder="输入百分比" />
+          <view class="input-label">蛋白质热量 (千卡)</view>
+          <input class="input-field" type="number" value="{{calorieData.customNutrition.protein}}" bindinput="onCustomProteinInput" placeholder="输入蛋白质热量" />
         </view>
         <view class="input-group">
-          <view class="input-label">脂肪 (%)</view>
-          <input class="input-field" type="number" value="{{calorieData.customNutrition.fat}}" bindinput="onCustomFatInput" placeholder="输入百分比" />
+          <view class="input-label">脂肪热量 (千卡)</view>
+          <input class="input-field" type="number" value="{{calorieData.customNutrition.fat}}" bindinput="onCustomFatInput" placeholder="输入脂肪热量" />
         </view>
       </view>
 
       <!-- 营养素结果 -->
-      <view class="nutrition-results">
+      <view class="nutrition-results" wx:if="{{calorieData.nutritionMode}}">
+        <!-- 增肌模式或减脂前3天 -->
         <view class="nutrition-item">
-          <view class="nutrition-label">碳水</view>
+          <view class="nutrition-label">
+            <view class="nutrition-emoji">🌾</view>
+            碳水
+          </view>
           <view class="nutrition-value">{{calorieData.nutrition.carbs}} 千卡 / {{calorieData.nutrition.carbsGrams}} 克</view>
         </view>
         <view class="nutrition-item">
-          <view class="nutrition-label">蛋白质</view>
+          <view class="nutrition-label">
+            <view class="nutrition-emoji">🥚</view>
+            蛋白质
+          </view>
           <view class="nutrition-value">{{calorieData.nutrition.protein}} 千卡 / {{calorieData.nutrition.proteinGrams}} 克</view>
         </view>
         <view class="nutrition-item">
-          <view class="nutrition-label">脂肪</view>
+          <view class="nutrition-label">
+            <view class="nutrition-emoji">🧈</view>
+            脂肪
+          </view>
           <view class="nutrition-value">{{calorieData.nutrition.fat}} 千卡 / {{calorieData.nutrition.fatGrams}} 克</view>
         </view>
-      </view>
-    </view>
 
-    <!-- 食谱推荐 -->
-    <view class="card">
-      <view class="card-title">食谱推荐</view>
-      <view class="recipe-buttons">
-        <button class="recipe-btn">薄荷健康</button>
-        <button class="recipe-btn">薄荷</button>
-        <button class="recipe-btn">训记</button>
+        <!-- 减脂模式第4天 -->
+        <view wx:if="{{calorieData.nutritionMode === 'cut' && calorieData.nutrition.carbsDay4}}" class="day4-section">
+          <view class="day4-title">第4天（高碳日）</view>
+          <view class="nutrition-item">
+            <view class="nutrition-label">
+              <view class="nutrition-emoji">🌾</view>
+              碳水
+            </view>
+            <view class="nutrition-value">{{calorieData.nutrition.carbsDay4}} 千卡 / {{calorieData.nutrition.carbsGramsDay4}} 克</view>
+          </view>
+          <view class="nutrition-item">
+            <view class="nutrition-label">
+              <view class="nutrition-emoji">🥚</view>
+              蛋白质
+            </view>
+            <view class="nutrition-value">{{calorieData.nutrition.proteinDay4}} 千卡 / {{calorieData.nutrition.proteinGramsDay4}} 克</view>
+          </view>
+          <view class="nutrition-item">
+            <view class="nutrition-label">
+              <view class="nutrition-emoji">🧈</view>
+              脂肪
+            </view>
+            <view class="nutrition-value">{{calorieData.nutrition.fatDay4}} 千卡 / {{calorieData.nutrition.fatGramsDay4}} 克</view>
+          </view>
+        </view>
+      </view>
+      <view class="result-placeholder" wx:else>
+        <view class="placeholder-text">选择一个模式后显示营养数据</view>
       </view>
     </view>
 
@@ -132,8 +201,18 @@
 
   <!-- 减脂预测页 -->
   <view class="tab-content {{activeTab === 1 ? 'active' : ''}}">
+    <!-- 页面标题 -->
+    <view class="page-header">
+      <view class="header-emoji">📉</view>
+      <view class="header-title">减脂预测</view>
+      <view class="header-subtitle">规划你的减脂目标</view>
+    </view>
+
     <view class="card">
-      <view class="card-title">减脂预测</view>
+      <view class="card-title">
+        <view class="title-emoji">⚖️</view>
+        <view>减脂参数</view>
+      </view>
 
       <view class="input-group">
         <view class="input-label">初始体重 (kg)</view>
@@ -149,7 +228,7 @@
         <view class="input-label">每月减重比例</view>
         <view class="percent-control">
           <button class="percent-btn" bindtap="decreasePercent">−</button>
-          <view class="percent-display">{{predictionData.monthlyLossPercent}}%</view>
+          <view class="percent-display">{{predictionData.monthlyLossPercent || '—'}}%</view>
           <button class="percent-btn" bindtap="increasePercent">+</button>
         </view>
         <view class="percent-hint">范围: 1% - 5%</view>
@@ -157,8 +236,11 @@
     </view>
 
     <!-- 预测结果 -->
-    <view class="card">
-      <view class="card-title">预测结果</view>
+    <view class="card" wx:if="{{predictionData.totalLoss}}">
+      <view class="card-title">
+        <view class="title-emoji">📊</view>
+        <view>预测结果</view>
+      </view>
 
       <view class="result-item">
         <view class="result-label">一共需要减重</view>
@@ -180,7 +262,13 @@
         <view class="result-value">{{predictionData.weeklyLoss}} kg</view>
       </view>
 
-      <button class="save-btn" bindtap="savePredictionTarget">保存目标</button>
+      <button class="save-btn" bindtap="savePredictionTarget">💾 保存目标</button>
+    </view>
+
+    <view class="card" wx:else>
+      <view class="result-placeholder">
+        <view class="placeholder-text">填写上方信息后显示预测结果</view>
+      </view>
     </view>
 
     <view style="height: 20px;"></view>
@@ -188,34 +276,52 @@
 
   <!-- 个人页 -->
   <view class="tab-content {{activeTab === 2 ? 'active' : ''}}">
-    <view class="card">
-      <view class="card-title">身体数据</view>
+    <!-- 页面标题 -->
+    <view class="page-header">
+      <view class="header-emoji">👤</view>
+      <view class="header-title">个人信息</view>
+      <view class="header-subtitle">查看你的身体数据</view>
+    </view>
 
-      <view class="data-item">
+    <view class="card">
+      <view class="card-title">
+        <view class="title-emoji">📋</view>
+        <view>身体数据</view>
+      </view>
+
+      <view class="data-item" wx:if="{{calorieData.age}}">
         <view class="data-label">年龄</view>
         <view class="data-value">{{calorieData.age}} 岁</view>
       </view>
 
-      <view class="data-item">
+      <view class="data-item" wx:if="{{calorieData.height}}">
         <view class="data-label">身高</view>
         <view class="data-value">{{calorieData.height}} cm</view>
       </view>
 
-      <view class="data-item">
+      <view class="data-item" wx:if="{{calorieData.weight}}">
         <view class="data-label">体重</view>
         <view class="data-value">{{calorieData.weight}} kg</view>
       </view>
 
-      <view class="data-item">
+      <view class="data-item" wx:if="{{calorieData.gender}}">
         <view class="data-label">性别</view>
-        <view class="data-value">{{calorieData.gender === 'male' ? '男性' : '女性'}}</view>
+        <view class="data-value">{{calorieData.gender === 'male' ? '👨 男性' : '👩 女性'}}</view>
+      </view>
+
+      <view class="data-item" wx:if="{{calorieData.tdee}}">
+        <view class="data-label">每日热量需求</view>
+        <view class="data-value">{{calorieData.tdee}} 千卡</view>
       </view>
     </view>
 
     <view class="card">
-      <view class="card-title">BMI指数</view>
+      <view class="card-title">
+        <view class="title-emoji">📏</view>
+        <view>BMI指数</view>
+      </view>
 
-      <view class="bmi-display">
+      <view class="bmi-display" wx:if="{{profileData.bmi !== null}}">
         <view class="bmi-value">{{profileData.bmi}}</view>
         <view class="bmi-status">{{profileData.bmiStatus}}</view>
       </view>
@@ -237,23 +343,29 @@
     </view>
 
     <view class="card">
-      <view class="card-title">减脂目标</view>
+      <view class="card-title">
+        <view class="title-emoji">🎯</view>
+        <view>减脂目标</view>
+      </view>
 
-      <view class="data-item">
+      <view class="data-item" wx:if="{{profileData.currentWeight}}">
         <view class="data-label">当前体重</view>
         <view class="data-value">{{profileData.currentWeight}} kg</view>
       </view>
 
-      <view class="data-item">
+      <view class="data-item" wx:if="{{predictionData.targetWeight}}">
         <view class="data-label">目标体重</view>
-        <view class="data-value">{{profileData.currentWeight - predictionData.totalLoss}} kg</view>
+        <view class="data-value">{{predictionData.targetWeight}} kg</view>
       </view>
 
-      <button class="record-btn">记录体重</button>
+      <button class="record-btn">📝 记录体重</button>
     </view>
 
     <view class="card">
-      <view class="card-title">常见问题</view>
+      <view class="card-title">
+        <view class="title-emoji">❓</view>
+        <view>常见问题</view>
+      </view>
 
       <view class="faq-item">
         <view class="faq-question">小程序来自哪里？</view>

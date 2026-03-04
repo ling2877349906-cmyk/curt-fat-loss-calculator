@@ -2,20 +2,20 @@ App({
   globalData: {
     // 热量计算页数据
     calorieData: {
-      gender: 'male',
-      age: 22,
-      height: 172,
-      weight: 60,
-      trainTime: 0,
-      trainIntensity: 8,
-      bmr: 0,
-      trainCalories: 0,
-      tdee: 0,
-      nutritionMode: '532',
+      gender: null,
+      age: null,
+      height: null,
+      weight: null,
+      trainTime: null,
+      trainIntensity: null,
+      bmr: null,
+      trainCalories: null,
+      tdee: null,
+      nutritionMode: null,
       customNutrition: {
-        carbs: 50,
-        protein: 30,
-        fat: 20
+        carbs: null,
+        protein: null,
+        fat: null
       },
       nutrition: {
         carbs: 0,
@@ -23,16 +23,23 @@ App({
         protein: 0,
         proteinGrams: 0,
         fat: 0,
-        fatGrams: 0
+        fatGrams: 0,
+        // 减脂模式的第4天数据
+        carbsDay4: 0,
+        carbsGramsDay4: 0,
+        proteinDay4: 0,
+        proteinGramsDay4: 0,
+        fatDay4: 0,
+        fatGramsDay4: 0
       }
     },
 
     // 减脂预测页数据
     predictionData: {
-      initialWeight: 60,
-      targetWeight: 50,
-      monthlyLossPercent: 3,
-      totalLoss: 10,
+      initialWeight: null,
+      targetWeight: null,
+      monthlyLossPercent: null,
+      totalLoss: 0,
       predictMonths: 0,
       predictWeeks: 0,
       predictDays: 0,
@@ -42,10 +49,10 @@ App({
 
     // 个人页数据
     profileData: {
-      bmi: 0,
+      bmi: null,
       bmiStatus: '',
-      currentWeight: 60,
-      targetWeight: 50
+      currentWeight: null,
+      targetWeight: null
     }
   },
 
@@ -71,6 +78,7 @@ App({
 
   // 计算BMR
   calculateBMR(gender, weight, height, age) {
+    if (!gender || !weight || !height || !age) return null;
     let bmr;
     if (gender === 'male') {
       bmr = 10 * weight + 6.25 * height - 5 * age + 5;
@@ -82,35 +90,90 @@ App({
 
   // 计算训练热量
   calculateTrainCalories(trainTime, intensity) {
+    if (!trainTime || !intensity) return 0;
     return Math.round(trainTime * intensity);
   },
 
   // 计算TDEE
   calculateTDEE(bmr, trainCalories) {
-    return bmr + trainCalories;
+    if (!bmr) return null;
+    return bmr + (trainCalories || 0);
   },
 
-  // 计算营养素
-  calculateNutrition(tdee, mode, customNutrition) {
-    let carbsPercent, proteinPercent, fatPercent;
+  // 计算营养素 - 增肌模式
+  calculateBulkNutrition(tdee, weight) {
+    if (!tdee || !weight) return null;
+    
+    // 增肌模式：碳水体重*4g, 蛋白质体重*1.9g, 脂肪体重*0.8g
+    const carbsGrams = Math.round(weight * 4);
+    const proteinGrams = Math.round(weight * 1.9);
+    const fatGrams = Math.round(weight * 0.8);
 
-    if (mode === '532') {
-      carbsPercent = 50;
-      proteinPercent = 30;
-      fatPercent = 20;
-    } else if (mode === '442') {
-      carbsPercent = 40;
-      proteinPercent = 40;
-      fatPercent = 20;
-    } else {
-      carbsPercent = customNutrition.carbs;
-      proteinPercent = customNutrition.protein;
-      fatPercent = customNutrition.fat;
-    }
+    const carbsCalories = Math.round(carbsGrams * 4);
+    const proteinCalories = Math.round(proteinGrams * 4);
+    const fatCalories = Math.round(fatGrams * 9);
 
-    const carbsCalories = Math.round(tdee * carbsPercent / 100);
-    const proteinCalories = Math.round(tdee * proteinPercent / 100);
-    const fatCalories = Math.round(tdee * fatPercent / 100);
+    return {
+      carbs: carbsCalories,
+      carbsGrams: carbsGrams,
+      protein: proteinCalories,
+      proteinGrams: proteinGrams,
+      fat: fatCalories,
+      fatGrams: fatGrams,
+      carbsDay4: 0,
+      carbsGramsDay4: 0,
+      proteinDay4: 0,
+      proteinGramsDay4: 0,
+      fatDay4: 0,
+      fatGramsDay4: 0
+    };
+  },
+
+  // 计算营养素 - 减脂模式
+  calculateCutNutrition(tdee, weight) {
+    if (!tdee || !weight) return null;
+    
+    // 减脂模式前3天：碳水体重*1.5g, 蛋白质体重*1.4g, 脂肪体重*1g
+    const carbsGrams = Math.round(weight * 1.5);
+    const proteinGrams = Math.round(weight * 1.4);
+    const fatGrams = Math.round(weight * 1);
+
+    const carbsCalories = Math.round(carbsGrams * 4);
+    const proteinCalories = Math.round(proteinGrams * 4);
+    const fatCalories = Math.round(fatGrams * 9);
+
+    // 减脂模式第4天：碳水体重*4g, 蛋白质体重*1.4g, 脂肪体重*0.5g
+    const carbsGramsDay4 = Math.round(weight * 4);
+    const proteinGramsDay4 = Math.round(weight * 1.4);
+    const fatGramsDay4 = Math.round(weight * 0.5);
+
+    const carbsCaloriesDay4 = Math.round(carbsGramsDay4 * 4);
+    const proteinCaloriesDay4 = Math.round(proteinGramsDay4 * 4);
+    const fatCaloriesDay4 = Math.round(fatGramsDay4 * 9);
+
+    return {
+      carbs: carbsCalories,
+      carbsGrams: carbsGrams,
+      protein: proteinCalories,
+      proteinGrams: proteinGrams,
+      fat: fatCalories,
+      fatGrams: fatGrams,
+      carbsDay4: carbsCaloriesDay4,
+      carbsGramsDay4: carbsGramsDay4,
+      proteinDay4: proteinCaloriesDay4,
+      proteinGramsDay4: proteinGramsDay4,
+      fatDay4: fatCaloriesDay4,
+      fatGramsDay4: fatGramsDay4
+    };
+  },
+
+  // 计算营养素 - 自定义模式
+  calculateCustomNutrition(tdee, customNutrition) {
+    if (!tdee || !customNutrition.carbs || !customNutrition.protein || !customNutrition.fat) return null;
+
+    const carbsCalories = Math.round(customNutrition.carbs);
+    const proteinCalories = Math.round(customNutrition.protein);
+    const fatCalories = Math.round(customNutrition.fat);
 
     const carbsGrams = Math.round(carbsCalories / 4);
     const proteinGrams = Math.round(proteinCalories / 4);
@@ -122,12 +185,19 @@ App({
       protein: proteinCalories,
       proteinGrams: proteinGrams,
       fat: fatCalories,
-      fatGrams: fatGrams
+      fatGrams: fatGrams,
+      carbsDay4: 0,
+      carbsGramsDay4: 0,
+      proteinDay4: 0,
+      proteinGramsDay4: 0,
+      fatDay4: 0,
+      fatGramsDay4: 0
     };
   },
 
   // 计算BMI
   calculateBMI(weight, height) {
+    if (!weight || !height) return null;
     const heightInMeters = height / 100;
     const bmi = weight / (heightInMeters * heightInMeters);
     let status;
@@ -148,6 +218,8 @@ App({
 
   // 计算减脂周期
   calculatePrediction(initialWeight, targetWeight, monthlyLossPercent) {
+    if (!initialWeight || !targetWeight || !monthlyLossPercent) return null;
+    
     const totalLoss = parseFloat((initialWeight - targetWeight).toFixed(2));
     const monthlyLoss = parseFloat((initialWeight * monthlyLossPercent / 100).toFixed(2));
     const predictMonths = parseFloat((totalLoss / monthlyLoss).toFixed(2));
