@@ -60,19 +60,21 @@ Page({
 
   onLoad() {
     const app = getApp();
+    // 深拷贝数据，避免引用问题
     this.setData({
-      calorieData: app.globalData.calorieData,
-      predictionData: app.globalData.predictionData,
-      profileData: app.globalData.profileData
+      calorieData: JSON.parse(JSON.stringify(app.globalData.calorieData)),
+      predictionData: JSON.parse(JSON.stringify(app.globalData.predictionData)),
+      profileData: JSON.parse(JSON.stringify(app.globalData.profileData))
     });
   },
 
   onShow() {
     const app = getApp();
+    // 深拷贝数据，避免引用问题
     this.setData({
-      calorieData: app.globalData.calorieData,
-      predictionData: app.globalData.predictionData,
-      profileData: app.globalData.profileData
+      calorieData: JSON.parse(JSON.stringify(app.globalData.calorieData)),
+      predictionData: JSON.parse(JSON.stringify(app.globalData.predictionData)),
+      profileData: JSON.parse(JSON.stringify(app.globalData.profileData))
     });
   },
 
@@ -85,7 +87,7 @@ Page({
   // ==================== 热量计算页 ====================
   onGenderChange(e) {
     const gender = e.currentTarget.dataset.gender;
-    const calorieData = this.data.calorieData;
+    const calorieData = JSON.parse(JSON.stringify(this.data.calorieData));
     calorieData.gender = gender;
     this.setData({ calorieData });
     this.calculateAll();
@@ -93,7 +95,7 @@ Page({
 
   onAgeInput(e) {
     const age = e.detail.value ? parseInt(e.detail.value) : null;
-    const calorieData = this.data.calorieData;
+    const calorieData = JSON.parse(JSON.stringify(this.data.calorieData));
     calorieData.age = age;
     this.setData({ calorieData });
     this.calculateAll();
@@ -101,7 +103,7 @@ Page({
 
   onHeightInput(e) {
     const height = e.detail.value ? parseInt(e.detail.value) : null;
-    const calorieData = this.data.calorieData;
+    const calorieData = JSON.parse(JSON.stringify(this.data.calorieData));
     calorieData.height = height;
     this.setData({ calorieData });
     this.calculateAll();
@@ -109,7 +111,7 @@ Page({
 
   onWeightInput(e) {
     const weight = e.detail.value ? parseInt(e.detail.value) : null;
-    const calorieData = this.data.calorieData;
+    const calorieData = JSON.parse(JSON.stringify(this.data.calorieData));
     calorieData.weight = weight;
     this.setData({ calorieData });
     this.calculateAll();
@@ -117,7 +119,7 @@ Page({
 
   onTrainTimeInput(e) {
     const trainTime = e.detail.value ? parseInt(e.detail.value) : null;
-    const calorieData = this.data.calorieData;
+    const calorieData = JSON.parse(JSON.stringify(this.data.calorieData));
     calorieData.trainTime = trainTime;
     this.setData({ calorieData });
     this.calculateAll();
@@ -125,7 +127,7 @@ Page({
 
   onIntensityChange(e) {
     const intensity = parseInt(e.currentTarget.dataset.intensity);
-    const calorieData = this.data.calorieData;
+    const calorieData = JSON.parse(JSON.stringify(this.data.calorieData));
     calorieData.trainIntensity = intensity;
     this.setData({ calorieData });
     this.calculateAll();
@@ -133,7 +135,7 @@ Page({
 
   onNutritionModeChange(e) {
     const mode = e.currentTarget.dataset.mode;
-    const calorieData = this.data.calorieData;
+    const calorieData = JSON.parse(JSON.stringify(this.data.calorieData));
     calorieData.nutritionMode = mode;
     // 重置自定义营养数据
     if (mode === 'custom') {
@@ -149,7 +151,7 @@ Page({
 
   onCustomCarbsInput(e) {
     const carbs = e.detail.value ? parseInt(e.detail.value) : null;
-    const calorieData = this.data.calorieData;
+    const calorieData = JSON.parse(JSON.stringify(this.data.calorieData));
     calorieData.customNutrition.carbs = carbs;
     this.setData({ calorieData });
     this.calculateAll();
@@ -157,7 +159,7 @@ Page({
 
   onCustomProteinInput(e) {
     const protein = e.detail.value ? parseInt(e.detail.value) : null;
-    const calorieData = this.data.calorieData;
+    const calorieData = JSON.parse(JSON.stringify(this.data.calorieData));
     calorieData.customNutrition.protein = protein;
     this.setData({ calorieData });
     this.calculateAll();
@@ -165,7 +167,7 @@ Page({
 
   onCustomFatInput(e) {
     const fat = e.detail.value ? parseInt(e.detail.value) : null;
-    const calorieData = this.data.calorieData;
+    const calorieData = JSON.parse(JSON.stringify(this.data.calorieData));
     calorieData.customNutrition.fat = fat;
     this.setData({ calorieData });
     this.calculateAll();
@@ -174,7 +176,7 @@ Page({
   // ==================== 减脂预测页 ====================
   onInitialWeightInput(e) {
     const weight = e.detail.value ? parseInt(e.detail.value) : null;
-    const predictionData = this.data.predictionData;
+    const predictionData = JSON.parse(JSON.stringify(this.data.predictionData));
     predictionData.initialWeight = weight;
     this.setData({ predictionData });
     this.calculatePrediction();
@@ -182,7 +184,7 @@ Page({
 
   onTargetWeightInput(e) {
     const weight = e.detail.value ? parseInt(e.detail.value) : null;
-    const predictionData = this.data.predictionData;
+    const predictionData = JSON.parse(JSON.stringify(this.data.predictionData));
     predictionData.targetWeight = weight;
     this.setData({ predictionData });
     this.calculatePrediction();
@@ -190,7 +192,7 @@ Page({
 
   onMonthlyLossPercentChange(e) {
     const percent = e.detail.value ? parseFloat(e.detail.value) : null;
-    const predictionData = this.data.predictionData;
+    const predictionData = JSON.parse(JSON.stringify(this.data.predictionData));
     predictionData.monthlyLossPercent = percent;
     this.setData({ predictionData });
     this.calculatePrediction();
@@ -201,7 +203,7 @@ Page({
     if (!percent) return;
     percent = percent - 0.5;
     percent = Math.max(1, percent);
-    const predictionData = this.data.predictionData;
+    const predictionData = JSON.parse(JSON.stringify(this.data.predictionData));
     predictionData.monthlyLossPercent = parseFloat(percent.toFixed(1));
     this.setData({ predictionData });
     this.calculatePrediction();
@@ -212,7 +214,7 @@ Page({
     if (!percent) return;
     percent = percent + 0.5;
     percent = Math.min(5, percent);
-    const predictionData = this.data.predictionData;
+    const predictionData = JSON.parse(JSON.stringify(this.data.predictionData));
     predictionData.monthlyLossPercent = parseFloat(percent.toFixed(1));
     this.setData({ predictionData });
     this.calculatePrediction();
@@ -279,13 +281,13 @@ Page({
       bmiResult = app.calculateBMI(weight, height);
     }
 
-    const calorieData = this.data.calorieData;
+    const calorieData = JSON.parse(JSON.stringify(this.data.calorieData));
     calorieData.bmr = bmr;
     calorieData.trainCalories = trainCalories || 0;
     calorieData.tdee = tdee;
     calorieData.nutrition = nutrition;
 
-    const profileData = this.data.profileData;
+    const profileData = JSON.parse(JSON.stringify(this.data.profileData));
     profileData.bmi = bmiResult.bmi;
     profileData.bmiStatus = bmiResult.status;
     profileData.currentWeight = weight;
@@ -296,8 +298,8 @@ Page({
     });
 
     // 保存到全局数据
-    app.globalData.calorieData = calorieData;
-    app.globalData.profileData = profileData;
+    app.globalData.calorieData = JSON.parse(JSON.stringify(calorieData));
+    app.globalData.profileData = JSON.parse(JSON.stringify(profileData));
     app.saveData();
   },
 
@@ -318,7 +320,7 @@ Page({
       result = app.calculatePrediction(initialWeight, targetWeight, monthlyLossPercent);
     }
 
-    const predictionData = this.data.predictionData;
+    const predictionData = JSON.parse(JSON.stringify(this.data.predictionData));
     predictionData.totalLoss = result.totalLoss;
     predictionData.monthlyLoss = result.monthlyLoss;
     predictionData.predictMonths = result.predictMonths;
@@ -330,7 +332,7 @@ Page({
 
     // 保存到全局数据
     const app_instance = getApp();
-    app_instance.globalData.predictionData = predictionData;
+    app_instance.globalData.predictionData = JSON.parse(JSON.stringify(predictionData));
     app_instance.saveData();
   }
 });

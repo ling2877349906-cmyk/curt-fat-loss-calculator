@@ -76,28 +76,40 @@ App({
     wx.setStorageSync('profileData', this.globalData.profileData);
   },
 
-  // 计算BMR
+  // 计算BMR - 使用Mifflin-St Jeor公式（更准确）
   calculateBMR(gender, weight, height, age) {
     if (!gender || !weight || !height || !age) return null;
+    
     let bmr;
     if (gender === 'male') {
+      // 男性: 10 × 体重(kg) + 6.25 × 身高(cm) - 5 × 年龄 + 5
       bmr = 10 * weight + 6.25 * height - 5 * age + 5;
     } else {
+      // 女性: 10 × 体重(kg) + 6.25 × 身高(cm) - 5 × 年龄 - 161
       bmr = 10 * weight + 6.25 * height - 5 * age - 161;
     }
-    return Math.round(bmr);
+    
+    // BMR不能为负数
+    return Math.max(0, Math.round(bmr));
   },
 
-  // 计算训练热量
+  // 计算训练热量 - 修正公式
+  // 训练热量 = 训练时间(分钟) × 系数
+  // 系数的含义：每分钟消耗的热量
+  // 新手(5): 每分钟消耗约5千卡
+  // 爱好者(8): 每分钟消耗约8千卡  
+  // 老手(10): 每分钟消耗约10千卡
   calculateTrainCalories(trainTime, intensity) {
     if (!trainTime || !intensity) return 0;
+    // trainTime是分钟，intensity是系数
     return Math.round(trainTime * intensity);
   },
 
-  // 计算TDEE
+  // 计算TDEE - 总每日能量消耗
+  // TDEE = BMR + 训练热量
   calculateTDEE(bmr, trainCalories) {
     if (!bmr) return null;
-    return bmr + (trainCalories || 0);
+    return Math.max(0, bmr + (trainCalories || 0));
   },
 
   // 计算营养素 - 增肌模式
@@ -109,6 +121,7 @@ App({
     const proteinGrams = Math.round(weight * 1.9);
     const fatGrams = Math.round(weight * 0.8);
 
+    // 热量计算：碳水和蛋白质每克4千卡，脂肪每克9千卡
     const carbsCalories = Math.round(carbsGrams * 4);
     const proteinCalories = Math.round(proteinGrams * 4);
     const fatCalories = Math.round(fatGrams * 9);
@@ -221,13 +234,19 @@ App({
     if (!initialWeight || !targetWeight || !monthlyLossPercent) return null;
     
     const totalLoss = parseFloat((initialWeight - targetWeight).toFixed(2));
+    
+    // 每月减重量 = 初始体重 × 每月减重比例
     const monthlyLoss = parseFloat((initialWeight * monthlyLossPercent / 100).toFixed(2));
+    
+    // 预计月份 = 总减重 ÷ 每月减重量
     const predictMonths = parseFloat((totalLoss / monthlyLoss).toFixed(2));
     
+    // 转换为周和天
     const totalDays = Math.round(predictMonths * 30);
     const predictWeeks = Math.floor(totalDays / 7);
     const predictDays = totalDays % 7;
     
+    // 每周减重 = 每月减重 ÷ 4
     const weeklyLoss = parseFloat((monthlyLoss / 4).toFixed(2));
 
     return {
