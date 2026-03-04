@@ -32,17 +32,17 @@
 
       <view class="input-group">
         <view class="input-label">年龄</view>
-        <input class="input-field" type="number" model:value="{{calorieData.age}}" placeholder="输入年龄（15-100）" />
+        <input class="input-field" type="number" value="{{calorieData.age}}" bindinput="onAgeInput" placeholder="输入年龄（15-100）" />
       </view>
 
       <view class="input-group">
         <view class="input-label">身高 (cm)</view>
-        <input class="input-field" type="number" model:value="{{calorieData.height}}" placeholder="输入身高（100-300）" />
+        <input class="input-field" type="number" value="{{calorieData.height}}" bindinput="onHeightInput" placeholder="输入身高（100-300）" />
       </view>
 
       <view class="input-group">
         <view class="input-label">体重 (kg)</view>
-        <input class="input-field" type="number" model:value="{{calorieData.weight}}" placeholder="输入体重（30-200）" />
+        <input class="input-field" type="number" value="{{calorieData.weight}}" bindinput="onWeightInput" placeholder="输入体重（30-200）" />
       </view>
 
       <view class="result-display" wx:if="{{calorieData.bmr}}">
@@ -63,7 +63,7 @@
 
       <view class="input-group">
         <view class="input-label">每日训练时间 (分钟)</view>
-        <input class="input-field" type="number" model:value="{{calorieData.trainTime}}" placeholder="输入训练时间" />
+        <input class="input-field" type="number" value="{{calorieData.trainTime}}" bindinput="onTrainTimeInput" placeholder="输入训练时间" />
       </view>
 
       <view class="input-group">
@@ -84,7 +84,7 @@
         </view>
       </view>
 
-      <view class="result-display" wx:if="{{calorieData.trainCalories !== null}}">
+      <view class="result-display" wx:if="{{calorieData.trainCalories !== null && calorieData.trainCalories !== 0}}">
         <view class="result-label">训练消耗热量</view>
         <view class="result-value">{{calorieData.trainCalories}} <text class="result-unit">千卡</text></view>
       </view>
@@ -128,15 +128,15 @@
       <view wx:if="{{calorieData.nutritionMode === 'custom'}}" class="custom-nutrition">
         <view class="input-group">
           <view class="input-label">碳水热量 (千卡)</view>
-          <input class="input-field" type="number" model:value="{{calorieData.customNutrition.carbs}}" placeholder="输入碳水热量" />
+          <input class="input-field" type="number" value="{{calorieData.customNutrition.carbs}}" bindinput="onCustomCarbsInput" placeholder="输入碳水热量" />
         </view>
         <view class="input-group">
           <view class="input-label">蛋白质热量 (千卡)</view>
-          <input class="input-field" type="number" model:value="{{calorieData.customNutrition.protein}}" placeholder="输入蛋白质热量" />
+          <input class="input-field" type="number" value="{{calorieData.customNutrition.protein}}" bindinput="onCustomProteinInput" placeholder="输入蛋白质热量" />
         </view>
         <view class="input-group">
           <view class="input-label">脂肪热量 (千卡)</view>
-          <input class="input-field" type="number" model:value="{{calorieData.customNutrition.fat}}" placeholder="输入脂肪热量" />
+          <input class="input-field" type="number" value="{{calorieData.customNutrition.fat}}" bindinput="onCustomFatInput" placeholder="输入脂肪热量" />
         </view>
       </view>
 
@@ -148,21 +148,21 @@
             <view class="nutrition-emoji">🌾</view>
             碳水
           </view>
-          <view class="nutrition-value">{{calorieData.nutrition.carbs}} 千卡 / {{calorieData.nutrition.carbsGrams}} 克</view>
+          <view class="nutrition-value">{{calorieData.nutrition.carbsGrams}} g / {{calorieData.nutrition.carbs}} 千卡</view>
         </view>
         <view class="nutrition-item">
           <view class="nutrition-label">
             <view class="nutrition-emoji">🥚</view>
             蛋白质
           </view>
-          <view class="nutrition-value">{{calorieData.nutrition.protein}} 千卡 / {{calorieData.nutrition.proteinGrams}} 克</view>
+          <view class="nutrition-value">{{calorieData.nutrition.proteinGrams}} g / {{calorieData.nutrition.protein}} 千卡</view>
         </view>
         <view class="nutrition-item">
           <view class="nutrition-label">
             <view class="nutrition-emoji">🧈</view>
             脂肪
           </view>
-          <view class="nutrition-value">{{calorieData.nutrition.fat}} 千卡 / {{calorieData.nutrition.fatGrams}} 克</view>
+          <view class="nutrition-value">{{calorieData.nutrition.fatGrams}} g / {{calorieData.nutrition.fat}} 千卡</view>
         </view>
 
         <!-- 减脂模式第4天 -->
@@ -173,21 +173,21 @@
               <view class="nutrition-emoji">🌾</view>
               碳水
             </view>
-            <view class="nutrition-value">{{calorieData.nutrition.carbsDay4}} 千卡 / {{calorieData.nutrition.carbsGramsDay4}} 克</view>
+            <view class="nutrition-value">{{calorieData.nutrition.carbsGramsDay4}} g / {{calorieData.nutrition.carbsDay4}} 千卡</view>
           </view>
           <view class="nutrition-item">
             <view class="nutrition-label">
               <view class="nutrition-emoji">🥚</view>
               蛋白质
             </view>
-            <view class="nutrition-value">{{calorieData.nutrition.proteinDay4}} 千卡 / {{calorieData.nutrition.proteinGramsDay4}} 克</view>
+            <view class="nutrition-value">{{calorieData.nutrition.proteinGramsDay4}} g / {{calorieData.nutrition.proteinDay4}} 千卡</view>
           </view>
           <view class="nutrition-item">
             <view class="nutrition-label">
               <view class="nutrition-emoji">🧈</view>
               脂肪
             </view>
-            <view class="nutrition-value">{{calorieData.nutrition.fatDay4}} 千卡 / {{calorieData.nutrition.fatGramsDay4}} 克</view>
+            <view class="nutrition-value">{{calorieData.nutrition.fatGramsDay4}} g / {{calorieData.nutrition.fatDay4}} 千卡</view>
           </view>
         </view>
       </view>
@@ -216,12 +216,12 @@
 
       <view class="input-group">
         <view class="input-label">初始体重 (kg)</view>
-        <input class="input-field" type="number" model:value="{{predictionData.initialWeight}}" placeholder="输入初始体重" />
+        <input class="input-field" type="number" value="{{predictionData.initialWeight}}" bindinput="onInitialWeightInput" placeholder="输入初始体重" />
       </view>
 
       <view class="input-group">
         <view class="input-label">目标体重 (kg)</view>
-        <input class="input-field" type="number" model:value="{{predictionData.targetWeight}}" placeholder="输入目标体重" />
+        <input class="input-field" type="number" value="{{predictionData.targetWeight}}" bindinput="onTargetWeightInput" placeholder="输入目标体重" />
       </view>
 
       <view class="input-group">
