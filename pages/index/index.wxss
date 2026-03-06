@@ -132,19 +132,24 @@
   border: 2px solid #e0e0e0;
   border-radius: 10px;
   font-size: 15px;
-  color: #333 !important;
-  background-color: #ffffff !important;
+  color: #333;
+  background-color: #ffffff;
   box-sizing: border-box;
   transition: all 0.3s ease;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: text;
+}
+
+input.input-field {
+  color: #333;
+  background-color: #ffffff;
 }
 
 .input-field:focus {
   border-color: #2DC78F;
   box-shadow: 0 0 0 3px rgba(45, 199, 143, 0.1);
-}
-
-.input-field::placeholder {
-  color: #ccc;
+  outline: none;
 }
 
 /* 性别按钮 */
