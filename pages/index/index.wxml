@@ -32,17 +32,17 @@
 
       <view class="input-group">
         <view class="input-label">年龄</view>
-        <input class="input-field" type="number" value="{{calorieData.age}}" bindinput="onAgeInput" placeholder="输入年龄（15-100）" placeholder-style="color: #ccc;" />
+        <input class="input-field" type="number" value="{{calorieData.age}}" bindinput="onAgeInput" placeholder="输入年龄" />
       </view>
 
       <view class="input-group">
         <view class="input-label">身高 (cm)</view>
-        <input class="input-field" type="number" value="{{calorieData.height}}" bindinput="onHeightInput" placeholder="输入身高（100-300）" placeholder-style="color: #ccc;" />
+        <input class="input-field" type="number" value="{{calorieData.height}}" bindinput="onHeightInput" placeholder="输入身高" />
       </view>
 
       <view class="input-group">
         <view class="input-label">体重 (kg)</view>
-        <input class="input-field" type="number" value="{{calorieData.weight}}" bindinput="onWeightInput" placeholder="输入体重（30-200）" placeholder-style="color: #ccc;" />
+        <input class="input-field" type="number" value="{{calorieData.weight}}" bindinput="onWeightInput" placeholder="输入体重" />
       </view>
 
       <view class="result-display" wx:if="{{calorieData.bmr}}">
@@ -63,28 +63,28 @@
 
       <view class="input-group">
         <view class="input-label">每日训练时间 (分钟)</view>
-        <input class="input-field" type="number" value="{{calorieData.trainTime}}" bindinput="onTrainTimeInput" placeholder="输入训练时间" placeholder-style="color: #ccc;" />
+        <input class="input-field" type="number" value="{{calorieData.trainTime}}" bindinput="onTrainTimeInput" placeholder="输入训练时间" />
       </view>
 
       <view class="input-group">
         <view class="input-label">训练强度</view>
         <view class="intensity-buttons">
-          <button class="intensity-btn {{calorieData.trainIntensity === 5 ? 'active' : ''}}" bindtap="onIntensityChange" data-intensity="5">
+          <button class="intensity-btn {{calorieData.trainIntensity === '5' ? 'active' : ''}}" bindtap="onIntensityChange" data-intensity="5">
             <view class="intensity-emoji">🌱</view>
             <view class="intensity-text">新手<br/>(系数5)</view>
           </button>
-          <button class="intensity-btn {{calorieData.trainIntensity === 8 ? 'active' : ''}}" bindtap="onIntensityChange" data-intensity="8">
+          <button class="intensity-btn {{calorieData.trainIntensity === '8' ? 'active' : ''}}" bindtap="onIntensityChange" data-intensity="8">
             <view class="intensity-emoji">⚡</view>
             <view class="intensity-text">爱好者<br/>(系数8)</view>
           </button>
-          <button class="intensity-btn {{calorieData.trainIntensity === 10 ? 'active' : ''}}" bindtap="onIntensityChange" data-intensity="10">
+          <button class="intensity-btn {{calorieData.trainIntensity === '10' ? 'active' : ''}}" bindtap="onIntensityChange" data-intensity="10">
             <view class="intensity-emoji">🚀</view>
             <view class="intensity-text">老手<br/>(系数10)</view>
           </button>
         </view>
       </view>
 
-      <view class="result-display" wx:if="{{calorieData.trainCalories !== null && calorieData.trainCalories !== 0}}">
+      <view class="result-display" wx:if="{{calorieData.trainCalories}}">
         <view class="result-label">训练消耗热量</view>
         <view class="result-value">{{calorieData.trainCalories}} <text class="result-unit">千卡</text></view>
       </view>
@@ -128,15 +128,15 @@
       <view wx:if="{{calorieData.nutritionMode === 'custom'}}" class="custom-nutrition">
         <view class="input-group">
           <view class="input-label">碳水热量 (千卡)</view>
-          <input class="input-field" type="number" value="{{calorieData.customNutrition.carbs}}" bindinput="onCustomCarbsInput" placeholder="输入碳水热量" placeholder-style="color: #ccc;" />
+          <input class="input-field" type="number" value="{{calorieData.customNutrition.carbs}}" bindinput="onCustomCarbsInput" placeholder="输入碳水热量" />
         </view>
         <view class="input-group">
           <view class="input-label">蛋白质热量 (千卡)</view>
-          <input class="input-field" type="number" value="{{calorieData.customNutrition.protein}}" bindinput="onCustomProteinInput" placeholder="输入蛋白质热量" placeholder-style="color: #ccc;" />
+          <input class="input-field" type="number" value="{{calorieData.customNutrition.protein}}" bindinput="onCustomProteinInput" placeholder="输入蛋白质热量" />
         </view>
         <view class="input-group">
-          <view class="input-label">脚肪热量 (千卡)</view>
-          <input class="input-field" type="number" value="{{calorieData.customNutrition.fat}}" bindinput="onCustomFatInput" placeholder="输入脚肪热量" placeholder-style="color: #ccc;" />
+          <view class="input-label">脂肪热量 (千卡)</view>
+          <input class="input-field" type="number" value="{{calorieData.customNutrition.fat}}" bindinput="onCustomFatInput" placeholder="输入脂肪热量" />
         </view>
       </view>
 
@@ -216,12 +216,12 @@
 
       <view class="input-group">
         <view class="input-label">初始体重 (kg)</view>
-        <input class="input-field" type="number" value="{{predictionData.initialWeight}}" bindinput="onInitialWeightInput" placeholder="输入初始体重" placeholder-style="color: #ccc;" />
+        <input class="input-field" type="number" value="{{predictionData.initialWeight}}" bindinput="onInitialWeightInput" placeholder="输入初始体重" />
       </view>
 
       <view class="input-group">
         <view class="input-label">目标体重 (kg)</view>
-        <input class="input-field" type="number" value="{{predictionData.targetWeight}}" bindinput="onTargetWeightInput" placeholder="输入目标体重" placeholder-style="color: #ccc;" />
+        <input class="input-field" type="number" value="{{predictionData.targetWeight}}" bindinput="onTargetWeightInput" placeholder="输入目标体重" />
       </view>
 
       <view class="input-group">
@@ -321,7 +321,7 @@
         <view>BMI指数</view>
       </view>
 
-      <view class="bmi-display" wx:if="{{profileData.bmi !== null}}">
+      <view class="bmi-display" wx:if="{{profileData.bmi}}">
         <view class="bmi-value">{{profileData.bmi}}</view>
         <view class="bmi-status">{{profileData.bmiStatus}}</view>
       </view>
@@ -348,9 +348,9 @@
         <view>减脂目标</view>
       </view>
 
-      <view class="data-item" wx:if="{{profileData.currentWeight}}">
+      <view class="data-item" wx:if="{{predictionData.initialWeight}}">
         <view class="data-label">当前体重</view>
-        <view class="data-value">{{profileData.currentWeight}} kg</view>
+        <view class="data-value">{{predictionData.initialWeight}} kg</view>
       </view>
 
       <view class="data-item" wx:if="{{predictionData.targetWeight}}">
@@ -358,7 +358,7 @@
         <view class="data-value">{{predictionData.targetWeight}} kg</view>
       </view>
 
-      <button class="record-btn">📝 记录体重</button>
+      <button class="record-btn" bindtap="recordWeight">📝 记录体重</button>
     </view>
 
     <view class="card">

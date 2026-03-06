@@ -3,58 +3,58 @@ Page({
     activeTab: 0,
     tabs: ['热量计算', '减脂预测', '个人'],
 
-    // 热量计算页
+    // 热量计算页 - 所有字段初始为空
     calorieData: {
-      gender: null,
+      gender: '',
       age: '',
       height: '',
       weight: '',
       trainTime: '',
-      trainIntensity: null,
-      bmr: null,
-      trainCalories: null,
-      tdee: null,
-      nutritionMode: null,
+      trainIntensity: '',
+      bmr: '',
+      trainCalories: '',
+      tdee: '',
+      nutritionMode: '',
       customNutrition: {
         carbs: '',
         protein: '',
         fat: ''
       },
       nutrition: {
-        carbs: 0,
-        carbsGrams: 0,
-        protein: 0,
-        proteinGrams: 0,
-        fat: 0,
-        fatGrams: 0,
-        carbsDay4: 0,
-        carbsGramsDay4: 0,
-        proteinDay4: 0,
-        proteinGramsDay4: 0,
-        fatDay4: 0,
-        fatGramsDay4: 0
+        carbs: '',
+        carbsGrams: '',
+        protein: '',
+        proteinGrams: '',
+        fat: '',
+        fatGrams: '',
+        carbsDay4: '',
+        carbsGramsDay4: '',
+        proteinDay4: '',
+        proteinGramsDay4: '',
+        fatDay4: '',
+        fatGramsDay4: ''
       }
     },
 
-    // 减脂预测页
+    // 减脂预测页 - 所有字段初始为空
     predictionData: {
       initialWeight: '',
       targetWeight: '',
-      monthlyLossPercent: null,
-      totalLoss: 0,
-      predictMonths: 0,
-      predictWeeks: 0,
-      predictDays: 0,
-      monthlyLoss: 0,
-      weeklyLoss: 0
+      monthlyLossPercent: '',
+      totalLoss: '',
+      predictMonths: '',
+      predictWeeks: '',
+      predictDays: '',
+      monthlyLoss: '',
+      weeklyLoss: ''
     },
 
-    // 个人页
+    // 个人页 - 所有字段初始为空
     profileData: {
-      bmi: null,
+      bmi: '',
       bmiStatus: '',
-      currentWeight: null,
-      targetWeight: null
+      currentWeight: '',
+      targetWeight: ''
     }
   },
 
@@ -89,7 +89,6 @@ Page({
   switchTab(e) {
     const index = e.currentTarget.dataset.index;
     this.setData({ activeTab: index });
-    // 切换Tab时同步数据
     this.syncAllData();
   },
 
@@ -101,9 +100,7 @@ Page({
   // ==================== 热量计算页 - 性别选择 ====================
   onGenderChange(e) {
     const gender = e.currentTarget.dataset.gender;
-    this.setData({
-      'calorieData.gender': gender
-    });
+    this.setData({ 'calorieData.gender': gender });
     this.calculateBMR();
     this.saveToGlobalData();
   },
@@ -111,9 +108,7 @@ Page({
   // ==================== 热量计算页 - 年龄输入 ====================
   onAgeInput(e) {
     const age = e.detail.value;
-    this.setData({
-      'calorieData.age': age
-    });
+    this.setData({ 'calorieData.age': age });
     if (age) {
       this.calculateBMR();
       this.calculateBMI();
@@ -124,9 +119,7 @@ Page({
   // ==================== 热量计算页 - 身高输入 ====================
   onHeightInput(e) {
     const height = e.detail.value;
-    this.setData({
-      'calorieData.height': height
-    });
+    this.setData({ 'calorieData.height': height });
     if (height) {
       this.calculateBMR();
       this.calculateBMI();
@@ -137,9 +130,7 @@ Page({
   // ==================== 热量计算页 - 体重输入 ====================
   onWeightInput(e) {
     const weight = e.detail.value;
-    this.setData({
-      'calorieData.weight': weight
-    });
+    this.setData({ 'calorieData.weight': weight });
     if (weight) {
       this.calculateBMR();
       this.calculateBMI();
@@ -151,9 +142,7 @@ Page({
   // ==================== 热量计算页 - 训练时间输入 ====================
   onTrainTimeInput(e) {
     const trainTime = e.detail.value;
-    this.setData({
-      'calorieData.trainTime': trainTime
-    });
+    this.setData({ 'calorieData.trainTime': trainTime });
     if (trainTime) {
       this.calculateTrainCalories();
       this.saveToGlobalData();
@@ -162,10 +151,8 @@ Page({
 
   // ==================== 热量计算页 - 训练强度选择 ====================
   onIntensityChange(e) {
-    const intensity = parseInt(e.currentTarget.dataset.intensity);
-    this.setData({
-      'calorieData.trainIntensity': intensity
-    });
+    const intensity = e.currentTarget.dataset.intensity;
+    this.setData({ 'calorieData.trainIntensity': intensity });
     this.calculateTrainCalories();
     this.saveToGlobalData();
   },
@@ -173,17 +160,12 @@ Page({
   // ==================== 热量计算页 - 营养模式选择 ====================
   onNutritionModeChange(e) {
     const mode = e.currentTarget.dataset.mode;
-    this.setData({
-      'calorieData.nutritionMode': mode
-    });
-    // 重置自定义营养数据
+    this.setData({ 'calorieData.nutritionMode': mode });
     if (mode === 'custom') {
       this.setData({
-        'calorieData.customNutrition': {
-          carbs: '',
-          protein: '',
-          fat: ''
-        }
+        'calorieData.customNutrition.carbs': '',
+        'calorieData.customNutrition.protein': '',
+        'calorieData.customNutrition.fat': ''
       });
     }
     this.calculateNutrition();
@@ -193,44 +175,30 @@ Page({
   // ==================== 热量计算页 - 自定义营养输入 ====================
   onCustomCarbsInput(e) {
     const carbs = e.detail.value;
-    this.setData({
-      'calorieData.customNutrition.carbs': carbs
-    });
-    if (carbs) {
-      this.calculateNutrition();
-      this.saveToGlobalData();
-    }
+    this.setData({ 'calorieData.customNutrition.carbs': carbs });
+    this.calculateNutrition();
+    this.saveToGlobalData();
   },
 
   onCustomProteinInput(e) {
     const protein = e.detail.value;
-    this.setData({
-      'calorieData.customNutrition.protein': protein
-    });
-    if (protein) {
-      this.calculateNutrition();
-      this.saveToGlobalData();
-    }
+    this.setData({ 'calorieData.customNutrition.protein': protein });
+    this.calculateNutrition();
+    this.saveToGlobalData();
   },
 
   onCustomFatInput(e) {
     const fat = e.detail.value;
-    this.setData({
-      'calorieData.customNutrition.fat': fat
-    });
-    if (fat) {
-      this.calculateNutrition();
-      this.saveToGlobalData();
-    }
+    this.setData({ 'calorieData.customNutrition.fat': fat });
+    this.calculateNutrition();
+    this.saveToGlobalData();
   },
 
   // ==================== 减脂预测页 - 初始体重输入 ====================
   onInitialWeightInput(e) {
-    const weight = e.detail.value;
-    this.setData({
-      'predictionData.initialWeight': weight
-    });
-    if (weight) {
+    const initialWeight = e.detail.value;
+    this.setData({ 'predictionData.initialWeight': initialWeight });
+    if (initialWeight) {
       this.calculatePrediction();
       this.saveToGlobalData();
     }
@@ -238,209 +206,248 @@ Page({
 
   // ==================== 减脂预测页 - 目标体重输入 ====================
   onTargetWeightInput(e) {
-    const weight = e.detail.value;
-    this.setData({
-      'predictionData.targetWeight': weight
-    });
-    if (weight) {
+    const targetWeight = e.detail.value;
+    this.setData({ 'predictionData.targetWeight': targetWeight });
+    if (targetWeight) {
       this.calculatePrediction();
       this.saveToGlobalData();
     }
   },
 
-  // ==================== 减脂预测页 - 减重比例调整 ====================
+  // ==================== 减脂预测页 - 百分比增减 ====================
   decreasePercent() {
-    let percent = this.data.predictionData.monthlyLossPercent;
-    if (!percent) {
-      percent = 3; // 默认3%
-    } else {
-      percent = percent - 0.5;
+    let percent = parseInt(this.data.predictionData.monthlyLossPercent) || 0;
+    if (percent > 1) {
+      percent--;
+      this.setData({ 'predictionData.monthlyLossPercent': percent });
+      this.calculatePrediction();
+      this.saveToGlobalData();
     }
-    percent = Math.max(1, percent);
-    this.setData({
-      'predictionData.monthlyLossPercent': parseFloat(percent.toFixed(1))
-    });
-    this.calculatePrediction();
-    this.saveToGlobalData();
   },
 
   increasePercent() {
-    let percent = this.data.predictionData.monthlyLossPercent;
-    if (!percent) {
-      percent = 3; // 默认3%
-    } else {
-      percent = percent + 0.5;
+    let percent = parseInt(this.data.predictionData.monthlyLossPercent) || 0;
+    if (percent < 5) {
+      percent++;
+      this.setData({ 'predictionData.monthlyLossPercent': percent });
+      this.calculatePrediction();
+      this.saveToGlobalData();
     }
-    percent = Math.min(5, percent);
-    this.setData({
-      'predictionData.monthlyLossPercent': parseFloat(percent.toFixed(1))
-    });
-    this.calculatePrediction();
-    this.saveToGlobalData();
   },
 
-  savePredictionTarget() {
-    const { initialWeight, targetWeight, monthlyLossPercent } = this.data.predictionData;
-    if (!initialWeight || !targetWeight || !monthlyLossPercent) {
-      wx.showToast({
-        title: '请填写完整数据',
-        icon: 'none',
-        duration: 1500
+  // ==================== 计算函数 ====================
+
+  // 计算BMR（基础代谢率）
+  calculateBMR() {
+    const { gender, age, height, weight } = this.data.calorieData;
+    
+    if (!gender || !age || !height || !weight) {
+      this.setData({
+        'calorieData.bmr': '',
+        'calorieData.tdee': '',
+        'calorieData.trainCalories': ''
       });
       return;
     }
+
+    const ageNum = parseFloat(age);
+    const heightNum = parseFloat(height);
+    const weightNum = parseFloat(weight);
+
+    if (ageNum <= 0 || heightNum <= 0 || weightNum <= 0) {
+      return;
+    }
+
+    let bmr;
+    if (gender === 'male') {
+      bmr = 10 * weightNum + 6.25 * heightNum - 5 * ageNum + 5;
+    } else {
+      bmr = 10 * weightNum + 6.25 * heightNum - 5 * ageNum - 161;
+    }
+
+    bmr = Math.round(bmr);
+    this.setData({ 'calorieData.bmr': bmr });
+    this.calculateTDEE();
+    this.calculateBMI();
+  },
+
+  // 计算TDEE（每日总热量消耗）
+  calculateTDEE() {
+    const { bmr, trainCalories } = this.data.calorieData;
+    
+    if (!bmr) {
+      this.setData({ 'calorieData.tdee': '' });
+      return;
+    }
+
+    const trainCaloriesNum = parseFloat(trainCalories) || 0;
+    const tdee = Math.round(parseFloat(bmr) + trainCaloriesNum);
+    this.setData({ 'calorieData.tdee': tdee });
+  },
+
+  // 计算训练消耗热量
+  calculateTrainCalories() {
+    const { weight, trainTime, trainIntensity } = this.data.calorieData;
+    
+    if (!weight || !trainTime || !trainIntensity) {
+      this.setData({ 'calorieData.trainCalories': '' });
+      return;
+    }
+
+    const weightNum = parseFloat(weight);
+    const trainTimeNum = parseFloat(trainTime);
+    const intensityNum = parseFloat(trainIntensity);
+
+    if (weightNum <= 0 || trainTimeNum <= 0 || intensityNum <= 0) {
+      return;
+    }
+
+    const trainCalories = Math.round(trainTimeNum * weightNum * intensityNum / 100);
+    this.setData({ 'calorieData.trainCalories': trainCalories });
+    this.calculateTDEE();
+  },
+
+  // 计算BMI
+  calculateBMI() {
+    const { height, weight } = this.data.calorieData;
+    
+    if (!height || !weight) {
+      this.setData({
+        'profileData.bmi': '',
+        'profileData.bmiStatus': ''
+      });
+      return;
+    }
+
+    const heightNum = parseFloat(height) / 100;
+    const weightNum = parseFloat(weight);
+
+    if (heightNum <= 0 || weightNum <= 0) {
+      return;
+    }
+
+    const bmi = (weightNum / (heightNum * heightNum)).toFixed(1);
+    let bmiStatus = '';
+
+    if (bmi < 18.5) {
+      bmiStatus = '偏瘦';
+    } else if (bmi >= 18.5 && bmi < 24) {
+      bmiStatus = '正常';
+    } else if (bmi >= 24 && bmi < 28) {
+      bmiStatus = '偏胖';
+    } else {
+      bmiStatus = '肥胖';
+    }
+
+    this.setData({
+      'profileData.bmi': bmi,
+      'profileData.bmiStatus': bmiStatus
+    });
+  },
+
+  // 计算营养素分配
+  calculateNutrition() {
+    const { weight, nutritionMode } = this.data.calorieData;
+    
+    if (!weight || !nutritionMode) {
+      this.setData({
+        'calorieData.nutrition': {
+          carbs: '',
+          carbsGrams: '',
+          protein: '',
+          proteinGrams: '',
+          fat: '',
+          fatGrams: '',
+          carbsDay4: '',
+          carbsGramsDay4: '',
+          proteinDay4: '',
+          proteinGramsDay4: '',
+          fatDay4: '',
+          fatGramsDay4: ''
+        }
+      });
+      return;
+    }
+
+    const weightNum = parseFloat(weight);
+    if (weightNum <= 0) {
+      return;
+    }
+
+    const app = getApp();
+    let nutrition = {};
+
+    if (nutritionMode === 'bulk') {
+      // 增肌模式
+      nutrition = app.calculateBulkNutrition(weightNum);
+    } else if (nutritionMode === 'cut') {
+      // 减脂模式
+      nutrition = app.calculateCutNutrition(weightNum);
+    } else if (nutritionMode === 'custom') {
+      // 自定义模式
+      nutrition = app.calculateCustomNutrition(this.data.calorieData.customNutrition);
+    }
+
+    this.setData({ 'calorieData.nutrition': nutrition });
+  },
+
+  // 计算减脂预测
+  calculatePrediction() {
+    const { initialWeight, targetWeight, monthlyLossPercent } = this.data.predictionData;
+    
+    if (!initialWeight || !targetWeight || !monthlyLossPercent) {
+      this.setData({
+        'predictionData.totalLoss': '',
+        'predictionData.predictMonths': '',
+        'predictionData.predictWeeks': '',
+        'predictionData.predictDays': '',
+        'predictionData.monthlyLoss': '',
+        'predictionData.weeklyLoss': ''
+      });
+      return;
+    }
+
+    const initialWeightNum = parseFloat(initialWeight);
+    const targetWeightNum = parseFloat(targetWeight);
+    const percentNum = parseFloat(monthlyLossPercent);
+
+    if (initialWeightNum <= 0 || targetWeightNum <= 0 || percentNum <= 0) {
+      return;
+    }
+
+    const totalLoss = (initialWeightNum - targetWeightNum).toFixed(1);
+    const monthlyLoss = (initialWeightNum * percentNum / 100).toFixed(1);
+    const months = Math.ceil(totalLoss / monthlyLoss);
+    const weeks = Math.floor((totalLoss % monthlyLoss) / (monthlyLoss / 4));
+    const days = Math.floor((totalLoss % monthlyLoss) % (monthlyLoss / 4) / (monthlyLoss / 28));
+    const weeklyLoss = (monthlyLoss / 4).toFixed(2);
+
+    this.setData({
+      'predictionData.totalLoss': totalLoss,
+      'predictionData.predictMonths': months,
+      'predictionData.predictWeeks': weeks,
+      'predictionData.predictDays': days,
+      'predictionData.monthlyLoss': monthlyLoss,
+      'predictionData.weeklyLoss': weeklyLoss
+    });
+  },
+
+  // 保存减脂目标
+  savePredictionTarget() {
+    this.saveToGlobalData();
     wx.showToast({
       title: '目标已保存',
       icon: 'success',
       duration: 1500
     });
-    this.saveToGlobalData();
   },
 
-  // ==================== 计算逻辑 ====================
-  calculateBMR() {
-    const app = getApp();
-    const { gender, age, height, weight } = this.data.calorieData;
-
-    // 转换为数字
-    const ageNum = parseFloat(age);
-    const heightNum = parseFloat(height);
-    const weightNum = parseFloat(weight);
-
-    const bmr = app.calculateBMR(gender, weightNum, heightNum, ageNum);
-    
-    this.setData({
-      'calorieData.bmr': bmr
-    });
-
-    // 计算TDEE
-    this.calculateTDEE();
-  },
-
-  calculateTrainCalories() {
-    const app = getApp();
-    const { trainTime, trainIntensity } = this.data.calorieData;
-
-    // 转换为数字
-    const trainTimeNum = parseFloat(trainTime);
-
-    const trainCalories = app.calculateTrainCalories(trainTimeNum, trainIntensity);
-
-    this.setData({
-      'calorieData.trainCalories': trainCalories
-    });
-
-    // 计算TDEE
-    this.calculateTDEE();
-  },
-
-  calculateTDEE() {
-    const app = getApp();
-    const { bmr, trainCalories } = this.data.calorieData;
-
-    const tdee = app.calculateTDEE(bmr, trainCalories);
-
-    this.setData({
-      'calorieData.tdee': tdee
-    });
-
-    // 计算营养素
-    this.calculateNutrition();
-  },
-
-  calculateNutrition() {
-    const app = getApp();
-    const { tdee, nutritionMode, customNutrition, weight } = this.data.calorieData;
-
-    // 转换为数字
-    const weightNum = parseFloat(weight);
-
-    let nutrition = {
-      carbs: 0,
-      carbsGrams: 0,
-      protein: 0,
-      proteinGrams: 0,
-      fat: 0,
-      fatGrams: 0,
-      carbsDay4: 0,
-      carbsGramsDay4: 0,
-      proteinDay4: 0,
-      proteinGramsDay4: 0,
-      fatDay4: 0,
-      fatGramsDay4: 0
-    };
-
-    if (nutritionMode === 'bulk' && tdee && weightNum) {
-      nutrition = app.calculateBulkNutrition(tdee, weightNum);
-    } else if (nutritionMode === 'cut' && tdee && weightNum) {
-      nutrition = app.calculateCutNutrition(tdee, weightNum);
-    } else if (nutritionMode === 'custom' && tdee) {
-      const carbsNum = parseFloat(customNutrition.carbs);
-      const proteinNum = parseFloat(customNutrition.protein);
-      const fatNum = parseFloat(customNutrition.fat);
-      
-      if (carbsNum && proteinNum && fatNum) {
-        nutrition = app.calculateCustomNutrition(tdee, {
-          carbs: carbsNum,
-          protein: proteinNum,
-          fat: fatNum
-        });
-      }
-    }
-
-    this.setData({
-      'calorieData.nutrition': nutrition
-    });
-  },
-
-  calculateBMI() {
-    const app = getApp();
-    const { weight, height } = this.data.calorieData;
-
-    // 转换为数字
-    const weightNum = parseFloat(weight);
-    const heightNum = parseFloat(height);
-
-    let bmiResult = { bmi: null, status: '' };
-    if (weightNum && heightNum) {
-      bmiResult = app.calculateBMI(weightNum, heightNum);
-    }
-
-    this.setData({
-      'profileData.bmi': bmiResult.bmi,
-      'profileData.bmiStatus': bmiResult.status,
-      'profileData.currentWeight': weightNum
-    });
-  },
-
-  calculatePrediction() {
-    const app = getApp();
-    const { initialWeight, targetWeight, monthlyLossPercent } = this.data.predictionData;
-
-    // 转换为数字
-    const initialWeightNum = parseFloat(initialWeight);
-    const targetWeightNum = parseFloat(targetWeight);
-
-    let result = {
-      totalLoss: 0,
-      monthlyLoss: 0,
-      predictMonths: 0,
-      predictWeeks: 0,
-      predictDays: 0,
-      weeklyLoss: 0
-    };
-
-    if (initialWeightNum && targetWeightNum && monthlyLossPercent) {
-      result = app.calculatePrediction(initialWeightNum, targetWeightNum, monthlyLossPercent);
-    }
-
-    this.setData({
-      'predictionData.totalLoss': result.totalLoss,
-      'predictionData.monthlyLoss': result.monthlyLoss,
-      'predictionData.predictMonths': result.predictMonths,
-      'predictionData.predictWeeks': result.predictWeeks,
-      'predictionData.predictDays': result.predictDays,
-      'predictionData.weeklyLoss': result.weeklyLoss
+  // 记录体重
+  recordWeight() {
+    wx.showToast({
+      title: '功能开发中',
+      icon: 'none',
+      duration: 1500
     });
   }
 });
