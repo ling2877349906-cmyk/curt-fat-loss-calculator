@@ -32,17 +32,17 @@
 
       <view class="input-group">
         <view class="input-label">年龄</view>
-        <input class="input-field" type="number" value="{{calorieData.age}}" bindinput="onAgeInput" placeholder="输入年龄（15-100）" />
+        <input class="input-field" type="number" value="{{calorieData.age}}" bindinput="onAgeInput" placeholder="输入年龄（15-100）" placeholder-style="color: #ccc;" />
       </view>
 
       <view class="input-group">
         <view class="input-label">身高 (cm)</view>
-        <input class="input-field" type="number" value="{{calorieData.height}}" bindinput="onHeightInput" placeholder="输入身高（100-300）" />
+        <input class="input-field" type="number" value="{{calorieData.height}}" bindinput="onHeightInput" placeholder="输入身高（100-300）" placeholder-style="color: #ccc;" />
       </view>
 
       <view class="input-group">
         <view class="input-label">体重 (kg)</view>
-        <input class="input-field" type="number" value="{{calorieData.weight}}" bindinput="onWeightInput" placeholder="输入体重（30-200）" />
+        <input class="input-field" type="number" value="{{calorieData.weight}}" bindinput="onWeightInput" placeholder="输入体重（30-200）" placeholder-style="color: #ccc;" />
       </view>
 
       <view class="result-display" wx:if="{{calorieData.bmr}}">
@@ -63,7 +63,7 @@
 
       <view class="input-group">
         <view class="input-label">每日训练时间 (分钟)</view>
-        <input class="input-field" type="number" value="{{calorieData.trainTime}}" bindinput="onTrainTimeInput" placeholder="输入训练时间" />
+        <input class="input-field" type="number" value="{{calorieData.trainTime}}" bindinput="onTrainTimeInput" placeholder="输入训练时间" placeholder-style="color: #ccc;" />
       </view>
 
       <view class="input-group">
@@ -128,15 +128,15 @@
       <view wx:if="{{calorieData.nutritionMode === 'custom'}}" class="custom-nutrition">
         <view class="input-group">
           <view class="input-label">碳水热量 (千卡)</view>
-          <input class="input-field" type="number" value="{{calorieData.customNutrition.carbs}}" bindinput="onCustomCarbsInput" placeholder="输入碳水热量" />
+          <input class="input-field" type="number" value="{{calorieData.customNutrition.carbs}}" bindinput="onCustomCarbsInput" placeholder="输入碳水热量" placeholder-style="color: #ccc;" />
         </view>
         <view class="input-group">
           <view class="input-label">蛋白质热量 (千卡)</view>
-          <input class="input-field" type="number" value="{{calorieData.customNutrition.protein}}" bindinput="onCustomProteinInput" placeholder="输入蛋白质热量" />
+          <input class="input-field" type="number" value="{{calorieData.customNutrition.protein}}" bindinput="onCustomProteinInput" placeholder="输入蛋白质热量" placeholder-style="color: #ccc;" />
         </view>
         <view class="input-group">
-          <view class="input-label">脂肪热量 (千卡)</view>
-          <input class="input-field" type="number" value="{{calorieData.customNutrition.fat}}" bindinput="onCustomFatInput" placeholder="输入脂肪热量" />
+          <view class="input-label">脚肪热量 (千卡)</view>
+          <input class="input-field" type="number" value="{{calorieData.customNutrition.fat}}" bindinput="onCustomFatInput" placeholder="输入脚肪热量" placeholder-style="color: #ccc;" />
         </view>
       </view>
 
@@ -216,12 +216,12 @@
 
       <view class="input-group">
         <view class="input-label">初始体重 (kg)</view>
-        <input class="input-field" type="number" value="{{predictionData.initialWeight}}" bindinput="onInitialWeightInput" placeholder="输入初始体重" />
+        <input class="input-field" type="number" value="{{predictionData.initialWeight}}" bindinput="onInitialWeightInput" placeholder="输入初始体重" placeholder-style="color: #ccc;" />
       </view>
 
       <view class="input-group">
         <view class="input-label">目标体重 (kg)</view>
-        <input class="input-field" type="number" value="{{predictionData.targetWeight}}" bindinput="onTargetWeightInput" placeholder="输入目标体重" />
+        <input class="input-field" type="number" value="{{predictionData.targetWeight}}" bindinput="onTargetWeightInput" placeholder="输入目标体重" placeholder-style="color: #ccc;" />
       </view>
 
       <view class="input-group">

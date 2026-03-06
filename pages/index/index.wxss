@@ -132,8 +132,8 @@
   border: 2px solid #e0e0e0;
   border-radius: 10px;
   font-size: 15px;
-  color: #333;
-  background-color: #ffffff;
+  color: #333 !important;
+  background-color: #ffffff !important;
   box-sizing: border-box;
   transition: all 0.3s ease;
 }
