@@ -10,5 +10,7 @@
     "navigationStyle": "default"
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "requiredBackgroundModes": [],
+  "requiredPrivateInfos": []
 }

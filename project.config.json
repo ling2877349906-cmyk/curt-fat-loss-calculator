@@ -46,14 +46,11 @@
     "userConfirmedUseCompilerModuleSwitch": false,
     "useStaticServer": true,
     "checkAppTxv5": false,
-    "checkSiteMapLocation": false,
-    "useMultiFrameRuntime": true,
-    "useApiHook": true,
-    "useApiHostProcess": true
+    "checkSiteMapLocation": false
   },
   "compileType": "miniprogram",
   "libVersion": "latest",
-  "appid": "wx1234567890abcdef",
+  "appid": "wx97e7c0cd7970ca6c",
   "projectname": "curt-fat-loss-calculator",
   "debugOptions": {
     "hidedInDevtools": []
