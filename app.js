@@ -93,25 +93,42 @@ App({
     };
   },
 
-  // ==================== 自定义模式营养计算 ====================
-  calculateCustomNutrition(customData) {
-    if (!customData) return {};
+  // ==================== 自定义模式营养计算（百分比模式） ====================
+  // 根据百分比和总热量计算营养素
+  calculateCustomNutrition(customData, tdee) {
+    if (!customData || !tdee) return {};
 
-    const carbs = parseFloat(customData.carbs) || 0;
-    const protein = parseFloat(customData.protein) || 0;
-    const fat = parseFloat(customData.fat) || 0;
+    // 获取百分比（用户输入的是百分比数字，如30表示30%）
+    const carbsPercent = parseFloat(customData.carbs) || 0;
+    const proteinPercent = parseFloat(customData.protein) || 0;
+    const fatPercent = parseFloat(customData.fat) || 0;
 
-    const carbsGrams = Math.round(carbs / 4);
-    const proteinGrams = Math.round(protein / 4);
-    const fatGrams = Math.round(fat / 9);
+    // 验证百分比总和是否为100%
+    const totalPercent = carbsPercent + proteinPercent + fatPercent;
+    if (totalPercent !== 100) {
+      return {}; // 百分比不等于100%，返回空
+    }
+
+    // 根据百分比计算热量
+    const carbsCalories = Math.round(tdee * carbsPercent / 100);
+    const proteinCalories = Math.round(tdee * proteinPercent / 100);
+    const fatCalories = Math.round(tdee * fatPercent / 100);
+
+    // 根据热量计算克数（碳水和蛋白质：4千卡/克，脂肪：9千卡/克）
+    const carbsGrams = Math.round(carbsCalories / 4);
+    const proteinGrams = Math.round(proteinCalories / 4);
+    const fatGrams = Math.round(fatCalories / 9);
 
     return {
+      carbsPercent: carbsPercent,
+      carbsCalories: carbsCalories,
       carbsGrams: carbsGrams,
-      carbs: carbs,
+      proteinPercent: proteinPercent,
+      proteinCalories: proteinCalories,
       proteinGrams: proteinGrams,
-      protein: protein,
+      fatPercent: fatPercent,
+      fatCalories: fatCalories,
       fatGrams: fatGrams,
-      fat: fat,
       carbsDay4: '',
       carbsGramsDay4: '',
       proteinDay4: '',

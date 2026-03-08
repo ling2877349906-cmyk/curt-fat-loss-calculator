@@ -2,15 +2,116 @@ Page({
   data: {
     activeTab: 0,
     tabs: ['热量计算', '减脂预测', '个人'],
-    // 不设置任何初始值
+    weightRecords: [], // 体重记录数组
   },
 
   onLoad() {
-    // 页面加载时不设置任何初始值
+    // 页面加载时加载体重记录
+    this.loadWeightRecords();
   },
 
   onShow() {
-    // 页面显示时不设置任何初始值
+    // 页面显示时刷新体重记录
+    this.loadWeightRecords();
+  },
+
+  // ==================== 体重记录管理 ====================
+  loadWeightRecords() {
+    // 从本地存储加载体重记录
+    wx.getStorage({
+      key: 'weightRecords',
+      success: (res) => {
+        const records = res.data || [];
+        // 只保留最近7天的记录
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+        const filteredRecords = records.filter(record => {
+          const recordDate = new Date(record.timestamp);
+          return recordDate >= sevenDaysAgo;
+        });
+        this.setData({ weightRecords: filteredRecords });
+      },
+      fail: () => {
+        this.setData({ weightRecords: [] });
+      }
+    });
+  },
+
+  recordWeight() {
+    const currentWeight = this.data.predictionData?.initialWeight;
+    if (!currentWeight) {
+      wx.showToast({
+        title: '请先输入当前体重',
+        icon: 'none',
+        duration: 1500
+      });
+      return;
+    }
+
+    // 获取当前时间
+    const now = new Date();
+    const timestamp = now.getTime();
+    const dateStr = now.toLocaleString('zh-CN', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+
+    // 获取现有记录
+    wx.getStorage({
+      key: 'weightRecords',
+      success: (res) => {
+        let records = res.data || [];
+        records.push({
+          weight: currentWeight,
+          timestamp: timestamp,
+          dateStr: dateStr
+        });
+        // 只保留最近7天的记录
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+        records = records.filter(record => {
+          const recordDate = new Date(record.timestamp);
+          return recordDate >= sevenDaysAgo;
+        });
+        // 保存到本地存储
+        wx.setStorage({
+          key: 'weightRecords',
+          data: records,
+          success: () => {
+            this.setData({ weightRecords: records });
+            wx.showToast({
+              title: '体重已记录',
+              icon: 'success',
+              duration: 1500
+            });
+          }
+        });
+      },
+      fail: () => {
+        // 如果没有记录过，创建新的
+        const records = [{
+          weight: currentWeight,
+          timestamp: timestamp,
+          dateStr: dateStr
+        }];
+        wx.setStorage({
+          key: 'weightRecords',
+          data: records,
+          success: () => {
+            this.setData({ weightRecords: records });
+            wx.showToast({
+              title: '体重已记录',
+              icon: 'success',
+              duration: 1500
+            });
+          }
+        });
+      }
+    });
   },
 
   // ==================== Tab切换 ====================
@@ -158,6 +259,7 @@ Page({
     const tdee = Math.round(bmrNum + trainCaloriesNum);
     
     this.setData({ 'calorieData.tdee': tdee || '' });
+    this.calculateNutrition(); // TDEE更新后重新计算营养
   },
 
   // 计算训练消耗热量
@@ -231,7 +333,7 @@ Page({
   // 计算营养素分配
   calculateNutrition() {
     const calorieData = this.data.calorieData || {};
-    const { weight, nutritionMode } = calorieData;
+    const { weight, nutritionMode, tdee } = calorieData;
     
     if (!weight || !nutritionMode) {
       this.setData({ 'calorieData.nutrition': {} });
@@ -252,7 +354,8 @@ Page({
     } else if (nutritionMode === 'cut') {
       nutrition = app.calculateCutNutrition(weightNum);
     } else if (nutritionMode === 'custom') {
-      nutrition = app.calculateCustomNutrition(calorieData.customNutrition);
+      // 自定义模式需要传递tdee参数
+      nutrition = app.calculateCustomNutrition(calorieData.customNutrition, tdee);
     }
 
     this.setData({ 'calorieData.nutrition': nutrition });
@@ -313,15 +416,6 @@ Page({
     wx.showToast({
       title: '目标已保存',
       icon: 'success',
-      duration: 1500
-    });
-  },
-
-  // 记录体重
-  recordWeight() {
-    wx.showToast({
-      title: '功能开发中',
-      icon: 'none',
       duration: 1500
     });
   }

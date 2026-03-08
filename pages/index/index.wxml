@@ -126,17 +126,18 @@
 
       <!-- 自定义模式输入 -->
       <view wx:if="{{calorieData.nutritionMode === 'custom'}}" class="custom-nutrition">
+        <view class="input-hint">输入营养素百分比（总和必须为100%）</view>
         <view class="input-group">
-          <view class="input-label">碳水热量 (千卡)</view>
-          <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.customNutrition.carbs}}" bindinput="onCustomCarbsInput" placeholder="输入碳水热量" placeholder-style="color: #ccc;" />
+          <view class="input-label">碳水百分比 (%)</view>
+          <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.customNutrition.carbs}}" bindinput="onCustomCarbsInput" placeholder="输入碳水百分比" placeholder-style="color: #ccc;" />
         </view>
         <view class="input-group">
-          <view class="input-label">蛋白质热量 (千卡)</view>
-          <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.customNutrition.protein}}" bindinput="onCustomProteinInput" placeholder="输入蛋白质热量" placeholder-style="color: #ccc;" />
+          <view class="input-label">蛋白质百分比 (%)</view>
+          <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.customNutrition.protein}}" bindinput="onCustomProteinInput" placeholder="输入蛋白质百分比" placeholder-style="color: #ccc;" />
         </view>
         <view class="input-group">
-          <view class="input-label">脚肪热量 (千卡)</view>
-          <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.customNutrition.fat}}" bindinput="onCustomFatInput" placeholder="输入脚肪热量" placeholder-style="color: #ccc;" />
+          <view class="input-label">脂肪热量 (千卡)</view>
+          <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.customNutrition.fat}}" bindinput="onCustomFatInput" placeholder="输入脂肪百分比" placeholder-style="color: #ccc;" />
         </view>
       </view>
 
@@ -356,6 +357,21 @@
       <view class="data-item" wx:if="{{predictionData.targetWeight}}">
         <view class="data-label">目标体重</view>
         <view class="data-value">{{predictionData.targetWeight}} kg</view>
+      </view>
+
+      <!-- 7日体重记录 -->
+      <view class="weight-records" wx:if="{{weightRecords.length > 0}}">
+        <view class="records-title">📊 近7日体重记录</view>
+        <view class="records-list">
+          <view class="record-item" wx:for="{{weightRecords}}" wx:key="timestamp">
+            <view class="record-date">{{item.dateStr}}</view>
+            <view class="record-weight">{{item.weight}} kg</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="weight-records-empty" wx:if="{{weightRecords.length === 0}}">
+        <view class="empty-text">暂无体重记录，点击下方按钮开始记录</view>
       </view>
 
       <button class="record-btn" bindtap="recordWeight">📝 记录体重</button>
