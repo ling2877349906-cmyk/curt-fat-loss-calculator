@@ -102,13 +102,10 @@ Page({
     try {
       wx.setStorageSync('trainingPlan', this.allDaysData);
       wx.showToast({
-        title: '计划已保存',
+        title: '保存成功',
         icon: 'success',
         duration: 1500
       });
-      setTimeout(() => {
-        wx.navigateBack();
-      }, 1500);
     } catch (e) {
       wx.showToast({
         title: '保存失败，请重试',
