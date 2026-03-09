@@ -62,30 +62,29 @@
       </view>
 
       <view class="input-group">
-        <view class="input-label">每日训练时间 (分钟)</view>
-        <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.trainTime}}" bindinput="onTrainTimeInput" placeholder="输入训练时间" placeholder-style="color: #ccc;" />
+        <view class="input-label">每日有氧训练时间 (分钟)</view>
+        <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.cardioMinutes}}" bindinput="onCardioMinutesInput" placeholder="如快走、慢跑、骑行等，默认0" placeholder-style="color: #ccc;" />
       </view>
 
       <view class="input-group">
-        <view class="input-label">训练强度</view>
-        <view class="intensity-buttons">
-          <button class="intensity-btn {{calorieData.trainIntensity === '5' ? 'active' : ''}}" bindtap="onIntensityChange" data-intensity="5">
-            <view class="intensity-emoji">🌱</view>
-            <view class="intensity-text">新手<br/>(系数5)</view>
-          </button>
-          <button class="intensity-btn {{calorieData.trainIntensity === '8' ? 'active' : ''}}" bindtap="onIntensityChange" data-intensity="8">
-            <view class="intensity-emoji">⚡</view>
-            <view class="intensity-text">爱好者<br/>(系数8)</view>
-          </button>
-          <button class="intensity-btn {{calorieData.trainIntensity === '10' ? 'active' : ''}}" bindtap="onIntensityChange" data-intensity="10">
-            <view class="intensity-emoji">🚀</view>
-            <view class="intensity-text">老手<br/>(系数10)</view>
-          </button>
+        <view class="input-label">每日无氧训练时间 (分钟)</view>
+        <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.strengthMinutes}}" bindinput="onStrengthMinutesInput" placeholder="如力量训练、器械等，默认0" placeholder-style="color: #ccc;" />
+      </view>
+
+      <!-- 分项热量结果 -->
+      <view class="train-detail-results" wx:if="{{calorieData.cardioCalories > 0 || calorieData.strengthCalories > 0}}">
+        <view class="train-detail-item">
+          <view class="train-detail-label">🏃 有氧消耗热量</view>
+          <view class="train-detail-value">{{calorieData.cardioCalories}} 千卡</view>
+        </view>
+        <view class="train-detail-item">
+          <view class="train-detail-label">🏋️ 无氧消耗热量</view>
+          <view class="train-detail-value">{{calorieData.strengthCalories}} 千卡</view>
         </view>
       </view>
 
       <view class="result-display" wx:if="{{calorieData.trainCalories}}">
-        <view class="result-label">训练消耗热量</view>
+        <view class="result-label">训练消耗总热量</view>
         <view class="result-value">{{calorieData.trainCalories}} <text class="result-unit">千卡</text></view>
       </view>
       <view class="result-placeholder" wx:else>

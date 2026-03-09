@@ -949,3 +949,39 @@ input.input-field {
 .card-title-btn:active {
   background-color: rgba(45, 199, 143, 0.15);
 }
+
+/* ==================== 训练热量分项结果 ==================== */
+.train-detail-results {
+  margin: 12px 0;
+  padding: 12px;
+  background-color: rgba(45, 199, 143, 0.06);
+  border-radius: 10px;
+  border-left: 3px solid #2DC78F;
+}
+
+.train-detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+}
+
+.train-detail-item:first-child {
+  padding-top: 0;
+}
+
+.train-detail-item:last-child {
+  padding-bottom: 0;
+}
+
+.train-detail-label {
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+.train-detail-value {
+  font-size: 14px;
+  color: #2DC78F;
+  font-weight: 700;
+}

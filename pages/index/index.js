@@ -229,17 +229,17 @@ Page({
     this.calculateNutrition();
   },
 
-  // ==================== 热量计算页 - 训练时间输入 ====================
-  onTrainTimeInput(e) {
-    const trainTime = e.detail.value;
-    this.setData({ 'calorieData.trainTime': trainTime });
+  // ==================== 热量计算页 - 有氧训练时间输入 ====================
+  onCardioMinutesInput(e) {
+    const value = e.detail.value.replace(/[^0-9]/g, '');
+    this.setData({ 'calorieData.cardioMinutes': value });
     this.calculateTrainCalories();
   },
 
-  // ==================== 热量计算页 - 训练强度选择 ====================
-  onIntensityChange(e) {
-    const intensity = e.currentTarget.dataset.intensity;
-    this.setData({ 'calorieData.trainIntensity': intensity });
+  // ==================== 热量计算页 - 无氧训练时间输入 ====================
+  onStrengthMinutesInput(e) {
+    const value = e.detail.value.replace(/[^0-9]/g, '');
+    this.setData({ 'calorieData.strengthMinutes': value });
     this.calculateTrainCalories();
   },
 
@@ -339,27 +339,41 @@ Page({
     this.calculateNutrition(); // TDEE更新后重新计算营养
   },
 
-  // 计算训练消耗热量
+  // 计算有氧消耗热量（中等强度有氧，约8千卡/分钟）
+  calculateCardioCalories(minutes) {
+    return Math.round(minutes * 8);
+  },
+
+  // 计算无氧消耗热量（中等强度力量训练，约6千卡/分钟）
+  calculateStrengthCalories(minutes) {
+    return Math.round(minutes * 6);
+  },
+
+  // 计算训练消耗热量（有氧 + 无氧）
   calculateTrainCalories() {
     const calorieData = this.data.calorieData || {};
-    const { weight, trainTime, trainIntensity } = calorieData;
-    
-    if (!weight || !trainTime || !trainIntensity) {
-      this.setData({ 'calorieData.trainCalories': '' });
+    const cardioMin = parseInt(calorieData.cardioMinutes) || 0;
+    const strengthMin = parseInt(calorieData.strengthMinutes) || 0;
+
+    if (cardioMin <= 0 && strengthMin <= 0) {
+      this.setData({
+        'calorieData.cardioCalories': 0,
+        'calorieData.strengthCalories': 0,
+        'calorieData.trainCalories': ''
+      });
+      this.calculateTDEE();
       return;
     }
 
-    const weightNum = parseFloat(weight) || 0;
-    const trainTimeNum = parseFloat(trainTime) || 0;
-    const intensityNum = parseFloat(trainIntensity) || 0;
+    const cardioCalories = this.calculateCardioCalories(cardioMin);
+    const strengthCalories = this.calculateStrengthCalories(strengthMin);
+    const totalCalories = cardioCalories + strengthCalories;
 
-    if (weightNum <= 0 || trainTimeNum <= 0 || intensityNum <= 0) {
-      this.setData({ 'calorieData.trainCalories': '' });
-      return;
-    }
-
-    const trainCalories = Math.round(trainTimeNum * weightNum * intensityNum / 100);
-    this.setData({ 'calorieData.trainCalories': trainCalories || '' });
+    this.setData({
+      'calorieData.cardioCalories': cardioCalories,
+      'calorieData.strengthCalories': strengthCalories,
+      'calorieData.trainCalories': totalCalories || ''
+    });
     this.calculateTDEE();
   },
 
