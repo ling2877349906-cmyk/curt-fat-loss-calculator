@@ -1,7 +1,9 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/weight-record/weight-record"
+    "pages/weight-record/weight-record",
+    "pages/training-plan/training-plan",
+    "pages/diet-plan/diet-plan"
   ],
   "window": {
     "backgroundTextStyle": "light",

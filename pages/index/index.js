@@ -724,5 +724,19 @@ Page({
         duration: 1500
       });
     }
+  },
+
+  // 跳转到训练计划页面
+  goToTrainingPlan() {
+    wx.navigateTo({
+      url: '/pages/training-plan/training-plan'
+    });
+  },
+
+  // 跳转到饮食计划页面
+  goToDietPlan() {
+    wx.navigateTo({
+      url: '/pages/diet-plan/diet-plan'
+    });
   }
 });

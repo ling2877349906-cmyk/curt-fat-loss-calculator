@@ -1,0 +1,96 @@
+<view class="page-container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="header-emoji">🍽️</view>
+    <view class="header-title">7天饮食计划</view>
+    <view class="header-subtitle">规划你的每日三餐饮食</view>
+  </view>
+
+  <!-- 天数切换 -->
+  <view class="day-tabs">
+    <view wx:for="{{dayList}}" wx:key="index"
+      class="day-tab {{currentDay === item ? 'active' : ''}}"
+      bindtap="switchDay" data-day="{{item}}">
+      第{{item}}天
+    </view>
+  </view>
+
+  <!-- 三餐模块 -->
+  <view wx:for="{{meals}}" wx:key="key" class="card">
+    <view class="card-title">
+      <view class="title-emoji">{{item.emoji}}</view>
+      <view>{{item.label}}</view>
+    </view>
+
+    <!-- 食材列表 -->
+    <view wx:for="{{item.foods}}" wx:for-item="food" wx:for-index="foodIdx" wx:key="foodIdx" class="food-item">
+      <view class="food-inputs">
+        <view class="food-name-group">
+          <input class="input-field" type="text" value="{{food.name}}" bindinput="onFoodNameInput"
+            data-meal="{{item.key}}" data-index="{{foodIdx}}"
+            placeholder="食材名称" placeholder-style="color: #ccc;" />
+        </view>
+        <view class="food-grams-group">
+          <input class="input-field" type="number" value="{{food.grams}}" bindinput="onFoodGramsInput"
+            data-meal="{{item.key}}" data-index="{{foodIdx}}"
+            placeholder="克数(g)" placeholder-style="color: #ccc;" />
+        </view>
+        <view class="food-delete" bindtap="deleteFood" data-meal="{{item.key}}" data-index="{{foodIdx}}" wx:if="{{item.foods.length > 1}}">
+          <text>✕</text>
+        </view>
+      </view>
+
+      <!-- 单项营养素计算结果 -->
+      <view class="food-nutrition" wx:if="{{food.found}}">
+        <text class="food-nutrition-item">碳水: {{food.carbs}}g</text>
+        <text class="food-nutrition-item">蛋白质: {{food.protein}}g</text>
+        <text class="food-nutrition-item">脂肪: {{food.fat}}g</text>
+      </view>
+      <view class="food-nutrition food-not-found" wx:if="{{food.name && food.grams && !food.found}}">
+        <text class="food-nutrition-item">未找到该食材数据</text>
+      </view>
+    </view>
+
+    <!-- 添加食材按钮 -->
+    <view class="add-food-btn" bindtap="addFood" data-meal="{{item.key}}">
+      <text>+ 添加食材</text>
+    </view>
+
+    <!-- 餐次汇总 -->
+    <view class="meal-summary" wx:if="{{item.totalCarbs > 0 || item.totalProtein > 0 || item.totalFat > 0}}">
+      <view class="meal-summary-title">{{item.label}}合计</view>
+      <view class="meal-summary-data">
+        <text class="summary-item">碳水: {{item.totalCarbs}}g</text>
+        <text class="summary-item">蛋白质: {{item.totalProtein}}g</text>
+        <text class="summary-item">脂肪: {{item.totalFat}}g</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 当日总汇总 -->
+  <view class="card daily-summary-card" wx:if="{{dailyTotalCarbs > 0 || dailyTotalProtein > 0 || dailyTotalFat > 0}}">
+    <view class="card-title">
+      <view class="title-emoji">📊</view>
+      <view>第{{currentDay}}天 营养素汇总</view>
+    </view>
+    <view class="daily-summary-grid">
+      <view class="daily-summary-item">
+        <view class="daily-summary-value">{{dailyTotalCarbs}}g</view>
+        <view class="daily-summary-label">碳水</view>
+      </view>
+      <view class="daily-summary-item">
+        <view class="daily-summary-value">{{dailyTotalProtein}}g</view>
+        <view class="daily-summary-label">蛋白质</view>
+      </view>
+      <view class="daily-summary-item">
+        <view class="daily-summary-value">{{dailyTotalFat}}g</view>
+        <view class="daily-summary-label">脂肪</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 保存按钮 -->
+  <button class="save-plan-btn" bindtap="savePlan">💾 保存计划</button>
+
+  <view style="height: 30px;"></view>
+</view>

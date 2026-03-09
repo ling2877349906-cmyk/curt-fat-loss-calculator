@@ -1,0 +1,50 @@
+<view class="page-container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="header-emoji">🏋️</view>
+    <view class="header-title">7天训练计划</view>
+    <view class="header-subtitle">规划你的每日训练动作</view>
+  </view>
+
+  <!-- 天数切换 -->
+  <view class="day-tabs">
+    <view wx:for="{{dayList}}" wx:key="index"
+      class="day-tab {{currentDay === item ? 'active' : ''}}"
+      bindtap="switchDay" data-day="{{item}}">
+      第{{item}}天
+    </view>
+  </view>
+
+  <!-- 动作列表 -->
+  <view class="card">
+    <view class="card-title">
+      <view class="title-emoji">📝</view>
+      <view>第{{currentDay}}天 训练动作</view>
+    </view>
+
+    <view wx:for="{{exercises}}" wx:key="index" class="exercise-item">
+      <view class="exercise-header">
+        <view class="exercise-index">动作 {{index + 1}}</view>
+        <view class="exercise-delete" bindtap="deleteExercise" data-index="{{index}}" wx:if="{{exercises.length > 1}}">删除</view>
+      </view>
+      <view class="exercise-inputs">
+        <view class="exercise-input-group exercise-name-group">
+          <input class="input-field" type="text" value="{{item.name}}" bindinput="onExerciseNameInput" data-index="{{index}}" placeholder="请输入动作名称" placeholder-style="color: #ccc;" />
+        </view>
+        <view class="exercise-input-group exercise-sets-group">
+          <input class="input-field" type="number" value="{{item.sets}}" bindinput="onExerciseSetsInput" data-index="{{index}}" placeholder="几组" placeholder-style="color: #ccc;" />
+        </view>
+      </view>
+    </view>
+
+    <!-- 添加更多动作 -->
+    <view class="add-exercise-btn" bindtap="addExercise">
+      <text>+ 添加更多动作</text>
+    </view>
+  </view>
+
+  <!-- 保存按钮 -->
+  <button class="save-plan-btn" bindtap="savePlan">💾 保存计划</button>
+
+  <view style="height: 30px;"></view>
+</view>

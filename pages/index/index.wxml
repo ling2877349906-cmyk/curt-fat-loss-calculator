@@ -143,7 +143,8 @@
 
       <!-- 营养素结果 -->
       <view class="nutrition-results" wx:if="{{calorieData.nutritionMode}}">
-        <!-- 增肌模式或减脂前3天 -->
+        <!-- 减脂模式前3天低碳日标签 -->
+        <view wx:if="{{calorieData.nutritionMode === 'cut'}}" class="day4-title">前3天（低碳日）</view>
         <view class="nutrition-item">
           <view class="nutrition-label">
             <view class="nutrition-emoji">🌾</view>
@@ -386,6 +387,28 @@
           <view class="scale-label">偏胖</view>
           <view class="scale-range">&gt;24</view>
         </view>
+      </view>
+    </view>
+
+    <!-- 训练计划 -->
+    <view class="card">
+      <view class="card-title card-title-with-btn">
+        <view class="card-title-left">
+          <view class="title-emoji">🏋️</view>
+          <view>训练计划</view>
+        </view>
+        <view class="card-title-btn" bindtap="goToTrainingPlan">点击填写</view>
+      </view>
+    </view>
+
+    <!-- 饮食计划 -->
+    <view class="card">
+      <view class="card-title card-title-with-btn">
+        <view class="card-title-left">
+          <view class="title-emoji">🍚</view>
+          <view>饮食计划</view>
+        </view>
+        <view class="card-title-btn" bindtap="goToDietPlan">开始计划</view>
       </view>
     </view>
 
