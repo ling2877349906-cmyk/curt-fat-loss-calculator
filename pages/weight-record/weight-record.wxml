@@ -1,0 +1,73 @@
+<view class="page-container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="header-emoji">⚖️</view>
+    <view class="header-title">体重记录</view>
+    <view class="header-subtitle">追踪你的体重变化</view>
+  </view>
+
+  <!-- 目标体重与当前体重 -->
+  <view class="card">
+    <view class="weight-summary">
+      <view class="weight-summary-item">
+        <view class="weight-summary-label">目标体重</view>
+        <view class="weight-summary-value">{{targetWeight ? targetWeight + ' kg' : '未设置'}}</view>
+      </view>
+      <view class="weight-summary-divider"></view>
+      <view class="weight-summary-item">
+        <view class="weight-summary-label">当前体重</view>
+        <view class="weight-summary-value">{{currentWeight ? currentWeight + ' kg' : '未记录'}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 近七天体重记录 -->
+  <view class="card">
+    <view class="card-title">
+      <view class="title-emoji">📊</view>
+      <view>近七天体重</view>
+    </view>
+
+    <view class="weight-records" wx:if="{{weightRecords.length > 0}}">
+      <view class="records-list">
+        <view class="record-item" wx:for="{{weightRecords}}" wx:key="timestamp">
+          <view class="record-date">{{item.dateStr}}</view>
+          <view class="record-weight">{{item.weight}} kg</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="weight-records-empty" wx:else>
+      <view class="empty-text">暂无体重记录</view>
+    </view>
+  </view>
+
+  <!-- 近七天体重变化折线图 -->
+  <view class="card" wx:if="{{weightRecords.length > 1}}">
+    <view class="card-title">
+      <view class="title-emoji">📈</view>
+      <view>体重趋势</view>
+    </view>
+
+    <view class="chart-container">
+      <canvas canvas-id="weightChart" class="weight-chart"></canvas>
+    </view>
+  </view>
+
+  <!-- 记录今日体重 -->
+  <view class="card">
+    <view class="card-title">
+      <view class="title-emoji">📝</view>
+      <view>记录今日体重</view>
+    </view>
+
+    <view class="input-group">
+      <view class="input-label">今日体重 (kg)</view>
+      <input class="input-field" type="digit" value="{{inputWeight}}" bindinput="onWeightInput" placeholder="输入今日体重" placeholder-style="color: #ccc;" />
+    </view>
+
+    <button class="record-btn" bindtap="saveWeight">✅ 记录今日体重</button>
+  </view>
+
+  <view style="height: 20px;"></view>
+</view>

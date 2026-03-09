@@ -1,6 +1,7 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/weight-record/weight-record"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -3,16 +3,93 @@ Page({
     activeTab: 0,
     tabs: ['热量计算', '减脂预测', '个人'],
     weightRecords: [], // 体重记录数组
+    currentKnowledge: '', // 当前显示的小知识
+    lastKnowledgeIndex: -1, // 上一次显示的知识索引
+    // 日历打卡相关
+    calendarYear: 0,
+    calendarMonth: 0,
+    calendarDays: [],
+    showCheckinModal: false,
+    checkinDate: '',
+    checkinData: {
+      waterCount: '',
+      trainMinutes: '',
+      dietRecord: ''
+    },
   },
+
+  // 减脂与增肌小知识库
+  knowledgeList: [
+    '每公斤脂肪约含7700千卡热量，每天少吃500千卡约两周减1公斤。',
+    '蛋白质是肌肉修复的基础，建议每公斤体重摄入1.5–2g蛋白质。',
+    '力量训练能提高基础代谢，让你在休息时也能燃烧更多热量。',
+    '减脂不等于减重，保留肌肉、减少脂肪才是健康减脂的核心。',
+    '睡眠不足会升高皮质醇，导致脂肪囤积，建议每晚睡7–8小时。',
+    '有氧运动燃脂效率高，但过量有氧会消耗肌肉，需配合力量训练。',
+    '饮食中的脂肪不是敌人，适量健康脂肪有助于激素分泌和营养吸收。',
+    '复合动作（深蹲、硬拉、卧推）比孤立动作更高效，燃脂增肌两不误。',
+    '吃太少反而会降低代谢，科学减脂应保持合理热量缺口，而非节食。',
+    '训练后30分钟内补充蛋白质和碳水，能显著促进肌肉合成与恢复。',
+    '多喝水能促进新陈代谢，建议每天饮水量为体重(kg)×30ml。',
+    '减脂期碳水不宜完全断绝，低碳会导致代谢下降和训练表现变差。',
+    '肌肉增长需要热量盈余，增肌期建议每天多吃300–500千卡热量。',
+    '每周训练3–5次，每次45–60分钟，是大多数人的最佳训练频率。',
+    '高蛋白饮食能增强饱腹感，减少总热量摄入，有助于减脂。',
+    '训练前适当补充碳水能提升运动表现，空腹训练并不一定更燃脂。',
+    '减脂平台期很正常，可通过调整训练计划或饮食结构来突破。',
+    '肌肉密度是脂肪的3倍，同体重下肌肉多的人看起来更瘦。',
+    '每餐都应包含蛋白质、碳水和健康脂肪，均衡饮食是关键。',
+    '拉伸和放松能减少训练后酸痛，加速肌肉恢复，别忽略训练后拉伸。',
+    '快速减重大多减的是水分和肌肉，缓慢减脂才能长久保持。',
+    '增肌期也要控制脂肪摄入，否则容易增加过多体脂。',
+    '每周称重1–2次即可，每天称重波动大，容易影响心态。',
+    '健康减脂速度建议每周减0.5–1公斤，过快会损失肌肉。',
+    '组间休息60–90秒适合增肌，30–60秒适合燃脂训练。',
+    '不要害怕举铁，女性力量训练不会变“金刚芭比”，只会更紧致。',
+    '蛋白质来源多样化：鸡胸、鱼、蛋、豆制品都是优质选择。',
+    '吃饭速度放慢，细嚼慢咽能让大脑及时接收饱腹信号，减少过量进食。',
+    'HIIT训练能在短时间内燃烧大量热量，且训练后仍持续燃脂。',
+    '压力大会导致皮质醇升高，促进脂肪囤积，学会管理压力很重要。',
+    '训练日和休息日的饮食可适当调整，训练日多吃碳水，休息日稍减。',
+  ],
 
   onLoad() {
     // 页面加载时加载体重记录
     this.loadWeightRecords();
+    // 初始化小知识
+    this.refreshKnowledge();
+    // 每30秒自动刷新小知识
+    this.knowledgeTimer = setInterval(() => {
+      this.refreshKnowledge();
+    }, 30000);
+    // 初始化日历
+    this.initCalendar();
   },
 
   onShow() {
     // 页面显示时刷新体重记录
     this.loadWeightRecords();
+  },
+
+  onUnload() {
+    // 页面卸载时清除定时器
+    if (this.knowledgeTimer) {
+      clearInterval(this.knowledgeTimer);
+      this.knowledgeTimer = null;
+    }
+  },
+
+  // ==================== 减脂与增肌小知识 ====================
+  refreshKnowledge() {
+    const list = this.knowledgeList;
+    let index;
+    do {
+      index = Math.floor(Math.random() * list.length);
+    } while (index === this.data.lastKnowledgeIndex && list.length > 1);
+    this.setData({
+      currentKnowledge: list[index],
+      lastKnowledgeIndex: index
+    });
   },
 
   // ==================== 体重记录管理 ====================
@@ -413,10 +490,239 @@ Page({
 
   // 保存减脂目标
   savePredictionTarget() {
+    // 保存预测数据到本地存储
+    const predictionData = this.data.predictionData || {};
+    wx.setStorage({
+      key: 'predictionData',
+      data: {
+        initialWeight: predictionData.initialWeight || '',
+        targetWeight: predictionData.targetWeight || '',
+        monthlyLossPercent: predictionData.monthlyLossPercent || ''
+      }
+    });
     wx.showToast({
       title: '目标已保存',
       icon: 'success',
       duration: 1500
     });
+  },
+
+  // 跳转到体重记录页面
+  goToWeightRecord() {
+    // 先保存当前预测数据到本地存储，供体重记录页读取
+    const predictionData = this.data.predictionData || {};
+    wx.setStorage({
+      key: 'predictionData',
+      data: {
+        initialWeight: predictionData.initialWeight || '',
+        targetWeight: predictionData.targetWeight || '',
+        monthlyLossPercent: predictionData.monthlyLossPercent || ''
+      }
+    });
+    wx.navigateTo({
+      url: '/pages/weight-record/weight-record'
+    });
+  },
+
+  // ==================== 日历打卡功能 ====================
+
+  // 初始化日历
+  initCalendar() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    this.setData({
+      calendarYear: year,
+      calendarMonth: month
+    });
+    this.generateCalendarDays(year, month);
+  },
+
+  // 上一个月
+  prevMonth() {
+    let year = this.data.calendarYear;
+    let month = this.data.calendarMonth - 1;
+    if (month < 1) {
+      month = 12;
+      year--;
+    }
+    this.setData({ calendarYear: year, calendarMonth: month });
+    this.generateCalendarDays(year, month);
+  },
+
+  // 下一个月
+  nextMonth() {
+    let year = this.data.calendarYear;
+    let month = this.data.calendarMonth + 1;
+    if (month > 12) {
+      month = 1;
+      year++;
+    }
+    this.setData({ calendarYear: year, calendarMonth: month });
+    this.generateCalendarDays(year, month);
+  },
+
+  // 生成日历天数据
+  generateCalendarDays(year, month) {
+    const today = new Date();
+    const todayStr = this.formatDateStr(today.getFullYear(), today.getMonth() + 1, today.getDate());
+
+    // 加载打卡记录
+    let checkinRecords = {};
+    try {
+      checkinRecords = wx.getStorageSync('checkinRecords') || {};
+    } catch (e) {
+      checkinRecords = {};
+    }
+
+    // 本月第一天和最后一天
+    const firstDay = new Date(year, month - 1, 1);
+    const lastDay = new Date(year, month, 0);
+    const daysInMonth = lastDay.getDate();
+    const startWeekday = firstDay.getDay(); // 0=周日
+
+    // 上个月填充
+    const prevMonthLastDay = new Date(year, month - 1, 0).getDate();
+    const days = [];
+
+    for (let i = startWeekday - 1; i >= 0; i--) {
+      const d = prevMonthLastDay - i;
+      const m = month - 1 <= 0 ? 12 : month - 1;
+      const y = month - 1 <= 0 ? year - 1 : year;
+      const dateStr = this.formatDateStr(y, m, d);
+      days.push({
+        day: d,
+        dateStr: dateStr,
+        isCurrentMonth: false,
+        isToday: dateStr === todayStr,
+        hasCheckin: !!checkinRecords[dateStr]
+      });
+    }
+
+    // 本月天数
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dateStr = this.formatDateStr(year, month, d);
+      days.push({
+        day: d,
+        dateStr: dateStr,
+        isCurrentMonth: true,
+        isToday: dateStr === todayStr,
+        hasCheckin: !!checkinRecords[dateStr]
+      });
+    }
+
+    // 下个月填充（填充到满42格，即6行）
+    const remaining = 42 - days.length;
+    for (let d = 1; d <= remaining; d++) {
+      const m = month + 1 > 12 ? 1 : month + 1;
+      const y = month + 1 > 12 ? year + 1 : year;
+      const dateStr = this.formatDateStr(y, m, d);
+      days.push({
+        day: d,
+        dateStr: dateStr,
+        isCurrentMonth: false,
+        isToday: dateStr === todayStr,
+        hasCheckin: !!checkinRecords[dateStr]
+      });
+    }
+
+    this.setData({ calendarDays: days });
+  },
+
+  // 格式化日期字符串 YYYY-MM-DD
+  formatDateStr(year, month, day) {
+    const m = month < 10 ? '0' + month : '' + month;
+    const d = day < 10 ? '0' + day : '' + day;
+    return year + '-' + m + '-' + d;
+  },
+
+  // 点击日期
+  onDayTap(e) {
+    const dateStr = e.currentTarget.dataset.date;
+    const isCurrent = e.currentTarget.dataset.isCurrent;
+    if (!isCurrent) return; // 只允许点击当月日期
+
+    // 加载已有打卡数据
+    let checkinRecords = {};
+    try {
+      checkinRecords = wx.getStorageSync('checkinRecords') || {};
+    } catch (e) {
+      checkinRecords = {};
+    }
+
+    const existingData = checkinRecords[dateStr] || {};
+
+    this.setData({
+      showCheckinModal: true,
+      checkinDate: dateStr,
+      checkinData: {
+        waterCount: existingData.waterCount || '',
+        trainMinutes: existingData.trainMinutes || '',
+        dietRecord: existingData.dietRecord || ''
+      }
+    });
+  },
+
+  // 关闭打卡弹窗
+  closeCheckinModal() {
+    this.setData({ showCheckinModal: false });
+  },
+
+  // 喝水次数输入
+  onWaterInput(e) {
+    this.setData({ 'checkinData.waterCount': e.detail.value });
+  },
+
+  // 训练时长输入
+  onTrainMinutesInput(e) {
+    this.setData({ 'checkinData.trainMinutes': e.detail.value });
+  },
+
+  // 饮食记录输入
+  onDietInput(e) {
+    this.setData({ 'checkinData.dietRecord': e.detail.value });
+  },
+
+  // 保存打卡
+  saveCheckin() {
+    const dateStr = this.data.checkinDate;
+    const checkinData = this.data.checkinData;
+
+    if (!checkinData.waterCount && !checkinData.trainMinutes && !checkinData.dietRecord) {
+      wx.showToast({
+        title: '请至少填写一项',
+        icon: 'none',
+        duration: 1500
+      });
+      return;
+    }
+
+    try {
+      let checkinRecords = wx.getStorageSync('checkinRecords') || {};
+      checkinRecords[dateStr] = {
+        waterCount: checkinData.waterCount,
+        trainMinutes: checkinData.trainMinutes,
+        dietRecord: checkinData.dietRecord,
+        timestamp: new Date().getTime()
+      };
+      wx.setStorageSync('checkinRecords', checkinRecords);
+
+      this.setData({ showCheckinModal: false });
+
+      // 刷新日历显示
+      this.generateCalendarDays(this.data.calendarYear, this.data.calendarMonth);
+
+      wx.showToast({
+        title: '打卡成功',
+        icon: 'success',
+        duration: 1500
+      });
+    } catch (e) {
+      wx.showToast({
+        title: '保存失败，请重试',
+        icon: 'none',
+        duration: 1500
+      });
+    }
   }
 });

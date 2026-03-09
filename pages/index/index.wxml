@@ -197,6 +197,17 @@
       </view>
     </view>
 
+    <!-- 减脂与增肌小知识 -->
+    <view class="card knowledge-card">
+      <view class="card-title">
+        <view class="title-emoji">💡</view>
+        <view>减脂与增肌小知识</view>
+      </view>
+      <view class="knowledge-content">
+        <view class="knowledge-text">{{currentKnowledge}}</view>
+      </view>
+    </view>
+
     <view style="height: 20px;"></view>
   </view>
 
@@ -272,6 +283,41 @@
       </view>
     </view>
 
+    <!-- 减脂目标（从个人页迁移过来） -->
+    <view class="card">
+      <view class="card-title">
+        <view class="title-emoji">🎯</view>
+        <view>减脂目标</view>
+      </view>
+
+      <view class="data-item" wx:if="{{predictionData.initialWeight}}">
+        <view class="data-label">当前体重</view>
+        <view class="data-value">{{predictionData.initialWeight}} kg</view>
+      </view>
+
+      <view class="data-item" wx:if="{{predictionData.targetWeight}}">
+        <view class="data-label">目标体重</view>
+        <view class="data-value">{{predictionData.targetWeight}} kg</view>
+      </view>
+
+      <!-- 7日体重记录 -->
+      <view class="weight-records" wx:if="{{weightRecords.length > 0}}">
+        <view class="records-title">📊 近7日体重记录</view>
+        <view class="records-list">
+          <view class="record-item" wx:for="{{weightRecords}}" wx:key="timestamp">
+            <view class="record-date">{{item.dateStr}}</view>
+            <view class="record-weight">{{item.weight}} kg</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="weight-records-empty" wx:if="{{weightRecords.length === 0}}">
+        <view class="empty-text">暂无体重记录，点击下方按钮开始记录</view>
+      </view>
+
+      <button class="record-btn" bindtap="goToWeightRecord">📝 记录体重</button>
+    </view>
+
     <view style="height: 20px;"></view>
   </view>
 
@@ -343,38 +389,70 @@
       </view>
     </view>
 
+    <!-- 记录打卡 -->
     <view class="card">
       <view class="card-title">
-        <view class="title-emoji">🎯</view>
-        <view>减脂目标</view>
+        <view class="title-emoji">📅</view>
+        <view>记录打卡</view>
       </view>
 
-      <view class="data-item" wx:if="{{predictionData.initialWeight}}">
-        <view class="data-label">当前体重</view>
-        <view class="data-value">{{predictionData.initialWeight}} kg</view>
+      <!-- 日历导航 -->
+      <view class="calendar-nav">
+        <view class="calendar-nav-btn" bindtap="prevMonth">❮</view>
+        <view class="calendar-nav-title">{{calendarYear}}年{{calendarMonth}}月</view>
+        <view class="calendar-nav-btn" bindtap="nextMonth">❯</view>
       </view>
 
-      <view class="data-item" wx:if="{{predictionData.targetWeight}}">
-        <view class="data-label">目标体重</view>
-        <view class="data-value">{{predictionData.targetWeight}} kg</view>
+      <!-- 星期头 -->
+      <view class="calendar-weekdays">
+        <view class="calendar-weekday">日</view>
+        <view class="calendar-weekday">一</view>
+        <view class="calendar-weekday">二</view>
+        <view class="calendar-weekday">三</view>
+        <view class="calendar-weekday">四</view>
+        <view class="calendar-weekday">五</view>
+        <view class="calendar-weekday">六</view>
       </view>
 
-      <!-- 7日体重记录 -->
-      <view class="weight-records" wx:if="{{weightRecords.length > 0}}">
-        <view class="records-title">📊 近7日体重记录</view>
-        <view class="records-list">
-          <view class="record-item" wx:for="{{weightRecords}}" wx:key="timestamp">
-            <view class="record-date">{{item.dateStr}}</view>
-            <view class="record-weight">{{item.weight}} kg</view>
-          </view>
+      <!-- 日期格子 -->
+      <view class="calendar-days">
+        <view wx:for="{{calendarDays}}" wx:key="index"
+          class="calendar-day {{item.isCurrentMonth ? '' : 'other-month'}} {{item.isToday ? 'today' : ''}} {{item.hasCheckin ? 'checked-in' : ''}}"
+          bindtap="onDayTap" data-date="{{item.dateStr}}" data-is-current="{{item.isCurrentMonth}}">
+          <view class="day-number">{{item.day}}</view>
+          <view class="day-dot" wx:if="{{item.hasCheckin}}"></view>
         </view>
       </view>
+    </view>
 
-      <view class="weight-records-empty" wx:if="{{weightRecords.length === 0}}">
-        <view class="empty-text">暂无体重记录，点击下方按钮开始记录</view>
+    <!-- 打卡弹窗 -->
+    <view class="checkin-modal" wx:if="{{showCheckinModal}}">
+      <view class="checkin-mask" bindtap="closeCheckinModal"></view>
+      <view class="checkin-dialog">
+        <view class="checkin-dialog-header">
+          <view class="checkin-dialog-title">📝 {{checkinDate}} 打卡记录</view>
+          <view class="checkin-dialog-close" bindtap="closeCheckinModal">✕</view>
+        </view>
+
+        <view class="checkin-form">
+          <view class="checkin-input-group">
+            <view class="checkin-input-label">💧 喝水次数</view>
+            <input class="checkin-input-field" type="number" value="{{checkinData.waterCount}}" bindinput="onWaterInput" placeholder="输入喝水次数" placeholder-style="color: #ccc;" />
+          </view>
+
+          <view class="checkin-input-group">
+            <view class="checkin-input-label">🏋️ 训练时长（分钟）</view>
+            <input class="checkin-input-field" type="number" value="{{checkinData.trainMinutes}}" bindinput="onTrainMinutesInput" placeholder="输入训练分钟数" placeholder-style="color: #ccc;" />
+          </view>
+
+          <view class="checkin-input-group">
+            <view class="checkin-input-label">🍚 饮食记录</view>
+            <textarea class="checkin-textarea" value="{{checkinData.dietRecord}}" bindinput="onDietInput" placeholder="记录今日饮食内容..." placeholder-style="color: #ccc;" maxlength="500"></textarea>
+          </view>
+        </view>
+
+        <button class="checkin-save-btn" bindtap="saveCheckin">✅ 保存打卡</button>
       </view>
-
-      <button class="record-btn" bindtap="recordWeight">📝 记录体重</button>
     </view>
 
     <view class="card">
