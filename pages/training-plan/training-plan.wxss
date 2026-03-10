@@ -1,6 +1,6 @@
 .page-container {
   min-height: 100vh;
-  background-color: #FFF0F5;
+  background-color: #F0F8FF;
   padding: 16px;
   box-sizing: border-box;
 }
@@ -18,7 +18,7 @@
 .header-title {
   font-size: 22px;
   font-weight: 700;
-  color: #FF6B9D;
+  color: #E0F7FF;
   margin-bottom: 6px;
 }
 
@@ -49,8 +49,8 @@
 
 .day-tab.active {
   color: #ffffff;
-  background: linear-gradient(135deg, #FF6B9D 0%, #E84E8A 100%);
-  border-color: #FF6B9D;
+  background: linear-gradient(135deg, #E0F7FF 0%, #D1ECFF 100%);
+  border-color: #E0F7FF;
   box-shadow: 0 2px 8px rgba(255, 107, 157, 0.3);
 }
 
@@ -100,7 +100,7 @@
 .exercise-index {
   font-size: 13px;
   font-weight: 600;
-  color: #FF6B9D;
+  color: #E0F7FF;
 }
 
 .exercise-delete {
@@ -137,7 +137,7 @@
 }
 
 .input-field:focus {
-  border-color: #FF6B9D;
+  border-color: #E0F7FF;
   box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
 }
 
@@ -145,10 +145,10 @@
 .add-exercise-btn {
   text-align: center;
   padding: 12px;
-  color: #FF6B9D;
+  color: #E0F7FF;
   font-size: 14px;
   font-weight: 600;
-  border: 2px dashed #FF6B9D;
+  border: 2px dashed #E0F7FF;
   border-radius: 10px;
   margin-top: 8px;
   transition: all 0.3s ease;
@@ -162,7 +162,7 @@
 .save-plan-btn {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #FF6B9D 0%, #E84E8A 100%);
+  background: linear-gradient(135deg, #E0F7FF 0%, #D1ECFF 100%);
   color: #ffffff;
   border-radius: 10px;
   font-size: 15px;
