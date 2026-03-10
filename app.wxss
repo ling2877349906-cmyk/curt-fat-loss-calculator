@@ -36,9 +36,9 @@ input[type="number"] {
   background-color: #ffffff !important;
   opacity: 1 !important;
 
-  /* 布局与层级 - 提高渲染优先级，排除被遮挡 */
+  /* 布局与层级 - 提高渲染优先级，排除被遗挡。注意：z-index不能超过tab-nav的100，防止遗挡tab栏 */
   position: relative !important;
-  z-index: 999 !important;
+  z-index: 10 !important;
 
   /* 尺寸与间距 - 稍大内边距有助于触发原生重绘 */
   padding: 8rpx 4rpx !important;

@@ -1,7 +1,7 @@
 <view class="page-container">
   <!-- 页面标题 -->
   <view class="page-header">
-    <view class="header-emoji">🍽️</view>
+    <view class="header-emoji">🧁</view>
     <view class="header-title">7天饮食计划</view>
     <view class="header-subtitle">规划你的每日三餐饮食</view>
   </view>

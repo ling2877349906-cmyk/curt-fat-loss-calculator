@@ -1,7 +1,7 @@
 <view class="page-container">
   <!-- 页面标题 -->
   <view class="page-header">
-    <view class="header-emoji">🏋️</view>
+    <view class="header-emoji">🏅</view>
     <view class="header-title">7天训练计划</view>
     <view class="header-subtitle">规划你的每日训练动作</view>
   </view>

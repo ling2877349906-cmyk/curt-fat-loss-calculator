@@ -5,6 +5,40 @@ Page({
     weightRecords: [], // 体重记录数组
     currentKnowledge: '', // 当前显示的小知识
     lastKnowledgeIndex: -1, // 上一次显示的知识索引
+    // 热量计算数据（初始化为空，启动时从本地存储恢复）
+    calorieData: {
+      gender: '',
+      age: '',
+      height: '',
+      weight: '',
+      cardioMinutes: '',
+      strengthMinutes: '',
+      cardioCalories: 0,
+      strengthCalories: 0,
+      trainCalories: '',
+      bmr: '',
+      tdee: '',
+      nutritionMode: '',
+      customNutrition: { carbs: '', protein: '', fat: '' },
+      nutrition: {}
+    },
+    // 减脂预测数据（初始化为空，启动时从本地存储恢复）
+    predictionData: {
+      initialWeight: '',
+      targetWeight: '',
+      monthlyLossPercent: '',
+      totalLoss: '',
+      predictMonths: '',
+      predictWeeks: '',
+      predictDays: '',
+      monthlyLoss: '',
+      weeklyLoss: ''
+    },
+    // 个人信息/BMI
+    profileData: {
+      bmi: '',
+      bmiStatus: ''
+    },
     // 日历打卡相关
     calendarYear: 0,
     calendarMonth: 0,
@@ -54,7 +88,9 @@ Page({
   ],
 
   onLoad() {
-    // 页面加载时加载体重记录
+    // 页面加载时从本地存储恢复用户数据
+    this.loadUserData();
+    // 加载体重记录
     this.loadWeightRecords();
     // 初始化小知识
     this.refreshKnowledge();
@@ -79,6 +115,68 @@ Page({
     }
   },
 
+  // ==================== 用户数据持久化 ====================
+  // 从本地存储加载用户数据并回显到表单
+  loadUserData() {
+    try {
+      const savedCalorieData = wx.getStorageSync('calorieData');
+      const savedPredictionData = wx.getStorageSync('predictionData');
+      const updates = {};
+      if (savedCalorieData) {
+        updates.calorieData = Object.assign({}, this.data.calorieData, savedCalorieData);
+      }
+      if (savedPredictionData) {
+        updates.predictionData = Object.assign({}, this.data.predictionData, savedPredictionData);
+      }
+      if (Object.keys(updates).length > 0) {
+        this.setData(updates, () => {
+          // 数据恢复后重新计算各项结果
+          if (updates.calorieData) {
+            this.calculateBMR();
+            this.calculateTrainCalories();
+            this.calculateBMI();
+            this.calculateNutrition();
+          }
+          if (updates.predictionData) {
+            this.calculatePrediction();
+          }
+        });
+      }
+    } catch (e) {
+      // 读取失败时忽略，使用默认空值
+    }
+  },
+  // 保存热量计算数据到本地存储
+  saveCalorieDataToStorage() {
+    try {
+      const calorieData = this.data.calorieData || {};
+      wx.setStorageSync('calorieData', {
+        gender: calorieData.gender || '',
+        age: calorieData.age || '',
+        height: calorieData.height || '',
+        weight: calorieData.weight || '',
+        cardioMinutes: calorieData.cardioMinutes || '',
+        strengthMinutes: calorieData.strengthMinutes || '',
+        nutritionMode: calorieData.nutritionMode || '',
+        customNutrition: calorieData.customNutrition || { carbs: '', protein: '', fat: '' }
+      });
+    } catch (e) {
+      // 保存失败时忽略
+    }
+  },
+  // 保存减脂预测数据到本地存储
+  savePredictionDataToStorage() {
+    try {
+      const predictionData = this.data.predictionData || {};
+      wx.setStorageSync('predictionData', {
+        initialWeight: predictionData.initialWeight || '',
+        targetWeight: predictionData.targetWeight || '',
+        monthlyLossPercent: predictionData.monthlyLossPercent || ''
+      });
+    } catch (e) {
+      // 保存失败时忽略
+    }
+  },
   // ==================== 减脂与增肌小知识 ====================
   refreshKnowledge() {
     const list = this.knowledgeList;
@@ -202,6 +300,7 @@ Page({
     const gender = e.currentTarget.dataset.gender;
     this.setData({ 'calorieData.gender': gender });
     this.calculateBMR();
+    this.saveCalorieDataToStorage();
   },
 
   // ==================== 热量计算页 - 年龄输入 ====================
@@ -210,6 +309,7 @@ Page({
     this.setData({ 'calorieData.age': age });
     this.calculateBMR();
     this.calculateBMI();
+    this.saveCalorieDataToStorage();
   },
 
   // ==================== 热量计算页 - 身高输入 ====================
@@ -218,6 +318,7 @@ Page({
     this.setData({ 'calorieData.height': height });
     this.calculateBMR();
     this.calculateBMI();
+    this.saveCalorieDataToStorage();
   },
 
   // ==================== 热量计算页 - 体重输入 ====================
@@ -227,6 +328,7 @@ Page({
     this.calculateBMR();
     this.calculateBMI();
     this.calculateNutrition();
+    this.saveCalorieDataToStorage();
   },
 
   // ==================== 热量计算页 - 有氧训练时间输入 ====================
@@ -234,6 +336,7 @@ Page({
     const value = e.detail.value.replace(/[^0-9]/g, '');
     this.setData({ 'calorieData.cardioMinutes': value });
     this.calculateTrainCalories();
+    this.saveCalorieDataToStorage();
   },
 
   // ==================== 热量计算页 - 无氧训练时间输入 ====================
@@ -241,6 +344,7 @@ Page({
     const value = e.detail.value.replace(/[^0-9]/g, '');
     this.setData({ 'calorieData.strengthMinutes': value });
     this.calculateTrainCalories();
+    this.saveCalorieDataToStorage();
   },
 
   // ==================== 热量计算页 - 营养模式选择 ====================
@@ -248,32 +352,35 @@ Page({
     const mode = e.currentTarget.dataset.mode;
     this.setData({ 'calorieData.nutritionMode': mode });
     this.calculateNutrition();
+    this.saveCalorieDataToStorage();
   },
 
   // ==================== 热量计算页 - 自定义营养输入 ====================
-  onCustomCarbsInput(e) {
+   onCustomCarbsInput(e) {
     const carbs = e.detail.value;
     this.setData({ 'calorieData.customNutrition.carbs': carbs });
     this.calculateNutrition();
+    this.saveCalorieDataToStorage();
   },
-
   onCustomProteinInput(e) {
     const protein = e.detail.value;
     this.setData({ 'calorieData.customNutrition.protein': protein });
     this.calculateNutrition();
+    this.saveCalorieDataToStorage();
   },
-
   onCustomFatInput(e) {
     const fat = e.detail.value;
     this.setData({ 'calorieData.customNutrition.fat': fat });
     this.calculateNutrition();
-  },
+    this.saveCalorieDataToStorage();
+  },,
 
   // ==================== 减脂预测页 - 初始体重输入 ====================
   onInitialWeightInput(e) {
     const initialWeight = e.detail.value;
     this.setData({ 'predictionData.initialWeight': initialWeight });
     this.calculatePrediction();
+    this.savePredictionDataToStorage();
   },
 
   // ==================== 减脂预测页 - 目标体重输入 ====================
@@ -281,6 +388,7 @@ Page({
     const targetWeight = e.detail.value;
     this.setData({ 'predictionData.targetWeight': targetWeight });
     this.calculatePrediction();
+    this.savePredictionDataToStorage();
   },
 
   // ==================== 减脂预测页 - 百分比增减 ====================
@@ -290,17 +398,18 @@ Page({
       percent--;
       this.setData({ 'predictionData.monthlyLossPercent': percent });
       this.calculatePrediction();
+      this.savePredictionDataToStorage();
     }
   },
-
   increasePercent() {
     let percent = parseInt(this.data.predictionData?.monthlyLossPercent) || 0;
     if (percent < 5) {
       percent++;
       this.setData({ 'predictionData.monthlyLossPercent': percent });
       this.calculatePrediction();
+      this.savePredictionDataToStorage();
     }
-  },
+  },,
 
   // ==================== 计算函数 ====================
 
@@ -505,38 +614,21 @@ Page({
   // 保存减脂目标
   savePredictionTarget() {
     // 保存预测数据到本地存储
-    const predictionData = this.data.predictionData || {};
-    wx.setStorage({
-      key: 'predictionData',
-      data: {
-        initialWeight: predictionData.initialWeight || '',
-        targetWeight: predictionData.targetWeight || '',
-        monthlyLossPercent: predictionData.monthlyLossPercent || ''
-      }
-    });
+    this.savePredictionDataToStorage();
     wx.showToast({
       title: '目标已保存',
       icon: 'success',
       duration: 1500
     });
   },
-
   // 跳转到体重记录页面
   goToWeightRecord() {
     // 先保存当前预测数据到本地存储，供体重记录页读取
-    const predictionData = this.data.predictionData || {};
-    wx.setStorage({
-      key: 'predictionData',
-      data: {
-        initialWeight: predictionData.initialWeight || '',
-        targetWeight: predictionData.targetWeight || '',
-        monthlyLossPercent: predictionData.monthlyLossPercent || ''
-      }
-    });
+    this.savePredictionDataToStorage();
     wx.navigateTo({
       url: '/pages/weight-record/weight-record'
     });
-  },
+  },,
 
   // ==================== 日历打卡功能 ====================
 

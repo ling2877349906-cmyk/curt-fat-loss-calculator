@@ -1,7 +1,7 @@
 <view class="page-container">
   <!-- 页面标题 -->
   <view class="page-header">
-    <view class="header-emoji">⚖️</view>
+    <view class="header-emoji">🌸</view>
     <view class="header-title">体重记录</view>
     <view class="header-subtitle">追踪你的体重变化</view>
   </view>

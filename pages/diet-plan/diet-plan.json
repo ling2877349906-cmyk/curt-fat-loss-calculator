@@ -1,4 +1,6 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "7天饮食计划"
+  "navigationBarTitleText": "7天饮食计划",
+  "navigationBarBackgroundColor": "#FF6B9D",
+  "navigationBarTextStyle": "white"
 }

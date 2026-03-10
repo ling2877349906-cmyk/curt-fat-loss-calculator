@@ -10,7 +10,7 @@
   <view class="tab-content {{activeTab === 0 ? 'active' : ''}}">
     <!-- 页面标题 -->
     <view class="page-header">
-      <view class="header-emoji">💪</view>
+      <view class="header-emoji">🍰</view>
       <view class="header-title">热量计算器</view>
       <view class="header-subtitle">让我们计算你的每日热量需求</view>
     </view>
@@ -215,7 +215,7 @@
   <view class="tab-content {{activeTab === 1 ? 'active' : ''}}">
     <!-- 页面标题 -->
     <view class="page-header">
-      <view class="header-emoji">📉</view>
+      <view class="header-emoji">❤️</view>
       <view class="header-title">减脂预测</view>
       <view class="header-subtitle">规划你的减脂目标</view>
     </view>
@@ -325,7 +325,7 @@
   <view class="tab-content {{activeTab === 2 ? 'active' : ''}}">
     <!-- 页面标题 -->
     <view class="page-header">
-      <view class="header-emoji">👤</view>
+      <view class="header-emoji">🌟</view>
       <view class="header-title">个人信息</view>
       <view class="header-subtitle">查看你的身体数据</view>
     </view>
@@ -496,6 +496,11 @@
       <view class="faq-item">
         <view class="faq-question">数据会被保存吗？</view>
         <view class="faq-answer">所有数据仅保存在您的手机本地，不会上传到服务器。</view>
+      </view>
+      <!-- 新增：反馈问题条目 -->
+      <view class="faq-item">
+        <view class="faq-question">如何反馈问题或建议？</view>
+        <view class="faq-answer">若遇到使用问题、需要新增功能或改进建议，请关注公众号：凌卡 与我取得联系，我会及时处理你的反馈。</view>
       </view>
     </view>
 
