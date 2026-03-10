@@ -373,7 +373,7 @@ Page({
     this.setData({ 'calorieData.customNutrition.fat': fat });
     this.calculateNutrition();
     this.saveCalorieDataToStorage();
-  },,
+  },
 
   // ==================== 减脂预测页 - 初始体重输入 ====================
   onInitialWeightInput(e) {
@@ -409,7 +409,7 @@ Page({
       this.calculatePrediction();
       this.savePredictionDataToStorage();
     }
-  },,
+  },
 
   // ==================== 计算函数 ====================
 
@@ -628,7 +628,7 @@ Page({
     wx.navigateTo({
       url: '/pages/weight-record/weight-record'
     });
-  },,
+  },
 
   // ==================== 日历打卡功能 ====================
 
