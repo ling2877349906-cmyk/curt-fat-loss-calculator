@@ -1,5 +1,5 @@
 .page-container {
-  background: linear-gradient(135deg, #F0F8FF 0%, #E8F4FF 100%);
+  background-color: #165DFF;
   min-height: 100vh;
   padding-bottom: 20px;
 }
@@ -7,7 +7,7 @@
 /* Tab导航 */
 .tab-nav {
   display: flex;
-  background: linear-gradient(135deg, #FFE6EF 0%, #E0F7FF 100%);
+  background-color: #165DFF;
   border-bottom: 2px solid #D1ECFF;
   position: sticky;
   top: 0;
@@ -88,7 +88,7 @@
 
 /* 卡片 */
 .card {
-  background-color: #ffffff;
+  background-color: #165DFF;
   margin: 12px;
   border-radius: 16px;
   padding: 18px;
@@ -119,7 +119,7 @@
   color: #E0F7FF;
   margin-bottom: 12px;
   padding: 8px 12px;
-  background-color: #FFE6EF;
+  background-color: #165DFF;
   border-radius: 6px;
   border-left: 3px solid #E0F7FF;
 }
@@ -143,7 +143,7 @@
   border-radius: 10px;
   font-size: 15px;
   color: #333;
-  background-color: #ffffff;
+  background-color: #165DFF;
   box-sizing: border-box;
   transition: all 0.3s ease;
   -webkit-appearance: none;
@@ -153,7 +153,7 @@
 
 input.input-field {
   color: #333;
-  background-color: #ffffff;
+  background-color: #165DFF;
 }
 
 .input-field:focus {
@@ -175,14 +175,14 @@ input.input-field {
   border-radius: 10px;
   font-size: 14px;
   color: #333;
-  background-color: #ffffff;
+  background-color: #165DFF;
   transition: all 0.3s ease;
   font-weight: 600;
 }
 
 .gender-btn.active {
   border-color: #E0F7FF;
-  background: linear-gradient(135deg, #FFE6EF 0%, #E0F7FF 100%);
+  background-color: #165DFF;
   color: #E0F7FF;
   box-shadow: 0 4px 12px rgba(255, 107, 157, 0.15);
 }
@@ -200,7 +200,7 @@ input.input-field {
   border-radius: 10px;
   font-size: 12px;
   color: #333;
-  background-color: #ffffff;
+  background-color: #165DFF;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -221,7 +221,7 @@ input.input-field {
 
 .intensity-btn.active {
   border-color: #E0F7FF;
-  background: linear-gradient(135deg, #FFE6EF 0%, #E0F7FF 100%);
+  background-color: #165DFF;
   color: #E0F7FF;
   box-shadow: 0 4px 12px rgba(255, 107, 157, 0.15);
 }
@@ -239,7 +239,7 @@ input.input-field {
   border-radius: 10px;
   font-size: 13px;
   color: #333;
-  background-color: #ffffff;
+  background-color: #165DFF;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -257,14 +257,14 @@ input.input-field {
 
 .nutrition-btn.active {
   border-color: #E0F7FF;
-  background: linear-gradient(135deg, #FFE6EF 0%, #E0F7FF 100%);
+  background-color: #165DFF;
   color: #E0F7FF;
   box-shadow: 0 4px 12px rgba(255, 107, 157, 0.15);
 }
 
 /* 自定义营养 */
 .custom-nutrition {
-  background: linear-gradient(135deg, #f9fffe 0%, #E0F7FF 100%);
+  background-color: #165DFF;
   border-radius: 10px;
   padding: 14px;
   margin-bottom: 16px;
@@ -273,7 +273,7 @@ input.input-field {
 
 /* 结果显示 */
 .result-display {
-  background: linear-gradient(135deg, #FFE6EF 0%, #E0F7FF 100%);
+  background-color: #165DFF;
   border-radius: 10px;
   padding: 18px;
   margin-top: 12px;
@@ -303,7 +303,7 @@ input.input-field {
 
 /* 结果占位符 */
 .result-placeholder {
-  background: linear-gradient(135deg, #f9f9f9 0%, #f5f5f5 100%);
+  background-color: #165DFF;
   border-radius: 10px;
   padding: 24px;
   text-align: center;
@@ -318,7 +318,7 @@ input.input-field {
 
 /* 高亮卡片 */
 .highlight-card {
-  background: linear-gradient(135deg, #E0F7FF 0%, #D1ECFF 100%);
+  background-color: #165DFF;
   text-align: center;
   padding: 28px 18px;
   box-shadow: 0 8px 24px rgba(255, 107, 157, 0.25);
@@ -416,13 +416,13 @@ input.input-field {
   border-radius: 10px;
   font-size: 20px;
   color: #E0F7FF;
-  background-color: #ffffff;
+  background-color: #165DFF;
   font-weight: 700;
   transition: all 0.3s ease;
 }
 
 .percent-btn:active {
-  background-color: #FFE6EF;
+  background-color: #165DFF;
   transform: scale(0.95);
 }
 
@@ -432,7 +432,7 @@ input.input-field {
   font-size: 20px;
   font-weight: 700;
   color: #E0F7FF;
-  background: linear-gradient(135deg, #FFE6EF 0%, #E0F7FF 100%);
+  background-color: #165DFF;
   padding: 12px;
   border-radius: 10px;
   border: 2px solid #E0F7FF;
@@ -476,7 +476,7 @@ input.input-field {
 .save-btn {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #E0F7FF 0%, #D1ECFF 100%);
+  background-color: #165DFF;
   color: #ffffff;
   border-radius: 10px;
   font-size: 15px;
@@ -519,7 +519,7 @@ input.input-field {
 
 /* BMI显示 */
 .bmi-display {
-  background: linear-gradient(135deg, #FFE6EF 0%, #E0F7FF 100%);
+  background-color: #165DFF;
   border-radius: 10px;
   padding: 28px;
   text-align: center;
@@ -570,7 +570,7 @@ input.input-field {
 .weight-records {
   margin-top: 16px;
   padding: 14px;
-  background-color: #f8f9fa;
+  background-color: #165DFF;
   border-radius: 10px;
   border-left: 4px solid #E0F7FF;
 }
@@ -595,7 +595,7 @@ input.input-field {
   justify-content: space-between;
   align-items: center;
   padding: 10px 12px;
-  background-color: #ffffff;
+  background-color: #165DFF;
   border-radius: 6px;
   border: 1px solid #e8e8e8;
 }
@@ -616,7 +616,7 @@ input.input-field {
   margin-top: 16px;
   padding: 20px;
   text-align: center;
-  background-color: #f8f9fa;
+  background-color: #165DFF;
   border-radius: 10px;
 }
 
@@ -629,7 +629,7 @@ input.input-field {
 .record-btn {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #E0F7FF 0%, #D1ECFF 100%);
+  background-color: #165DFF;
   color: #ffffff;
   border-radius: 10px;
   font-size: 15px;
@@ -670,11 +670,11 @@ input.input-field {
 
 /* ==================== 减脂与增肌小知识 ==================== */
 .knowledge-card {
-  background-color: #ffffff;
+  background-color: #165DFF;
 }
 
 .knowledge-content {
-  background: linear-gradient(135deg, #FFE6EF 0%, #E0F7FF 100%);
+  background-color: #165DFF;
   border-radius: 10px;
   padding: 16px;
   border-left: 4px solid #E0F7FF;
@@ -703,13 +703,13 @@ input.input-field {
   justify-content: center;
   font-size: 16px;
   color: #E0F7FF;
-  background-color: #E0F7FF;
+  background-color: #165DFF;
   border-radius: 8px;
   font-weight: 700;
 }
 
 .calendar-nav-btn:active {
-  background-color: #e0f5ee;
+  background-color: #165DFF;
 }
 
 .calendar-nav-title {
@@ -765,19 +765,19 @@ input.input-field {
 }
 
 .calendar-day.today .day-number {
-  background-color: #E0F7FF;
+  background-color: #165DFF;
   color: #ffffff;
   font-weight: 700;
 }
 
 .calendar-day.checked-in .day-number {
-  background-color: #FFE6EF;
+  background-color: #165DFF;
   color: #E0F7FF;
   font-weight: 700;
 }
 
 .calendar-day.today.checked-in .day-number {
-  background-color: #E0F7FF;
+  background-color: #165DFF;
   color: #ffffff;
 }
 
@@ -785,12 +785,12 @@ input.input-field {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #E0F7FF;
+  background-color: #165DFF;
   margin-top: 2px;
 }
 
 .calendar-day.today .day-dot {
-  background-color: #ffffff;
+  background-color: #165DFF;
 }
 
 /* ==================== 打卡弹窗 ==================== */
@@ -819,7 +819,7 @@ input.input-field {
   position: relative;
   width: 85%;
   max-height: 80vh;
-  background-color: #ffffff;
+  background-color: #165DFF;
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
@@ -870,7 +870,7 @@ input.input-field {
   border-radius: 10px;
   font-size: 15px;
   color: #333;
-  background-color: #ffffff;
+  background-color: #165DFF;
   box-sizing: border-box;
   transition: all 0.3s ease;
 }
@@ -889,7 +889,7 @@ input.input-field {
   border-radius: 10px;
   font-size: 14px;
   color: #333;
-  background-color: #ffffff;
+  background-color: #165DFF;
   box-sizing: border-box;
   line-height: 1.6;
   transition: all 0.3s ease;
@@ -904,7 +904,7 @@ input.input-field {
 .checkin-save-btn {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #E0F7FF 0%, #D1ECFF 100%);
+  background-color: #165DFF;
   color: #ffffff;
   border-radius: 10px;
   font-size: 15px;

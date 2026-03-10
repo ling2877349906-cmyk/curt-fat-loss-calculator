@@ -40,7 +40,7 @@
 
 /* 卡片 */
 .card {
-  background-color: #ffffff;
+  background-color: #f7f8fa;
   margin: 12px;
   border-radius: 16px;
   padding: 18px;
@@ -94,7 +94,7 @@
 .weight-summary-divider {
   width: 1px;
   height: 50px;
-  background-color: #e0e0e0;
+  background-color: #f7f8fa;
   margin: 0 16px;
 }
 
@@ -116,7 +116,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 12px;
-  background-color: #f8f9fa;
+  background-color: #f7f8fa;
   border-radius: 8px;
   border: 1px solid #e8e8e8;
 }
@@ -175,7 +175,7 @@
   border-radius: 10px;
   font-size: 15px;
   color: #333;
-  background-color: #ffffff;
+  background-color: #f7f8fa;
   box-sizing: border-box;
   transition: all 0.3s ease;
 }
