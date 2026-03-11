@@ -1,5 +1,5 @@
 .page-container {
-  background: linear-gradient(135deg, #F0F8FF 0%, #E8F4FF 100%);
+  background: linear-gradient(135deg, #99ccff 0%, #99ccff 100%);
   min-height: 100vh;
   padding-bottom: 20px;
 }
@@ -29,7 +29,7 @@
 .header-title {
   font-size: 24px;
   font-weight: 700;
-  color: #E0F7FF;
+  color: #99ccff;
   margin-bottom: 4px;
 }
 
@@ -44,8 +44,8 @@
   margin: 12px;
   border-radius: 16px;
   padding: 18px;
-  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.08);
-  border: 1px solid rgba(255, 107, 157, 0.1);
+  box-shadow: 0 4px 12px rgba(153, 204, 255, 0.08);
+  border: 1px solid rgba(153, 204, 255, 0.1);
 }
 
 .card-title {
@@ -88,7 +88,7 @@
 .weight-summary-value {
   font-size: 24px;
   font-weight: 700;
-  color: #E0F7FF;
+  color: #99ccff;
 }
 
 .weight-summary-divider {
@@ -130,7 +130,7 @@
 .record-weight {
   font-size: 14px;
   font-weight: 700;
-  color: #E0F7FF;
+  color: #99ccff;
 }
 
 .weight-records-empty {
@@ -181,8 +181,8 @@
 }
 
 .input-field:focus {
-  border-color: #E0F7FF;
-  box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+  border-color: #99ccff;
+  box-shadow: 0 0 0 3px rgba(153, 204, 255, 0.1);
   outline: none;
 }
 
@@ -190,18 +190,18 @@
 .record-btn {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #E0F7FF 0%, #D1ECFF 100%);
+  background: linear-gradient(135deg, #99ccff 0%, #99ccff 100%);
   color: #ffffff;
   border-radius: 10px;
   font-size: 15px;
   font-weight: 700;
   margin-top: 12px;
   border: none;
-  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.25);
+  box-shadow: 0 4px 12px rgba(153, 204, 255, 0.25);
   transition: all 0.3s ease;
 }
 
 .record-btn:active {
   transform: scale(0.98);
-  box-shadow: 0 2px 6px rgba(255, 107, 157, 0.15);
+  box-shadow: 0 2px 6px rgba(153, 204, 255, 0.15);
 }

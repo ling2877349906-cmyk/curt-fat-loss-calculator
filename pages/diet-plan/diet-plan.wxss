@@ -18,7 +18,7 @@
 .header-title {
   font-size: 22px;
   font-weight: 700;
-  color: #E0F7FF;
+  color: #99ccff;
   margin-bottom: 6px;
 }
 
@@ -49,9 +49,9 @@
 
 .day-tab.active {
   color: #ffffff;
-  background: linear-gradient(135deg, #E0F7FF 0%, #D1ECFF 100%);
-  border-color: #E0F7FF;
-  box-shadow: 0 2px 8px rgba(255, 107, 157, 0.3);
+  background: linear-gradient(135deg, #99ccff 0%, #99ccff 100%);
+  border-color: #99ccff;
+  box-shadow: 0 2px 8px rgba(153, 204, 255, 0.3);
 }
 
 /* 卡片 */
@@ -130,8 +130,8 @@
 }
 
 .input-field:focus {
-  border-color: #E0F7FF;
-  box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+  border-color: #99ccff;
+  box-shadow: 0 0 0 3px rgba(153, 204, 255, 0.1);
 }
 
 /* 单项营养素结果 */
@@ -145,7 +145,7 @@
 
 .food-nutrition-item {
   font-size: 11px;
-  color: #E0F7FF;
+  color: #99ccff;
   font-weight: 500;
 }
 
@@ -157,32 +157,32 @@
 .add-food-btn {
   text-align: center;
   padding: 10px;
-  color: #E0F7FF;
+  color: #99ccff;
   font-size: 13px;
   font-weight: 600;
-  border: 2px dashed #E0F7FF;
+  border: 2px dashed #99ccff;
   border-radius: 10px;
   margin-top: 8px;
   transition: all 0.3s ease;
 }
 
 .add-food-btn:active {
-  background-color: rgba(255, 107, 157, 0.06);
+  background-color: rgba(153, 204, 255, 0.06);
 }
 
 /* 餐次汇总 */
 .meal-summary {
   margin-top: 12px;
   padding: 10px 12px;
-  background-color: rgba(255, 107, 157, 0.06);
+  background-color: rgba(153, 204, 255, 0.06);
   border-radius: 8px;
-  border-left: 3px solid #E0F7FF;
+  border-left: 3px solid #99ccff;
 }
 
 .meal-summary-title {
   font-size: 12px;
   font-weight: 700;
-  color: #E0F7FF;
+  color: #99ccff;
   margin-bottom: 4px;
 }
 
@@ -200,7 +200,7 @@
 
 /* 当日总汇总 */
 .daily-summary-card {
-  border: 2px solid #E0F7FF;
+  border: 2px solid #99ccff;
 }
 
 .daily-summary-grid {
@@ -215,7 +215,7 @@
 .daily-summary-value {
   font-size: 20px;
   font-weight: 700;
-  color: #E0F7FF;
+  color: #99ccff;
   margin-bottom: 4px;
 }
 
@@ -229,17 +229,17 @@
 .save-plan-btn {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #E0F7FF 0%, #D1ECFF 100%);
+  background: linear-gradient(135deg, #99ccff 0%, #99ccff 100%);
   color: #ffffff;
   border-radius: 10px;
   font-size: 15px;
   font-weight: 700;
   border: none;
-  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.25);
+  box-shadow: 0 4px 12px rgba(153, 204, 255, 0.25);
   transition: all 0.3s ease;
 }
 
 .save-plan-btn:active {
   transform: scale(0.98);
-  box-shadow: 0 2px 6px rgba(255, 107, 157, 0.15);
+  box-shadow: 0 2px 6px rgba(153, 204, 255, 0.15);
 }
