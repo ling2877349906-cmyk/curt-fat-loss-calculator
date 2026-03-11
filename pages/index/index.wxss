@@ -1,5 +1,5 @@
 .page-container {
-  background-color: #99ccff;
+  background-color: #f7f8fa;
   min-height: 100vh;
   padding-bottom: 20px;
 }
@@ -7,12 +7,12 @@
 /* Tab导航 */
 .tab-nav {
   display: flex;
-  background-color: #99ccff;
+  background-color: #ffffff;
   border-bottom: 2px solid #99ccff;
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 8px rgba(153, 204, 255, 0.15);
+  box-shadow: 0 2px 8px rgba(255, 107, 157, 0.15);
 }
 
 .tab-item {
@@ -21,7 +21,7 @@
   padding: 14px 0;
   font-size: 15px;
   font-weight: 600;
-  color: #4A90E2;
+  color: #999999;
   border-bottom: 4px solid transparent;
   transition: all 0.3s ease;
 }
@@ -88,12 +88,12 @@
 
 /* 卡片 */
 .card {
-  background-color: #99ccff;
+  background-color: #ffffff;
   margin: 12px;
   border-radius: 16px;
   padding: 18px;
-  box-shadow: 0 4px 12px rgba(153, 204, 255, 0.08);
-  border: 1px solid rgba(153, 204, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.08);
+  border: 1px solid rgba(255, 107, 157, 0.1);
 }
 
 .card-title {
@@ -158,7 +158,7 @@ input.input-field {
 
 .input-field:focus {
   border-color: #99ccff;
-  box-shadow: 0 0 0 3px rgba(153, 204, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
   outline: none;
 }
 
@@ -184,7 +184,7 @@ input.input-field {
   border-color: #99ccff;
   background-color: #99ccff;
   color: #99ccff;
-  box-shadow: 0 4px 12px rgba(153, 204, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.15);
 }
 
 /* 强度按钮 */
@@ -223,7 +223,7 @@ input.input-field {
   border-color: #99ccff;
   background-color: #99ccff;
   color: #99ccff;
-  box-shadow: 0 4px 12px rgba(153, 204, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.15);
 }
 
 /* 营养按钮 */
@@ -259,7 +259,7 @@ input.input-field {
   border-color: #99ccff;
   background-color: #99ccff;
   color: #99ccff;
-  box-shadow: 0 4px 12px rgba(153, 204, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.15);
 }
 
 /* 自定义营养 */
@@ -278,7 +278,7 @@ input.input-field {
   padding: 18px;
   margin-top: 12px;
   border-left: 4px solid #99ccff;
-  box-shadow: 0 4px 12px rgba(153, 204, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.1);
 }
 
 .result-label {
@@ -321,7 +321,7 @@ input.input-field {
   background-color: #99ccff;
   text-align: center;
   padding: 28px 18px;
-  box-shadow: 0 8px 24px rgba(153, 204, 255, 0.25);
+  box-shadow: 0 8px 24px rgba(255, 107, 157, 0.25);
 }
 
 .highlight-label {
@@ -397,7 +397,7 @@ input.input-field {
   font-weight: 700;
   margin-bottom: 12px;
   padding: 8px 12px;
-  background-color: rgba(153, 204, 255, 0.08);
+  background-color: rgba(255, 107, 157, 0.08);
   border-radius: 6px;
 }
 
@@ -483,13 +483,13 @@ input.input-field {
   font-weight: 700;
   margin-top: 18px;
   border: none;
-  box-shadow: 0 4px 12px rgba(153, 204, 255, 0.25);
+  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.25);
   transition: all 0.3s ease;
 }
 
 .save-btn:active {
   transform: scale(0.98);
-  box-shadow: 0 2px 6px rgba(153, 204, 255, 0.15);
+  box-shadow: 0 2px 6px rgba(255, 107, 157, 0.15);
 }
 
 /* 数据项 */
@@ -524,7 +524,7 @@ input.input-field {
   padding: 28px;
   text-align: center;
   margin-bottom: 16px;
-  border: 2px solid rgba(153, 204, 255, 0.2);
+  border: 2px solid rgba(255, 107, 157, 0.2);
 }
 
 .bmi-value {
@@ -636,13 +636,13 @@ input.input-field {
   font-weight: 700;
   margin-top: 18px;
   border: none;
-  box-shadow: 0 4px 12px rgba(153, 204, 255, 0.25);
+  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.25);
   transition: all 0.3s ease;
 }
 
 .record-btn:active {
   transform: scale(0.98);
-  box-shadow: 0 2px 6px rgba(153, 204, 255, 0.15);
+  box-shadow: 0 2px 6px rgba(255, 107, 157, 0.15);
 }
 
 /* FAQ项 */
@@ -877,7 +877,7 @@ input.input-field {
 
 .checkin-input-field:focus {
   border-color: #99ccff;
-  box-shadow: 0 0 0 3px rgba(153, 204, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
   outline: none;
 }
 
@@ -897,7 +897,7 @@ input.input-field {
 
 .checkin-textarea:focus {
   border-color: #99ccff;
-  box-shadow: 0 0 0 3px rgba(153, 204, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
   outline: none;
 }
 
@@ -910,13 +910,13 @@ input.input-field {
   font-size: 15px;
   font-weight: 700;
   border: none;
-  box-shadow: 0 4px 12px rgba(153, 204, 255, 0.25);
+  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.25);
   transition: all 0.3s ease;
 }
 
 .checkin-save-btn:active {
   transform: scale(0.98);
-  box-shadow: 0 2px 6px rgba(153, 204, 255, 0.15);
+  box-shadow: 0 2px 6px rgba(255, 107, 157, 0.15);
 }
 
 /* ==================== 训练计划/饮食计划 栏目入口 ==================== */
@@ -942,19 +942,19 @@ input.input-field {
   padding: 5px 12px;
   border: 1.5px solid #99ccff;
   border-radius: 14px;
-  background-color: rgba(153, 204, 255, 0.08);
+  background-color: rgba(255, 107, 157, 0.08);
   transition: all 0.3s ease;
 }
 
 .card-title-btn:active {
-  background-color: rgba(153, 204, 255, 0.15);
+  background-color: rgba(255, 107, 157, 0.15);
 }
 
 /* ==================== 训练热量分项结果 ==================== */
 .train-detail-results {
   margin: 12px 0;
   padding: 12px;
-  background-color: rgba(153, 204, 255, 0.08);
+  background-color: rgba(255, 107, 157, 0.08);
   border-radius: 10px;
   border-left: 3px solid #99ccff;
 }
