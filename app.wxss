@@ -24,25 +24,3 @@ input {
   padding: 0;
 }
 
-/* 全局 input 修复 - 主要解决真机上数字/文字不显示、变透明等问题 */
-.input-field.fix-input,
-input[type="text"],
-input[type="number"] {
-  /* 文字颜色 - 解决 iOS 透明/变浅/不显示核心方案 */
-  color: #333 !important;
-  -webkit-text-fill-color: #333 !important;           /* iOS 必须 */
-
-  /* 背景与不透明度 - 防止背景透出或文字被隐藏 */
-  background-color: #ffffff !important;
-  opacity: 1 !important;
-
-  /* 布局与层级 - 提高渲染优先级，排除被遗挡。注意：z-index不能超过tab-nav的100，防止遗挡tab栏 */
-  position: relative !important;
-  z-index: 10 !important;
-
-  /* 尺寸与间距 - 稍大内边距有助于触发原生重绘 */
-  padding: 8rpx 4rpx !important;
-
-  /* 视觉辅助 - 加边框可快速判断是否被其他元素完全覆盖 */
-  border: 1px solid #e5e5e5 !important;
-}

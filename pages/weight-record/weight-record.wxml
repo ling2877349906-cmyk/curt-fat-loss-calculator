@@ -63,7 +63,7 @@
 
     <view class="input-group">
       <view class="input-label">今日体重 (kg)</view>
-      <input class="input-field" type="digit" value="{{inputWeight}}" bindinput="onWeightInput" placeholder="输入今日体重" placeholder-style="color: #ccc;" />
+      <input class="input-field" type="digit" value="{{inputWeight}}" bindinput="onWeightInput" placeholder="输入今日体重" placeholder-class="placeholder-style" />
     </view>
 
     <button class="record-btn" bindtap="saveWeight">✅ 记录今日体重</button>
