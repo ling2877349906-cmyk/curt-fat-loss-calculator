@@ -57,6 +57,10 @@
   margin-bottom: 16px;
   padding-bottom: 12px;
   border-bottom: 2px solid #f0f0f0;
+  background-color: #f0f8ff;
+  padding: 10px 12px;
+  margin: -16px -16px 16px -16px;
+  border-radius: 12px 12px 0 0;
 }
 
 .title-emoji {

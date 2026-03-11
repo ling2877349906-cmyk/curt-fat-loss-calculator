@@ -105,6 +105,10 @@
   margin-bottom: 16px;
   padding-bottom: 12px;
   border-bottom: 2px solid #f0f0f0;
+  background-color: #f0f8ff;
+  padding: 10px 12px;
+  margin: -16px -16px 16px -16px;
+  border-radius: 12px 12px 0 0;
 }
 
 .title-emoji {
@@ -119,7 +123,7 @@
   color: #99ccff;
   margin-bottom: 12px;
   padding: 8px 12px;
-  background-color: #99ccff;
+  background-color: #ffffff;
   border-radius: 6px;
   border-left: 3px solid #99ccff;
 }
@@ -153,7 +157,7 @@
 
 input.input-field {
   color: #333;
-  background-color: #99ccff;
+  background-color: #ffffff;
 }
 
 .input-field:focus {
@@ -175,7 +179,7 @@ input.input-field {
   border-radius: 10px;
   font-size: 14px;
   color: #333;
-  background-color: #99ccff;
+  background-color: #ffffff;
   transition: all 0.3s ease;
   font-weight: 600;
 }
@@ -200,7 +204,7 @@ input.input-field {
   border-radius: 10px;
   font-size: 12px;
   color: #333;
-  background-color: #99ccff;
+  background-color: #ffffff;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -239,7 +243,7 @@ input.input-field {
   border-radius: 10px;
   font-size: 13px;
   color: #333;
-  background-color: #99ccff;
+  background-color: #ffffff;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -273,7 +277,7 @@ input.input-field {
 
 /* 结果显示 */
 .result-display {
-  background-color: #99ccff;
+  background-color: #ffffff;
   border-radius: 10px;
   padding: 18px;
   margin-top: 12px;
@@ -303,7 +307,7 @@ input.input-field {
 
 /* 结果占位符 */
 .result-placeholder {
-  background-color: #99ccff;
+  background-color: #ffffff;
   border-radius: 10px;
   padding: 24px;
   text-align: center;
@@ -765,32 +769,32 @@ input.input-field {
 }
 
 .calendar-day.today .day-number {
-  background-color: #99ccff;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #99ccff;
   font-weight: 700;
 }
 
 .calendar-day.checked-in .day-number {
-  background-color: #99ccff;
+  background-color: #ffffff;
   color: #99ccff;
   font-weight: 700;
 }
 
 .calendar-day.today.checked-in .day-number {
-  background-color: #99ccff;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #99ccff;
 }
 
 .day-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #99ccff;
+  background-color: #ffffff;
   margin-top: 2px;
 }
 
 .calendar-day.today .day-dot {
-  background-color: #99ccff;
+  background-color: #ffffff;
 }
 
 /* ==================== 打卡弹窗 ==================== */
@@ -924,6 +928,10 @@ input.input-field {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: #f0f8ff;
+  padding: 10px 12px;
+  margin: -16px -16px 16px -16px;
+  border-radius: 12px 12px 0 0;
 }
 
 .card-title-left {
