@@ -147,7 +147,7 @@
   border-radius: 10px;
   font-size: 15px;
   color: #333;
-  background-color: #000000;
+  background-color: #ffffff;
   box-sizing: border-box;
   transition: all 0.3s ease;
   -webkit-appearance: none;
@@ -322,7 +322,7 @@ input.input-field {
 
 /* 高亮卡片 */
 .highlight-card {
-  background-color: #000000;
+  background-color: #ffffff;
   text-align: center;
   padding: 28px 18px;
   box-shadow: 0 8px 24px rgba(255, 107, 157, 0.25);
@@ -330,7 +330,7 @@ input.input-field {
 
 .highlight-label {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.85);
+  color: #000000;
   margin-bottom: 8px;
   font-weight: 600;
 }
@@ -338,12 +338,12 @@ input.input-field {
 .highlight-value {
   font-size: 40px;
   font-weight: 700;
-  color: #ffffff;
+  color: #000000;
 }
 
 .highlight-unit {
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.85);
+  color: #000000;
   margin-left: 4px;
   font-weight: 400;
 }
@@ -420,13 +420,13 @@ input.input-field {
   border-radius: 10px;
   font-size: 20px;
   color: #000000;
-  background-color: #000000;
+  background-color: #ffffff;
   font-weight: 700;
   transition: all 0.3s ease;
 }
 
 .percent-btn:active {
-  background-color: #000000;
+  background-color: #ffffff;
   transform: scale(0.95);
 }
 
@@ -436,7 +436,7 @@ input.input-field {
   font-size: 20px;
   font-weight: 700;
   color: #000000;
-  background-color: #000000;
+  background-color: #ffffff;
   padding: 12px;
   border-radius: 10px;
   border: 2px solid #99ccff;
@@ -480,13 +480,13 @@ input.input-field {
 .save-btn {
   width: 100%;
   padding: 14px;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #000000;
   border-radius: 10px;
   font-size: 15px;
   font-weight: 700;
   margin-top: 18px;
-  border: none;
+  border: 2px solid #000000;
   box-shadow: 0 4px 12px rgba(255, 107, 157, 0.25);
   transition: all 0.3s ease;
 }
@@ -523,7 +523,7 @@ input.input-field {
 
 /* BMI显示 */
 .bmi-display {
-  background-color: #000000;
+  background-color: #ffffff;
   border-radius: 10px;
   padding: 28px;
   text-align: center;
@@ -574,9 +574,10 @@ input.input-field {
 .weight-records {
   margin-top: 16px;
   padding: 14px;
-  background-color: #000000;
+  background-color: #ffffff;
   border-radius: 10px;
   border-left: 4px solid #99ccff;
+  border: 1px solid #e8e8e8;
 }
 
 .records-title {
@@ -599,7 +600,7 @@ input.input-field {
   justify-content: space-between;
   align-items: center;
   padding: 10px 12px;
-  background-color: #000000;
+  background-color: #ffffff;
   border-radius: 6px;
   border: 1px solid #e8e8e8;
 }
@@ -620,8 +621,9 @@ input.input-field {
   margin-top: 16px;
   padding: 20px;
   text-align: center;
-  background-color: #000000;
+  background-color: #ffffff;
   border-radius: 10px;
+  border: 1px solid #e8e8e8;
 }
 
 .empty-text {
@@ -633,13 +635,13 @@ input.input-field {
 .record-btn {
   width: 100%;
   padding: 14px;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #000000;
   border-radius: 10px;
   font-size: 15px;
   font-weight: 700;
   margin-top: 18px;
-  border: none;
+  border: 2px solid #000000;
   box-shadow: 0 4px 12px rgba(255, 107, 157, 0.25);
   transition: all 0.3s ease;
 }
@@ -674,14 +676,15 @@ input.input-field {
 
 /* ==================== 减脂与增肌小知识 ==================== */
 .knowledge-card {
-  background-color: #000000;
+  background-color: #ffffff;
 }
 
 .knowledge-content {
-  background-color: #000000;
+  background-color: #ffffff;
   border-radius: 10px;
   padding: 16px;
   border-left: 4px solid #99ccff;
+  border: 1px solid #e8e8e8;
 }
 
 .knowledge-text {
@@ -713,7 +716,7 @@ input.input-field {
 }
 
 .calendar-nav-btn:active {
-  background-color: #000000;
+  background-color: #f0f0f0;
 }
 
 .calendar-nav-title {
@@ -769,19 +772,19 @@ input.input-field {
 }
 
 .calendar-day.today .day-number {
-  background-color: #ffffff;
+  background-color: #f0f0f0;
   color: #000000;
   font-weight: 700;
 }
 
 .calendar-day.checked-in .day-number {
-  background-color: #ffffff;
+  background-color: #f0f0f0;
   color: #000000;
   font-weight: 700;
 }
 
 .calendar-day.today.checked-in .day-number {
-  background-color: #ffffff;
+  background-color: #f0f0f0;
   color: #000000;
 }
 
@@ -789,12 +792,12 @@ input.input-field {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #ffffff;
+  background-color: #000000;
   margin-top: 2px;
 }
 
 .calendar-day.today .day-dot {
-  background-color: #ffffff;
+  background-color: #000000;
 }
 
 /* ==================== 打卡弹窗 ==================== */
@@ -874,7 +877,7 @@ input.input-field {
   border-radius: 10px;
   font-size: 15px;
   color: #333;
-  background-color: #000000;
+  background-color: #ffffff;
   box-sizing: border-box;
   transition: all 0.3s ease;
 }
@@ -893,7 +896,7 @@ input.input-field {
   border-radius: 10px;
   font-size: 14px;
   color: #333;
-  background-color: #000000;
+  background-color: #ffffff;
   box-sizing: border-box;
   line-height: 1.6;
   transition: all 0.3s ease;
@@ -908,12 +911,12 @@ input.input-field {
 .checkin-save-btn {
   width: 100%;
   padding: 14px;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #000000;
   border-radius: 10px;
   font-size: 15px;
   font-weight: 700;
-  border: none;
+  border: 2px solid #000000;
   box-shadow: 0 4px 12px rgba(255, 107, 157, 0.25);
   transition: all 0.3s ease;
 }
