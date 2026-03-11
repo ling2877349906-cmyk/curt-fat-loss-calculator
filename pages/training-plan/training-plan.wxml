@@ -29,10 +29,10 @@
       </view>
       <view class="exercise-inputs">
         <view class="exercise-input-group exercise-name-group">
-          <input class="input-field" type="text" value="{{item.name}}" bindinput="onExerciseNameInput" data-index="{{index}}" placeholder="请输入动作名称" placeholder-style="color: #ccc;" />
+          <input class="input-field" type="text" value="{{item.name}}" bindinput="onExerciseNameInput" data-index="{{index}}" placeholder="请输入动作名称" placeholder-class="placeholder-style" />
         </view>
         <view class="exercise-input-group exercise-sets-group">
-          <input class="input-field" type="number" value="{{item.sets}}" bindinput="onExerciseSetsInput" data-index="{{index}}" placeholder="几组" placeholder-style="color: #ccc;" />
+          <input class="input-field" type="number" value="{{item.sets}}" bindinput="onExerciseSetsInput" data-index="{{index}}" placeholder="几组" placeholder-class="placeholder-style" />
         </view>
       </view>
     </view>

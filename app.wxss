@@ -24,3 +24,21 @@ input {
   padding: 0;
 }
 
+/* 全局输入框修复 - 解决真机上文字/占位符不显示的问题 */
+.input-field, 
+.checkin-input-field,
+input {
+  color: #333333 !important;
+  -webkit-text-fill-color: #333333 !important;
+  background-color: #ffffff !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.placeholder-style {
+  color: #cccccc !important;
+  -webkit-text-fill-color: #cccccc !important;
+  font-size: inherit;
+}
+
