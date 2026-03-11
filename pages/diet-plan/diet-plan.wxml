@@ -28,12 +28,12 @@
         <view class="food-name-group">
           <input class="input-field" type="text" value="{{food.name}}" bindinput="onFoodNameInput"
             data-meal="{{item.key}}" data-index="{{foodIdx}}"
-            placeholder="食材名称" placeholder-class="placeholder-style" />
+            placeholder="食材名称" placeholder-style="color: #ccc;" />
         </view>
         <view class="food-grams-group">
           <input class="input-field" type="number" value="{{food.grams}}" bindinput="onFoodGramsInput"
             data-meal="{{item.key}}" data-index="{{foodIdx}}"
-            placeholder="克数(g)" placeholder-class="placeholder-style" />
+            placeholder="克数(g)" placeholder-style="color: #ccc;" />
         </view>
         <view class="food-delete" bindtap="deleteFood" data-meal="{{item.key}}" data-index="{{foodIdx}}" wx:if="{{item.foods.length > 1}}">
           <text>✕</text>

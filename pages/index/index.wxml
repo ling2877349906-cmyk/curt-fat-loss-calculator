@@ -32,17 +32,17 @@
 
       <view class="input-group">
         <view class="input-label">年龄</view>
-        <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.age}}" bindinput="onAgeInput" placeholder="输入年龄" placeholder-class="placeholder-style" />
+        <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.age}}" bindinput="onAgeInput" placeholder="输入年龄" placeholder-style="color: #ccc;" />
       </view>
 
       <view class="input-group">
         <view class="input-label">身高 (cm)</view>
-        <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.height}}" bindinput="onHeightInput" placeholder="输入身高" placeholder-class="placeholder-style" />
+        <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.height}}" bindinput="onHeightInput" placeholder="输入身高" placeholder-style="color: #ccc;" />
       </view>
 
       <view class="input-group">
         <view class="input-label">体重 (kg)</view>
-        <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.weight}}" bindinput="onWeightInput" placeholder="输入体重" placeholder-class="placeholder-style" />
+        <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.weight}}" bindinput="onWeightInput" placeholder="输入体重" placeholder-style="color: #ccc;" />
       </view>
 
       <view class="result-display" wx:if="{{calorieData.bmr}}">
@@ -63,12 +63,12 @@
 
       <view class="input-group">
         <view class="input-label">每日有氧训练时间 (分钟)</view>
-        <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.cardioMinutes}}" bindinput="onCardioMinutesInput" placeholder="如快走、慢跑、骑行等，默认0" placeholder-class="placeholder-style" />
+        <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.cardioMinutes}}" bindinput="onCardioMinutesInput" placeholder="如快走、慢跑、骑行等，默认0" placeholder-style="color: #ccc;" />
       </view>
 
       <view class="input-group">
         <view class="input-label">每日无氧训练时间 (分钟)</view>
-        <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.strengthMinutes}}" bindinput="onStrengthMinutesInput" placeholder="如力量训练、器械等，默认0" placeholder-class="placeholder-style" />
+        <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.strengthMinutes}}" bindinput="onStrengthMinutesInput" placeholder="如力量训练、器械等，默认0" placeholder-style="color: #ccc;" />
       </view>
 
       <!-- 分项热量结果 -->
@@ -128,15 +128,15 @@
         <view class="input-hint">输入营养素百分比（总和必须为100%）</view>
         <view class="input-group">
           <view class="input-label">碳水百分比 (%)</view>
-          <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.customNutrition.carbs}}" bindinput="onCustomCarbsInput" placeholder="输入碳水百分比" placeholder-class="placeholder-style" />
+          <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.customNutrition.carbs}}" bindinput="onCustomCarbsInput" placeholder="输入碳水百分比" placeholder-style="color: #ccc;" />
         </view>
         <view class="input-group">
           <view class="input-label">蛋白质百分比 (%)</view>
-          <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.customNutrition.protein}}" bindinput="onCustomProteinInput" placeholder="输入蛋白质百分比" placeholder-class="placeholder-style" />
+          <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.customNutrition.protein}}" bindinput="onCustomProteinInput" placeholder="输入蛋白质百分比" placeholder-style="color: #ccc;" />
         </view>
         <view class="input-group">
           <view class="input-label">脂肪热量 (千卡)</view>
-          <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.customNutrition.fat}}" bindinput="onCustomFatInput" placeholder="输入脂肪百分比" placeholder-class="placeholder-style" />
+          <input class="input-field" type="text" inputmode="numeric" value="{{calorieData.customNutrition.fat}}" bindinput="onCustomFatInput" placeholder="输入脂肪百分比" placeholder-style="color: #ccc;" />
         </view>
       </view>
 
@@ -228,12 +228,12 @@
 
       <view class="input-group">
         <view class="input-label">初始体重 (kg)</view>
-        <input class="input-field" type="text" inputmode="numeric" value="{{predictionData.initialWeight}}" bindinput="onInitialWeightInput" placeholder="输入初始体重" placeholder-class="placeholder-style" />
+        <input class="input-field" type="text" inputmode="numeric" value="{{predictionData.initialWeight}}" bindinput="onInitialWeightInput" placeholder="输入初始体重" placeholder-style="color: #ccc;" />
       </view>
 
       <view class="input-group">
         <view class="input-label">目标体重 (kg)</view>
-        <input class="input-field" type="text" inputmode="numeric" value="{{predictionData.targetWeight}}" bindinput="onTargetWeightInput" placeholder="输入目标体重" placeholder-class="placeholder-style" />
+        <input class="input-field" type="text" inputmode="numeric" value="{{predictionData.targetWeight}}" bindinput="onTargetWeightInput" placeholder="输入目标体重" placeholder-style="color: #ccc;" />
       </view>
 
       <view class="input-group">
@@ -459,17 +459,17 @@
         <view class="checkin-form">
           <view class="checkin-input-group">
             <view class="checkin-input-label">💧 喝水次数</view>
-            <input class="checkin-input-field" type="number" value="{{checkinData.waterCount}}" bindinput="onWaterInput" placeholder="输入喝水次数" placeholder-class="placeholder-style" />
+            <input class="checkin-input-field" type="number" value="{{checkinData.waterCount}}" bindinput="onWaterInput" placeholder="输入喝水次数" placeholder-style="color: #ccc;" />
           </view>
 
           <view class="checkin-input-group">
             <view class="checkin-input-label">🏋️ 训练时长（分钟）</view>
-            <input class="checkin-input-field" type="number" value="{{checkinData.trainMinutes}}" bindinput="onTrainMinutesInput" placeholder="输入训练分钟数" placeholder-class="placeholder-style" />
+            <input class="checkin-input-field" type="number" value="{{checkinData.trainMinutes}}" bindinput="onTrainMinutesInput" placeholder="输入训练分钟数" placeholder-style="color: #ccc;" />
           </view>
 
           <view class="checkin-input-group">
             <view class="checkin-input-label">🍚 饮食记录</view>
-            <textarea class="checkin-textarea" value="{{checkinData.dietRecord}}" bindinput="onDietInput" placeholder="记录今日饮食内容..." placeholder-class="placeholder-style" maxlength="500"></textarea>
+            <textarea class="checkin-textarea" value="{{checkinData.dietRecord}}" bindinput="onDietInput" placeholder="记录今日饮食内容..." placeholder-style="color: #ccc;" maxlength="500"></textarea>
           </view>
         </view>
 
