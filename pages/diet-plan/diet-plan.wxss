@@ -18,7 +18,7 @@
 .header-title {
   font-size: 22px;
   font-weight: 700;
-  color: #99ccff;
+  color: #000000;
   margin-bottom: 6px;
 }
 
@@ -50,7 +50,7 @@
 .day-tab.active {
   color: #ffffff;
   background: linear-gradient(135deg, #99ccff 0%, #99ccff 100%);
-  border-color: #99ccff;
+  border-color: #000000;
   box-shadow: 0 2px 8px rgba(255, 107, 157, 0.3);
 }
 
@@ -134,7 +134,7 @@
 }
 
 .input-field:focus {
-  border-color: #99ccff;
+  border-color: #000000;
   box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
 }
 
@@ -149,7 +149,7 @@
 
 .food-nutrition-item {
   font-size: 11px;
-  color: #99ccff;
+  color: #000000;
   font-weight: 500;
 }
 
@@ -161,7 +161,7 @@
 .add-food-btn {
   text-align: center;
   padding: 10px;
-  color: #99ccff;
+  color: #000000;
   font-size: 13px;
   font-weight: 600;
   border: 2px dashed #99ccff;
@@ -186,7 +186,7 @@
 .meal-summary-title {
   font-size: 12px;
   font-weight: 700;
-  color: #99ccff;
+  color: #000000;
   margin-bottom: 4px;
 }
 
@@ -219,7 +219,7 @@
 .daily-summary-value {
   font-size: 20px;
   font-weight: 700;
-  color: #99ccff;
+  color: #000000;
   margin-bottom: 4px;
 }
 
